@@ -1,0 +1,21 @@
+package pt.tecnico.phonebook.domain;
+
+class MyDrive;
+
+class Person {
+  String name;
+}
+
+class Directory {
+  String name;
+  Integer phoneNumber;
+}
+
+relation DomainRootHasPhoneBookApplication {
+  .pt.ist.fenixframework.DomainRoot playsRole root {
+    multiplicity 0..1;
+  }
+  PhoneBook playsRole phonebook {
+    multiplicity 0..1;
+  }
+}
