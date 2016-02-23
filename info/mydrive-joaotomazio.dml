@@ -1,0 +1,13 @@
+class MyDrive;
+
+class User{
+	String username;
+	String password;
+	String name;
+	String directory;
+	String umask;
+}
+
+class File{
+	
+}
