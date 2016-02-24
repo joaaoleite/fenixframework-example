@@ -4,10 +4,56 @@ class User{
 	String username;
 	String password;
 	String name;
-	String directory;
 	String umask;
 }
 
 class File{
-	
+	Int id;
+	String name;
+	DateTime last_date;
+	String user_chmod;
+	String world_chmod;
 }
+
+class PainFile{
+	String content;
+}
+
+class Dir{
+	Int dim;
+}
+
+class Link; 
+
+class App;
+
+relation DomainRootHasMyDriveApplication{
+    .pt.ist.fenixframework.DomainRoot playsRole root{
+        multiplicity 0..1;
+    }
+
+    MyDrive playsRole myDrive{
+        multiplicity 0..1;
+    }
+}
+
+relation ApplicationHasRootFolder{
+    Mydrive playsRole myDrive;
+    Dir playsRole rootDir;
+}
+
+relation UserHasFiles{
+    User playsRole user;
+    File playsRole file{
+        multiplicity *;
+    }
+}
+
+relation DirectoryHasFiles{
+    Dir playsRole directory;
+    File playsRole file{
+        multiplicity *;
+    }
+}
+
+
