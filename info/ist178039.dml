@@ -8,37 +8,37 @@ class User{
 }
 
 class File{
-	Int id;
+	Integer id;
 	String name;
 	DateTime last_date;
 	String user_chmod;
 	String world_chmod;
 }
 
-class PainFile{
+class PlainFile extends File{
 	String content;
 }
 
-class Dir{
-	Int dim;
+class Dir extends File{
+	Integer dim;
 }
 
-class Link; 
+class Link extends PlainFile; 
 
-class App;
+class App extends PlainFile;
 
 relation DomainRootHasMyDriveApplication{
     .pt.ist.fenixframework.DomainRoot playsRole root{
         multiplicity 0..1;
     }
 
-    MyDrive playsRole myDrive{
+    MyDrive playsRole mydrive{
         multiplicity 0..1;
     }
 }
 
 relation ApplicationHasRootFolder{
-    Mydrive playsRole myDrive;
+    MyDrive playsRole mydrive;
     Dir playsRole rootDir;
 }
 
