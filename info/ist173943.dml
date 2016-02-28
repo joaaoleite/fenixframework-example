@@ -1,0 +1,32 @@
+ +  
+ +	String nome {
+ +  	String user;
+ +  	String password;
+ +  	String directorio;
+ +  	String usermask;
+ +  	}
+ +  	
+ +  	
+ +  	class Ficheiro {
+ +  	  String nome;
+ +  	  String user;
+ +  	  String permissoes;
+ +  	  String conteudo;
+ +  	  String directorio;
+ +  	  }
+ +
+ +		class Directorio extends Ficheiro {
+ +			String nome;
+ +			Integer phoneNumber;
+ +		}
+ +
+ +
+ +		relation fenixFramework {
+ +    		.pt.ist.fenix.fenxframework.DomainRoot playsRole root {
+ +        		multiplicity 0..1;
+ +    	}
+ +    	
+ +		MyDrive playsRole mydrive{
+ +        multiplicity 0..1; 
+ +    	}
+ +	}
