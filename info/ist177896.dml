@@ -1,21 +1,57 @@
-package pt.tecnico.phonebook.domain;
+package pt.tecnico.mydrive.domain;
 
 class MyDrive;
 
-class Person {
-  String name;
+class User {
+	String username;
+	String password;
+	String name;
+	String mask;
 }
 
-class Directory {
-  String name;
-  Integer phoneNumber;
+class File {
+	Integer id;
+	String name;
+	String last_modified;
+	String owner_permissions;
+	String public_permissions;
 }
 
-relation DomainRootHasPhoneBookApplication {
-  .pt.ist.fenixframework.DomainRoot playsRole root {
-    multiplicity 0..1;
-  }
-  PhoneBook playsRole phonebook {
-    multiplicity 0..1;
-  }
+class Directory extends File; 
+
+class Plain extends File{
+	String content;
 }
+
+class Link extends File;
+
+relation DomainRootHasMyDriveApplication {
+	.pt.ist.fenixframework.DomainRoot playsRole root {
+	multiplicity 0..1;
+	}
+	MyDrive playsRole mydrive {
+	multiplicity 0..1;
+	}
+}
+
+relation UserHasDirectory{
+	User playsRole user{
+	multiplicity 1;
+	}
+	Directory playsRole directory{
+	multiplicity 1..*;
+	}
+	
+}
+
+relation UserHasFile{
+	User playsRole user;{
+	multiplicity 1;
+	}
+	File playsRole file{
+	multiplicity *;
+	}
+}
+
+
+
