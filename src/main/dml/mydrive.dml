@@ -1,0 +1,12 @@
+package pt.tecnico.mydrive.domain;
+
+class MyDrive;
+
+relation DomainRootHasMyDriveApplication {
+    .pt.ist.fenixframework.DomainRoot playsRole root {
+        multiplicity 0..1;
+    }
+    MyDrive playsRole mydrive {
+        multiplicity 0..1;
+    }
+}

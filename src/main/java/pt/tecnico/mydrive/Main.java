@@ -16,7 +16,9 @@ import org.apache.logging.log4j.Logger;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
-public class MyDriveApplication {
+import pt.tecnico.mydrive.domain.MyDrive;
+
+public class Main {
     static final Logger log = LogManager.getRootLogger();
 
     public static void main(String[] args) throws IOException {
@@ -24,8 +26,6 @@ public class MyDriveApplication {
 	      try {
 	          setup();
 	          for (String s: args) xmlScan(new File(s));
-	              print();
-	          xmlPrint();
 	      } finally { FenixFramework.shutdown(); }
     }
 
@@ -40,20 +40,14 @@ public class MyDriveApplication {
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
     }
-
-    @Atomic
-    public static void print() {
-        log.trace("Print: " + FenixFramework.getDomainRoot());
-	      MyDrive mydrive = MyDrive.getInstance();
-	  }
-
+    
     @Atomic
     public static void xmlPrint() {
         log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
 	      Document doc = MyDrive.getInstance().xmlExport();
 	      XMLOutputter xmlOutput = new XMLOutputter(Format.getPrettyFormat());
-	      try { xmlOutput.output(doc, new PrintStream(System.out)); } 
-        catch (IOException e) { System.out.println(e); }
+	      try { xmlOutput.output(doc, new PrintStream(System.out));
+	      } catch (IOException e) { System.out.println(e); }
     }
 
     @Atomic
