@@ -19,37 +19,46 @@ class File {
 
 class Directory extends File; 
 
-class Plain extends File{
-	String content;
+class Plain extends File {
+	String text;
 }
 
 class Link extends File;
 
 relation DomainRootHasMyDriveApplication {
 	.pt.ist.fenixframework.DomainRoot playsRole root {
-	multiplicity 0..1;
+		multiplicity 0..1;
 	}
 	MyDrive playsRole mydrive {
-	multiplicity 0..1;
+		multiplicity 0..1;
+	}
+}
+
+relation AppHasUsers {
+	User playsRole user{
+		multiplicity *;
+	}
+	MyDrive playsRole mydrive{
+		multiplicity 1;
 	}
 }
 
 relation UserHasDirectory{
 	User playsRole user{
-	multiplicity 1;
+		multiplicity 1;
 	}
 	Directory playsRole directory{
-	multiplicity 1..*;
+		multiplicity 1..*;
 	}
 	
 }
 
 relation UserHasFile{
-	User playsRole user;{
-	multiplicity 1;
+	User playsRole user{
+		multiplicity 1;
 	}
 	File playsRole file{
-	multiplicity *;
+		multiplicity *;
 	}
 }
 
