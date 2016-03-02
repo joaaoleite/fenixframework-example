@@ -1,32 +1,56 @@
- +  
- +	String nome {
- +  	String user;
- +  	String password;
- +  	String directorio;
- +  	String usermask;
- +  	}
- +  	
- +  	
- +  	class Ficheiro {
- +  	  String nome;
- +  	  String user;
- +  	  String permissoes;
- +  	  String conteudo;
- +  	  String directorio;
- +  	  }
- +
- +		class Directorio extends Ficheiro {
- +			String nome;
- +			Integer phoneNumber;
- +		}
- +
- +
- +		relation fenixFramework {
- +    		.pt.ist.fenix.fenxframework.DomainRoot playsRole root {
- +        		multiplicity 0..1;
- +    	}
- +    	
- +		MyDrive playsRole mydrive{
- +        multiplicity 0..1; 
- +    	}
- +	}
+class User {
+  String user;
+  String password;
+  String directorio;
+  String usermask;
+   	  }
+   	
+class Ficheiro {
+  String nome;
+  String user;
+  String permissoes;
+  String conteudo;
+  String directorio;
+  	  }
+
+class MyDrive;
+ 
+class Directorio extends Ficheiro {
+  String nome;
+  Integer phoneNumber;
+      }
+
+
+class Directorio extends Ficheiro;
+
+class Plain extends Ficheiro{
+    String conteudo;
+}
+
+class Link extends Plain;
+ 
+relation fenixFramework {
+   .pt.ist.fenix.fenxframework.DomainRoot playsRole root {
+    multiplicity 0..1;
+      }
+     	
+ MyDrive playsRole mydrive{
+     multiplicity 0..1; 
+    	}
+ }
+
+relation UserContemFicheiro{
+	      User playsRole user{
+	        multiplicity 1;
+	}
+  Ficheiro playsRole ficheiro{
+	multiplicity *;
+	}
+}
+
+relation DirectorioContemFicheiros{
+    Directorio playsRole directorio;
+    Ficheiro playsRole ficheiro{
+        multiplicity *;
+    }
+}
