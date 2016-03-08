@@ -35,6 +35,8 @@ class PlainFile extends File{
 
 class Dir extends File;
 
+class RootDir extends Dir;
+
 class Link extends PlainFile; 
 
 class App extends PlainFile;
@@ -93,8 +95,8 @@ relation owner {
     }
 }
 
-relation RootDir {
-    Dir playsRole rootDir{
+relation myDriveHasRootDir {
+    RootDir playsRole rootDir{
         multiplicity 1;
     }
     MyDrive playsRole app{
