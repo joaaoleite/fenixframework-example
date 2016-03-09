@@ -6,4 +6,9 @@ public class App extends App_Base {
         super();
     }
     
+    protected void execute(String[] args){
+        String method = getContent();
+
+        //INCMPLETE!
+    }
 }
