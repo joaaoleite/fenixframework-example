@@ -1,8 +1,8 @@
 package pt.tecnico.mydrive.domain;
 
-public class File extends File_Base {
+public abstract class File extends File_Base {
     
-    public File(MyDrive mydrive, Dir parent, User owner, String name, DateTime last_mod, String mask) {
+    public File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super();
 
         setMydrive(mydrive);
@@ -14,6 +14,7 @@ public class File extends File_Base {
         
         //Implement name restrictions
         setName(name);
+        DateTime last_mod = new DateTime();
         setLast_modification(last_mod);
         setMask(mask);
     }
