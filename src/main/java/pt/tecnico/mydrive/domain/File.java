@@ -19,6 +19,11 @@ public class File extends File_Base {
     }
 
     protected abstract int getSize();
-    protected abstract void remove(String name);
+ 
+    protected abstract void remove(){
+        setMydrive(null);
+        setParent(null);
+        deleteDomainObject();
+    }
 }
 

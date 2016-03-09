@@ -5,5 +5,8 @@ public class PlainFile extends PlainFile_Base {
     public PlainFile() {
         super();
     }
-    
+   
+    protected void remove(){
+        super.remove();
+    }
 }
