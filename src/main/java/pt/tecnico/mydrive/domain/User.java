@@ -59,25 +59,28 @@ public class User extends User_Base {
 
     }
     
-    public void xmlImport(Element userElemet) throws ImportDocumentException {
+    public void xmlImport(Element userElemet) throws ImportDocException {
 
         try {
             setPassword(new String(userElemet.getAttribute("password").getValue().getBytes("UTF-8")));
             setName(new String(userElemet.getAttribute("name").getValue().getBytes("UTF-8")));
-            //setUsername(new String(userElemet.getAttribute("username").getValue().getBytes("UTF-8")));
-            //setUmask(new String(userElemet.getAttribute("umask").getValue().getBytes("UTF-8")));
         } catch (UnsupportedEncodingException e) { 
             System.err.println(e); 
-            throw new ImportDocumentException; 
+            throw new ImportDocException(); 
         }
     }
 
-    public Element xmlExport() {
-        Element element = new Element("user");
-        element.setAttribute("username", getUsername());
-        element.setAttribute("password", getPassword());
-        element.setAttribute("name", getName());
-        element.setAttribute("umask", getUmask());
+    public Element xmlExport() throws ExportDocException{
+        try{
+            Element element = new Element("user");
+            element.setAttribute("username", getUsername());
+            element.setAttribute("password", getPassword());
+            element.setAttribute("name", getName());
+            element.setAttribute("umask", getUmask());
+        } catch(UnsupportedEncodingException e) { 
+            System.err.println(e); 
+            throw new ExportDocException(); 
+        }
 
         return element;
     } 
