@@ -7,15 +7,37 @@ public class Link extends Link_Base {
     	setContent(content);
     }
 
-    protected String readFile(){
-    	//parse content link
-    	String[] path = getContent().split("/");
-        File last;
-        last = getFileByName(part)
-    	for (String part: path){ 
-    	   if(last.isDir())
-                last=last.getFileByName(part)
+    protected File findFile(){
+        String[] path = getContent().split("/");
+
+        Dir actual;
+
+        if(getContent.charAt(0) == '/'){
+
+            actual = getMydrive().getRootDir();   
+        }
+        else{
+            actual = getParent();
+        }
+
+        for(int i=1; i<path.lenght(); i++){
+            if(actual.getFileByName(path[i]).isDir())
+                actual = actual.getDir(path[i]);
             else
-                last.read();
+                return actual;
+        }
+    }
+
+    protected String readFile(){
+    	return findFile().read();
     }    
+    
+    protected void writeFile(String content){
+        findFile().write(content);
+    }
+
+    protected void execute(){
+        findFile().execute();
+    }
+
 }
