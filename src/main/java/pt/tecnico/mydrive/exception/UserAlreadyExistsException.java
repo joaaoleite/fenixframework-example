@@ -1,9 +1,9 @@
-package pt.tecnico.mydrive.domain;
+package pt.tecnico.mydrive.exception;
 
 
 
 
-public class UserAlreadyExists extends MyDriveException {
+public class UserAlreadyExistsException extends MyDriveException {
 	private static final long serialVersionUID = 1L;
 	private final String _username;
 
@@ -12,7 +12,7 @@ public class UserAlreadyExists extends MyDriveException {
 	/**
 	 * @param username
 	 */
-	public UserAlreadyException(String username) {
+	public UserAlreadyExistsException(String username) {
 		_username = username;
 	}
 
