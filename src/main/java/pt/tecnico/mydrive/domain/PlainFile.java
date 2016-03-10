@@ -2,10 +2,8 @@ package pt.tecnico.mydrive.domain;
 
 public class PlainFile extends PlainFile_Base {
     
-    public PlainFile(String content) {
-        super();
-
-        setContent(content);
+    public PlainFile(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+        super(mydrive, parent, owner, name, mask);
     }
   
     protected String read(){
