@@ -32,6 +32,10 @@ public abstract class File extends File_Base {
         setMask(mask);
     }
 
+    protected String getLastModification(){
+        return "";
+    }
+
     public boolean checkFilename (String username) {
         if (username.compareTo("/")==0){
             return false;
