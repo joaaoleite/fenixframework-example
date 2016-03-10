@@ -64,9 +64,12 @@ public class Dir extends Dir_Base {
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
-        Plainfile newPlainFile = createPlainFile(getMydrive(), this, owner, name, mask);
-        newPlainFile.write(content);
-        return newPlainFile;    
+        if (!exists(name)){
+            PlainFile plain = new PlainFile(getMydrive(), this, owner, name, mask);
+            plain.write(content);
+            return plain;
+        }    
+        throw new FileAlreadyExistsException(name);
     }
 
     private String listDir(){
