@@ -1,6 +1,6 @@
 package pt.tecnico.mydrive.exception;
 
-import pt.tecnico.mydrive.exception.*;
+
 
 
 public abstract class MyDriveException extends RuntimeException {
