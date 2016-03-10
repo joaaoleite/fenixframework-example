@@ -2,7 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 public abstract class File extends File_Base {
     
-    public File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+    protected File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super();
 
         setMydrive(mydrive);
@@ -24,6 +24,7 @@ public abstract class File extends File_Base {
     protected abstract void remove(){
         setMydrive(null);
         setParent(null);
+        setOwner(null);
         deleteDomainObject();
     }
 
