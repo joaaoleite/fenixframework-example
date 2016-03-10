@@ -12,7 +12,7 @@ public class FileDoesNotExistException extends MyDriveException {
 	/**
 	 * @param name
 	 */
-	public FilenameInvalidException(String name) {
+	public FileDoesNotExistException(String name) {
 		_name = name;
 	}
 
