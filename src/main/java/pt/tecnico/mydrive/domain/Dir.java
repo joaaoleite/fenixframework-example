@@ -8,8 +8,14 @@ public class Dir extends Dir_Base {
 
     protected File getFileByName(String name) throws FileDoesNotExistException{
         for (File file: getFileSet())
+            if (file.getName().equals("."))
+                return this;
+            if (file.getName().equals(".."))
+                return getParent();
+
             if (file.getName().equals(name))
                 return file;
+
         throw new FileDoesNotExistException();
     } 
 
@@ -59,10 +65,15 @@ public class Dir extends Dir_Base {
     private String listDir(){
         String output = (type()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification()+" "+getName()+"\n"
             +getParent().type()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification()+" "+getParent().getName()+"\n");
+        
         for (File file: getFileSet()){
-            output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification()+" "+file.getName()+"\n");
-            return output;
+            if (file.isLink()){
+                output += (file.getName()+"->"+file.getContent());
+            }
+            else
+                output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification()+" "+file.getName()+"\n");
         }
+        return output;
     }
 
     private Int getDirSize(){
