@@ -10,30 +10,32 @@ public class Dir extends Dir_Base {
         for (File file: getFileSet())
             if (file.getName().equals(name))
                 return file;
-        return null;
+        throw new FileDoesNotExistException();
     } 
 
     protected Dir getDir(String name) throws FileDoesNotExistException, FileIsAPlainFileException{
-        if (exists(name) == false)
+        if (!exists(name))
             throw FileDoesNotExistException;
-        else{
-            File file = getFileByName(name);
-            if (file.isDir()){
-                return file;
-            }
-            else
-                return FileIsAPlainFileException();
-        }
+        
+        File file = getFileByName(name);
+        if (file.isDir())
+            return file;
+
+        return FileIsAPlainFileException();
     }
 
     protected Boolean exists(String name){
-        if (getFileByName(name) == null)
+        try{
+            File file = getFileByName(name);
+            return true;
+        }
+        catch(FileDoesNotExistException e){
             return false;
-        return true;
+        }
     }
 
     protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
-        if exists(name) == false{
+        if (exists(name) == false){
             Dir newDir = new Dir(getMydrive(), this, owner, name, mask);
             Dir selfDir = newDir;
             selfDir.setName(".");
@@ -44,15 +46,11 @@ public class Dir extends Dir_Base {
             addFile(newDir);
             return newDir;  
         }
-        File file = getFileByName(name);
-        if (file.isDir())
-            return file;
         throw new FileAlreadyExistsException();
-        }
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{
-        if exists(name) == false{
+        if (!exists(name)){
             return new PlainFile(getMydrive(), this, owner, name, mask);
         }    
         else
