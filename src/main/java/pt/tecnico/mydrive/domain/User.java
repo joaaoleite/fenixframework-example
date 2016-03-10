@@ -1,29 +1,31 @@
 package pt.tecnico.mydrive.domain;
 
+import pt.tecnico.mydrive.exception.*;
+
 
 public class User extends User_Base {
     public User(MyDrive myDrive ,String username ) {
         if (checkUsername(username)==false){
-            throws new UderInvalidException();
+            throws new UserInvalidException();
         }
         init(username, username, username,"rwxd----",myDrive.getRootDir());
     }
     public User(MyDrive myDrive ,String username, String umask ) {
         if (checkUsername(username)==false){
-            throws new UderInvalidException();
+            throws new UserInvalidException();
         }
         init(username, username, username,umask,myDrive.getRootDir());
     }
     
     public User(MyDrive myDrive ,String username, String password) {
         if (checkUsername(username)==false){
-            throws new UderInvalidException();
+            throws new UserInvalidException();
         }
         init(username, username, password,"rwxd----",myDrive.getRootDir());
     }
     public User(MyDrive myDrive, String username, String password,String umask ) {
         if (checkUsername(username)==false){
-            throws new UderInvalidException();
+            throws new UserInvalidException();
         }
         init(username, username, password,umask,home, myDrive.getRootDir());
     }    
