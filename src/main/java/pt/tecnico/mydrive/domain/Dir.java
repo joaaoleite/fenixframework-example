@@ -89,4 +89,25 @@ public class Dir extends Dir_Base {
         }
         return createDir(owner,name,mask);
     }
+
+    public void xmlImport(Element dirElement) {
+        for (Element e: directory.getChildren("dir"){
+            String name = new String(fileElement.getAttribute("name").getValue().getBytes("UTF-8"));
+            User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue().getBytes("UTF-8")));
+            String mask = new String(fileElement.getAttribute("mask").getValue().getBytes("UTF-8"));
+            Dir dir = createDir(owner, name, mask);
+            dir.xmlImport(e);
+        }
+    }
+
+    public Element xmlExport(){
+        Element element = new Element("dir");
+        element.setAttribute("name", getName());
+        element.setAttribute("owner",getOwner());
+        element.setAttribute("mask",getMask());
+
+        for(File f: getFileSet())
+            element.addContent(f.xmlExport());
+        return element;
+    }
 }
