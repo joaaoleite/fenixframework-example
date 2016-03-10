@@ -88,6 +88,12 @@ public class Dir extends Dir_Base {
     	super.remove();
     }  
 
+    protected void removeR(){
+        for(File f: getFileSet())
+            f.removeR();
+        f.remove();
+    }
+
     private Dir xmlCreateDir(User owner, String name, String mask){
         if(exists(name)){
             File file = getFileByName(name);

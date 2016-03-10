@@ -27,6 +27,9 @@ public abstract class File extends File_Base {
         setOwner(null);
         deleteDomainObject();
     }
+    protected void removeR(){
+        remove();
+    }
 
     private Boolean isDir(){
         return this instanceof Dir;
