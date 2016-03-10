@@ -15,7 +15,15 @@ public class User extends User_Base {
     public User(MyDrive myDrive, String username, String password,String umask ) {
         init(username, username, password,umask,home, myDrive.getRootDir());
     }    
-   
+    
+    public void remove(){
+        setUsername(null);
+        setUmask(null);
+        setName(null);
+        setHomedir(null);
+        setPassword(null);
+        deleteDomainObject();
+    }
  
     protected void init(MyDrive myDrive,String username, String name, String password,String umask, Dir home ) {
         setUsername(username);

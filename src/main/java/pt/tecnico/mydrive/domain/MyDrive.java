@@ -27,8 +27,18 @@ public class MyDrive extends MyDrive_Base {
         setRoot(FenixFramework.getDomainRoot());
     }
 
+    public void init(){
+        RootDir rootdir = new RootDir(this);
+        setRootDir(rootdir);
+        SuperUser superuser = new SuperUser(this);
+        rootdir.setOwner(superuser);
+    }
+
     public void cleanup() {
-        // implement code here!!!
+        for(User u: getUserSet())
+            u.remove();
+
+        // clean Files
     }
 
     public void xmlImport(Element element) {
@@ -47,6 +57,14 @@ public class MyDrive extends MyDrive_Base {
         ClassLoader classLoader = getClass().getClassLoader();
         if (classLoader.getResource(filename) == null) return null;
         return new java.io.File(classLoader.getResource(filename).getFile());
+    }
+
+    public User createUser(String name, String username, String password, String mask){
+        if(getUserByUsername(username)!=null){
+            throw new UserAlreadyExists(username);
+        }
+        User user = new User(this,name,username,password,mask);
+        addUser(user);
     }
 
 }
