@@ -1,15 +1,23 @@
 package pt.tecnico.mydrive.domain;
 
+import pt.tecnico.mydrive.exception.*;
+
 public class Dir extends Dir_Base {
     
     protected Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
-        super(mydrive, parent, owner, name, mask);
+        init(mydrive, parent, owner, name, mask);
     }
 
     protected File getFileByName(String name) throws FileDoesNotExistException{
         for (File file: getFileSet())
+            if (file.getName().equals("."))
+                return this;
+            if (file.getName().equals(".."))
+                return getParent();
+
             if (file.getName().equals(name))
                 return file;
+
         throw new FileDoesNotExistException();
     } 
 
@@ -59,14 +67,19 @@ public class Dir extends Dir_Base {
     private String listDir(){
         String output = (type()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification()+" "+getName()+"\n"
             +getParent().type()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification()+" "+getParent().getName()+"\n");
+        
         for (File file: getFileSet()){
-            output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification()+" "+file.getName()+"\n");
-            return output;
+            if (file.isLink()){
+                output += (file.getName()+"->"+file.getContent());
+            }
+            else
+                output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification()+" "+file.getName()+"\n");
         }
+        return output;
     }
 
-    private Int getDirSize(){
-        return (2 + getFileSet.size());
+    protected int getSize(){
+        return (2 + getFileSet().size());
     }
     
     @Override
@@ -76,6 +89,12 @@ public class Dir extends Dir_Base {
     	}
     	super.remove();
     }  
+
+    protected void removeR(){
+        for(File f: getFileSet())
+            f.removeR();
+        f.remove();
+    }
 
     private Dir xmlCreateDir(User owner, String name, String mask){
         if(exists(name)){

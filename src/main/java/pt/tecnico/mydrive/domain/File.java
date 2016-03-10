@@ -1,9 +1,22 @@
 package pt.tecnico.mydrive.domain;
 
+import org.joda.time.DateTime;
+
+import pt.tecnico.mydrive.exception.*;
+
 public abstract class File extends File_Base {
     
     protected File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super();
+        init(mydrive, parent, owner, name, mask);
+    }
+
+
+    protected void init(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+        if (checkFilename (name)== false ){
+             throw new FilenameInvalidException(name);
+
+        }
 
         setMydrive(mydrive);
         setParent(parent);
@@ -19,16 +32,31 @@ public abstract class File extends File_Base {
         setMask(mask);
     }
 
+    public boolean checkFilename (String username) {
+        if (username.compareTo("/")==0){
+            return false;
+        }
+        if (username.compareTo("\0")==0){
+            return false;
+        }
+       return true;
+    }
+
+    protected void removeR(){
+        remove();
+    }
+
     protected abstract int getSize();
  
-    protected abstract void remove(){
+    protected  void remove(){
         setMydrive(null);
         setParent(null);
         setOwner(null);
         deleteDomainObject();
     }
 
-    private Boolean isDir(){
+    private boolean isDir(){
         return this instanceof Dir;
     }
+}
 

@@ -1,19 +1,32 @@
 package pt.tecnico.mydrive.domain;
 
-import org.jdom2.Element;
+import pt.tecnico.mydrive.exception.*;
+
 
 public class User extends User_Base {
     public User(MyDrive myDrive ,String username ) {
+        if (checkUsername(username)==false){
+            throws new UserInvalidException();
+        }
         init(username, username, username,"rwxd----",myDrive.getRootDir());
     }
     public User(MyDrive myDrive ,String username, String umask ) {
+        if (checkUsername(username)==false){
+            throws new UserInvalidException();
+        }
         init(username, username, username,umask,myDrive.getRootDir());
     }
     
     public User(MyDrive myDrive ,String username, String password) {
+        if (checkUsername(username)==false){
+            throws new UserInvalidException();
+        }
         init(username, username, password,"rwxd----",myDrive.getRootDir());
     }
     public User(MyDrive myDrive, String username, String password,String umask ) {
+        if (checkUsername(username)==false){
+            throws new UserInvalidException();
+        }
         init(username, username, password,umask,home, myDrive.getRootDir());
     }    
     
@@ -32,6 +45,18 @@ public class User extends User_Base {
         setPassword(password);
         setUmask(umask);
         setHomedir(home);
+    }
+    public boolean checkUsername (String username) {
+        if (username.compareTo("")==0){
+            return false
+        }
+        String pattern= "^[a-zA-Z0-9]*$";
+        if(username.matches(pattern)){
+            return true;
+        }
+        return false;
+
+
     }
     
     public void xmlImport(Element userElemet) throws ImportDocumentException {
@@ -56,5 +81,4 @@ public class User extends User_Base {
 
         return element;
     } 
-}   
-
+}
