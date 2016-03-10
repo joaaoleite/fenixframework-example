@@ -10,8 +10,12 @@ public class Link extends Link_Base {
     protected String readFile(){
     	//parse content link
     	String[] path = getContent().split("/");
-    	for 
-    	getFileByName()
-
+        File last;
+        last = getFileByName(part)
+    	for (String part: path){ 
+    	   if(last.isDir())
+                last=last.getFileByName(part)
+            else
+                last.read();
     }    
 }

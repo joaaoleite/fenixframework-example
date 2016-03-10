@@ -37,12 +37,6 @@ public class Dir extends Dir_Base {
     protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
         if (exists(name) == false){
             Dir newDir = new Dir(getMydrive(), this, owner, name, mask);
-            Dir selfDir = newDir;
-            selfDir.setName(".");
-            Dir parentDir = this;
-            parentDir.setName("..");
-            newDir.addFile(selfDir);
-            newDir.addFile(parentDir);
             addFile(newDir);
             return newDir;  
         }
@@ -63,15 +57,16 @@ public class Dir extends Dir_Base {
     }
 
     private String listDir(){
-        String output = "";
+        String output = (type()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification()+" "+getName()+"\n"
+            +getParent().type()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification()+" "+getParent().getName()+"\n");
         for (File file: getFileSet()){
-            output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLast_modification()+" "+file.getName()+"\n");
+            output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification()+" "+file.getName()+"\n");
             return output;
         }
     }
 
-    private Int getSize(){
-        return getFileSet.size();
+    private Int getDirSize(){
+        return (2 + getFileSet.size());
     }
     
     @Override
