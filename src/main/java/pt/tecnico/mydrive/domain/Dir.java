@@ -70,4 +70,18 @@ public class Dir extends Dir_Base {
     	}
     	super.remove();
     }  
+
+    private Dir xmlCreateDir(User owner, String name, String mask){
+        if(exists(name)){
+            File file = getFileByName(name);
+            if(file.isDir()){
+                return file;
+            }
+            else{
+                throw new  FileAlreadyExistsException();
+            }  
+        }
+        return createDir(owner,name,mask);
+    }
+
 }
