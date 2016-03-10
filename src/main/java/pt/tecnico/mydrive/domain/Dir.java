@@ -2,7 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 public class Dir extends Dir_Base {
     
-    private Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask){
+    protected Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super(mydrive, parent, owner, name, mask);
     }
 
