@@ -1,5 +1,8 @@
 package pt.tecnico.mydrive.exception;
 
+import pt.tecnico.mydrive.exception.*;
+
+
 public abstract class MyDriveException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

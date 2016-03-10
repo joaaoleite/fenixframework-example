@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.exception;
 
+import pt.tecnico.mydrive.exception.*;
+
 
 public class FilenameInvalidException extends MyDriveExcepion {
 

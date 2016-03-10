@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import pt.tecnico.mydrive.exception.*;
+
 
 public class UserAlreadyExists extends MyDriveException {
 
