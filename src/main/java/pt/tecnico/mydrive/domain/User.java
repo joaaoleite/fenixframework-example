@@ -25,7 +25,7 @@ public class User extends User_Base {
     }
     public User(MyDrive myDrive, String username, String password,String umask ) {
         if (checkUsername(username)==false){
-            throws new UserInvalidException();
+            throw new UserInvalidException();
         }
         init(username, username, password,umask,home, myDrive.getRootDir());
     }    
