@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
 
-public class UserAlreadyExists extends MyDriveException {
+public class UserInvalidException extends MyDriveException {
 
 	private final String _username;
 
@@ -9,7 +9,7 @@ public class UserAlreadyExists extends MyDriveException {
 	/**
 	 * @param username
 	 */
-	public UserAlreadyException(String username) {
+	public UserInvalidException(String username) {
 		_username = username;
 	}
 
@@ -17,6 +17,6 @@ public class UserAlreadyExists extends MyDriveException {
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The user '" + _username + "' already exists.";
+		return "The username '" + _username + "' is invalid.";
 	}
 }
