@@ -4,6 +4,10 @@ public abstract class File extends File_Base {
     
     protected File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super();
+        if (checkFilename (name)== false ){
+             throw new FilenameInvalidException();
+
+        }
 
         setMydrive(mydrive);
         setParent(parent);
@@ -19,6 +23,19 @@ public abstract class File extends File_Base {
         setMask(mask);
     }
 
+
+
+    public boolean checkFilename (String username) {
+        if (username.compareTo("/")==0){
+            return false;
+        }
+        if (username.compareTo("\0")==0){
+            return false;
+        }
+       return true;
+
+
+    }
     protected abstract int getSize();
  
     protected abstract void remove(){
