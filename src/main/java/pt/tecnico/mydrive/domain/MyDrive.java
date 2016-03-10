@@ -38,11 +38,24 @@ public class MyDrive extends MyDrive_Base {
         for(User u: getUserSet())
             u.remove();
 
-        // clean Files
+        getRootDir().recursiveR();
     }
 
     public void xmlImport(Element element) {
-        // implement code here!!!
+
+        // import users
+        Element users = element.getChild("users"); 
+        for(Element e: users.getChildren("user")){
+            String name = new String(e.getAttribute("password").getValue().getBytes("UTF-8"));
+            User user = new User(this,name);
+            user.xmlImport(e);
+            addUser(user);
+        }
+
+        //import
+        Element e = element.getChild("rootdir");
+        getRootDir().xmlImport(e);
+
     }
 
     public Document xmlExport() {
@@ -57,6 +70,15 @@ public class MyDrive extends MyDrive_Base {
         ClassLoader classLoader = getClass().getClassLoader();
         if (classLoader.getResource(filename) == null) return null;
         return new java.io.File(classLoader.getResource(filename).getFile());
+    }
+
+    private User getUserByUsername(String username){
+        for(User u: getUserSet()){
+            if(u.getUsername()==username){
+                return u;
+            }
+        }
+        return null;
     }
 
     public User createUser(String name, String username, String password, String mask){

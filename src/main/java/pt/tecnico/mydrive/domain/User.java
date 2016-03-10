@@ -1,5 +1,6 @@
 package pt.tecnico.mydrive.domain;
 
+import org.jdom2.Element;
 
 public class User extends User_Base {
     public User(MyDrive myDrive ,String username ) {
