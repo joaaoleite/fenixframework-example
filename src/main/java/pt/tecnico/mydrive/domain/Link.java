@@ -27,6 +27,10 @@ public class Link extends Link_Base {
                 return actual;
         }
     }
+    
+    protected boolean isDir(){
+        return false;
+    }
 
     protected String readFile(){
     	return findFile().read();
@@ -40,4 +44,7 @@ public class Link extends Link_Base {
         findFile().execute();
     }
 
+    protected String type(){
+        return "Link";
+    }
 }

@@ -9,7 +9,7 @@ public class Dir extends Dir_Base {
     }
 
     protected File getFileByName(String name) throws FileDoesNotExistException{
-        for (File file: getFileSet())
+        for (File file: getFileSet()){
             if (file.getName().equals("."))
                 return this;
             if (file.getName().equals(".."))
@@ -17,24 +17,29 @@ public class Dir extends Dir_Base {
 
             if (file.getName().equals(name))
                 return file;
+        }
 
-        throw new FileDoesNotExistException();
+        throw new FileDoesNotExistException(name);
     } 
 
     protected Dir getDir(String name) throws FileDoesNotExistException, FileIsAPlainFileException{
         if (!exists(name))
-            throw FileDoesNotExistException;
+            throw FileDoesNotExistException(name);
         
         File file = getFileByName(name);
         if (file.isDir())
-            return file;
+            return (Dir) file;
 
-        return FileIsAPlainFileException();
+        throw new FileIsAPlainFileException(name);
+    }
+
+    protected boolean isDir(){
+        return true;
     }
 
     protected Boolean exists(String name){
         try{
-            File file = getFileByName(name);
+            getFileByName(name);
             return true;
         }
         catch(FileDoesNotExistException e){
@@ -48,14 +53,14 @@ public class Dir extends Dir_Base {
             addFile(newDir);
             return newDir;  
         }
-        throw new FileAlreadyExistsException();
+        throw new FileAlreadyExistsException(name);
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{
         if (!exists(name)){
             return new PlainFile(getMydrive(), this, owner, name, mask);
         }    
-        throw new FileAlreadyExistsException();
+        throw new FileAlreadyExistsException(name);
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
@@ -128,5 +133,9 @@ public class Dir extends Dir_Base {
         for(File f: getFileSet())
             element.addContent(f.xmlExport());
         return element;
+    }
+
+    protected String type(){
+        return "Directory";
     }
 }

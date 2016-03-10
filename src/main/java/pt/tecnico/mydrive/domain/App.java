@@ -11,4 +11,8 @@ public class App extends App_Base {
 
         //INCMPLETE!
     }
+
+    protected String type(){
+        return "Application";
+    }
 }

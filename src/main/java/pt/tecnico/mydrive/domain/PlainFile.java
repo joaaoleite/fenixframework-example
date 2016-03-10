@@ -19,8 +19,16 @@ public class PlainFile extends PlainFile_Base {
         //Implement Logic
     }
 
+    protected boolean isDir(){
+        return false;
+    }
+
     @Override
     protected void remove(){
         super.remove();
+    }
+
+    protected String type(){
+        return "Plain File";
     }
 }

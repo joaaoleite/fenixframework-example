@@ -55,8 +55,8 @@ public abstract class File extends File_Base {
         deleteDomainObject();
     }
 
-    private boolean isDir(){
-        return this instanceof Dir;
-    }
+    protected abstract boolean isDir();
+
+    protected abstract String type();
 }
 
