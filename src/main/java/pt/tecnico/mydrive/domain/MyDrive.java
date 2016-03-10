@@ -35,7 +35,10 @@ public class MyDrive extends MyDrive_Base {
     }
 
     public void cleanup() {
-        // implement code here!!!
+        for(User u: getUserSet())
+            u.remove();
+
+        // clean Files
     }
 
     public void xmlImport(Element element) {
