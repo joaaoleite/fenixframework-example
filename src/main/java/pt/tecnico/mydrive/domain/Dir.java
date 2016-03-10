@@ -2,7 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 public class Dir extends Dir_Base {
     
-    private Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+    private Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask){
         super(mydrive, parent, owner, name, mask);
     }
 
@@ -53,14 +53,25 @@ public class Dir extends Dir_Base {
         if (!exists(name)){
             return new PlainFile(getMydrive(), this, owner, name, mask);
         }    
-        else
-            throw new FileAlreadyExistsException();
+        throw new FileAlreadyExistsException();
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
         Plainfile newPlainFile = createPlainFile(getMydrive(), this, owner, name, mask);
         newPlainFile.write(content);
         return newPlainFile;    
+    }
+
+    private String listDir(){
+        String output = "";
+        for (File file: getFileSet()){
+            output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLast_modification()+" "+file.getName()+"\n");
+            return output;
+        }
+    }
+
+    private Int getSize(){
+        return getFileSet.size();
     }
     
     @Override
@@ -83,5 +94,4 @@ public class Dir extends Dir_Base {
         }
         return createDir(owner,name,mask);
     }
-
 }

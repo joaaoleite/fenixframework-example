@@ -2,8 +2,16 @@ package pt.tecnico.mydrive.domain;
 
 public class Link extends Link_Base {
     
-    public Link() {
-        super();
+    protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
+    	super(mydrive, parent, owner, name, mask);
+    	setContent(content);
     }
-    
+
+    protected String readFile(){
+    	//parse content link
+    	String[] path = getContent().split("/");
+    	for 
+    	getFileByName()
+
+    }    
 }
