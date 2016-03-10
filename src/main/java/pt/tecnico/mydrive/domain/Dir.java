@@ -24,7 +24,7 @@ public class Dir extends Dir_Base {
 
     protected Dir getDir(String name) throws FileDoesNotExistException, FileIsAPlainFileException{
         if (!exists(name))
-            throw FileDoesNotExistException(name);
+            throw new FileDoesNotExistException(name);
         
         File file = getFileByName(name);
         if (file.isDir())
@@ -74,8 +74,9 @@ public class Dir extends Dir_Base {
             +getParent().type()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification()+" "+getParent().getName()+"\n");
         
         for (File file: getFileSet()){
-            if (file.isLink()){
-                output += (file.getName()+"->"+file.getContent());
+            if (file instanceof Link){
+                Link link = (Link) file;
+                output += (link.getName()+"->"+link.getContent());
             }
             else
                 output += (file.type()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification()+" "+file.getName()+"\n");
@@ -90,29 +91,30 @@ public class Dir extends Dir_Base {
     @Override
     protected void remove() throws DirectoryIsNotEmptyException{
     	if(getFileSet().isEmpty()){
-    		throw new DirectoryIsNotEmptyException();
+    		throw new DirectoryIsNotEmptyException(getName());
     	}
     	super.remove();
     }  
 
-    protected void removeR(){
-        for(File f: getFileSet())
+    protected void removeR() throws DirectoryIsNotEmptyException{
+        for(File f: getFileSet()){
             f.removeR();
-        f.remove();
+        }
+        remove();
     }
 
-    private Dir xmlCreateDir(User owner, String name, String mask){
-        if(exists(name)){
-            File file = getFileByName(name);
-            if(file.isDir()){
-                return file;
-            }
-            else{
-                throw new  FileAlreadyExistsException();
-            }  
-        }
-        return createDir(owner,name,mask);
-    }
+    private Dir xmlCreateDir(User owner, String name, String mask) throws FileAlreadyExistsException{
+        if(exists(name)){
+            File file = getFileByName(name);
+            if(file.isDir()){
+                return (Dir) file;
+            }
+            else{
+                throw new FileAlreadyExistsException();
+            }
+        }
+        return createDir(owner,name,mask);
+    }
 
     public void xmlImport(Element dirElement) {
         for (Element e: directory.getChildren("dir"){
