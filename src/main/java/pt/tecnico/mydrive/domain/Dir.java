@@ -94,17 +94,31 @@ public class Dir extends Dir_Base {
     protected int getSize(){
         return (2+ getFileSet().size());
     }
-
+    
+    @Override
     public void xmlImport(Element dirElement) throws ImportDocException{
         
         try {
             for (Element e: dirElement.getChildren("dir")){
-            String name = new String(e.getAttribute("name").getValue().getBytes("UTF-8"));
-            User owner = getMydrive().getUserByUsername(new String(e.getAttribute("owner").getValue().getBytes("UTF-8")));
-            String mask = new String(e.getAttribute("mask").getValue().getBytes("UTF-8"));
-            Dir dir = createDir(owner, name, mask);
-            dir.xmlImport(e);
+                String name = new String(e.getAttribute("name").getValue().getBytes("UTF-8"));
+                User owner = getMydrive().getUserByUsername(new String(e.getAttribute("owner").getValue().getBytes("UTF-8")));
+                String mask = new String(e.getAttribute("mask").getValue().getBytes("UTF-8"));
+                Dir dir = createDir(owner, name, mask);
+                dir.xmlImport(e);
             }
+            for(Element e: dirElement.getChildren("plainfile")){
+                PlainFile plain = new PlainFile();
+                plain.xmlImport(e);
+            }
+            for(Element e: dirElement.getChildren("link")){
+                Link link = new Link();
+                link.xmlImport(e);
+            }
+            for(Element e: dirElement.getChildren("app")){
+                App app = new App();
+                app.xmlImport(e);
+            }
+
         } catch (UnsupportedEncodingException e) { 
             System.err.println(e); 
             throw new ImportDocException();
