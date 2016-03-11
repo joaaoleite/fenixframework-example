@@ -28,8 +28,6 @@ public class PlainFile extends PlainFile_Base {
     }
 
     protected void execute(){
-        String[] lines = getContent().split("\n");
-        
     }
     
     @Override
