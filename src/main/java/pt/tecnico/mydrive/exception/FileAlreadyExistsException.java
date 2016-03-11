@@ -13,6 +13,7 @@ public class FileAlreadyExistsException extends MyDriveException {
 	 * @param name
 	 */
 	public FileAlreadyExistsException(String name) {
+		super();
 		_name = name;
 	}
 
@@ -20,6 +21,6 @@ public class FileAlreadyExistsException extends MyDriveException {
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The File:" + _name + " is already exists.";
+		return "The File " + _name + " already exists.";
 	}
 }

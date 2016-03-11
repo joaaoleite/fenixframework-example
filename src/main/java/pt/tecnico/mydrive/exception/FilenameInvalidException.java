@@ -13,6 +13,7 @@ public class FilenameInvalidException extends MyDriveException {
 	 * @param name
 	 */
 	public FilenameInvalidException(String name) {
+		super();
 		_name = name;
 	}
 

@@ -12,6 +12,7 @@ public class UserInvalidException extends MyDriveException {
 	 * @param username
 	 */
 	public UserInvalidException(String username) {
+		super();
 		_username = username;
 	}
 
