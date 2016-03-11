@@ -91,7 +91,7 @@ public abstract class File extends File_Base {
 
         Dir actual = getMydrive().getRootDir();
 
-        for(int i = 1; i < parts.length - 1; i++) throws FileIsAPlainFileException{
+        for(int i = 1; i < parts.length - 1; i++){
             if(actual.exists(parts[i])){
                 actual = actual.getDir(parts[i]);
             }
