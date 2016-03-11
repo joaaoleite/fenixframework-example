@@ -56,4 +56,12 @@ public class Link extends Link_Base {
     protected String type(){
         return "Link";
     }
+
+    public void xmlImport(Element fileElement) throws UnsupportedEncodingException {
+        super.xmlImport();
+    }
+
+    public Element xmlExport(){
+        super.xmlExportAttributes();
+    }
 }
