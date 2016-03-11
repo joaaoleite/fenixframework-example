@@ -72,6 +72,12 @@ public class MyDrive extends MyDrive_Base {
             for(Element e: element.getChildren("plainfile")){
                 new PlainFile().xmlImport(e);
             }
+            for(Element e: element.getChildren("link")){
+                new Link().xmlImport(e);
+            }
+            for(Element e: element.getChildren("app")){
+                new App().xmlImport(e);
+            }
         }catch(Exception e){
 
         }
