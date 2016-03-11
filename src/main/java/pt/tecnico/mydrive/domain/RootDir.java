@@ -6,7 +6,7 @@ public class RootDir extends RootDir_Base {
     
     public RootDir(MyDrive mydrive){
         super();
-        init(mydrive, null, null, "/", "");
+        createFile(mydrive, null, null, "/", "");
         
         createDir(null, "home", "");
     }
@@ -20,12 +20,10 @@ public class RootDir extends RootDir_Base {
     }
     
     @Override
-    public void setOwner(User user){
+    public void setOwner(SuperUser user){
         super.setOwner(user);
         Dir home = getDir("home");
-        removeFile(home);
         home.setOwner(user);
-        addFile(home);
     }
     
     @Override
