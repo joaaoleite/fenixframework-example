@@ -1,5 +1,5 @@
 package pt.tecnico.mydrive.domain;
-
+import pt.tecnico.mydrive.exception.*;
 import org.jdom2.Element;
 
 public class Link extends Link_Base {
@@ -35,7 +35,7 @@ public class Link extends Link_Base {
         }
 
         if(actual.exists(path[i++])){
-            return getFileByName(path[i]);
+            return actual.getFileByName(path[i]);
         }
 
         throw new FileDoesNotExistException(path[i]);
