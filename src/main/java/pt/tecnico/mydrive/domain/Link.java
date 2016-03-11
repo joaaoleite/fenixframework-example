@@ -67,9 +67,9 @@ public class Link extends Link_Base {
         super.xmlImport(fileElement);
     }
 
-    public Element xmlExport(Element mydrive){
+    public Element xmlExport(Element xmlmydrive){
         Element link = new Element("link");
         link = super.xmlExportAttributes(link);
-        return mydrive.addContent(link);
+        return xmlmydrive.addContent(link);
     }
 }
