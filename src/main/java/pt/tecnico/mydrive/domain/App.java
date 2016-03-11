@@ -2,7 +2,6 @@ package pt.tecnico.mydrive.domain;
 
 import pt.tecnico.mydrive.exception.*;
 
-import java.io.UnsupportedEncodingException;
 import org.jdom2.Element;
 
 public class App extends App_Base {
@@ -21,11 +20,11 @@ public class App extends App_Base {
         return "Application";
     }
 
-    public void xmlImport(Element fileElement) throws UnsupportedEncodingException {
-        super.xmlImport();
+    public void xmlImport(Element fileElement) {
+        super.xmlImport(fileElement);
     }
 
     public Element xmlExport() throws ExportDocException{
-        super.xmlExport();
+        return super.xmlExport();
     }
 }

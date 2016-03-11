@@ -1,7 +1,11 @@
 package pt.tecnico.mydrive.domain;
 
 import java.io.UnsupportedEncodingException;
+
+import org.jdom2.DataConversionException;
 import org.jdom2.Element;
+
+import pt.tecnico.mydrive.exception.ImportDocException;
 
 public class PlainFile extends PlainFile_Base {
 
@@ -51,7 +55,7 @@ public class PlainFile extends PlainFile_Base {
         try{
             super.xmlImport(fileElement);
             setContent(new String(fileElement.getAttribute("content").getValue().getBytes("UTF-8")));
-        } catch(UnsupportedEncodingException e){
+        } catch(UnsupportedEncodingException | DataConversionException e){
             System.err.println(e);
             throw new ImportDocException();
         }

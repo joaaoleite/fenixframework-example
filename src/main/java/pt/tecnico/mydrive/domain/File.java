@@ -1,5 +1,9 @@
 package pt.tecnico.mydrive.domain;
 
+import java.io.UnsupportedEncodingException;
+
+import org.jdom2.DataConversionException;
+import org.jdom2.Element;
 import org.joda.time.DateTime;
 
 import pt.tecnico.mydrive.exception.*;
@@ -65,11 +69,11 @@ public abstract class File extends File_Base {
 
     protected abstract String type();
 
-        public void xmlImport(Element fileElement) throws UnsupportedEncodingException {
+    public void xmlImport(Element fileElement) throws UnsupportedEncodingException, DataConversionException {
         String name = new String(fileElement.getAttribute("name").getValue().getBytes("UTF-8"));
         User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue().getBytes("UTF-8")));
         String mask = new String(fileElement.getAttribute("mask").getValue().getBytes("UTF-8"));
-        Int id = fileElement.getAttribute("id").getIntValue();
+        int id = fileElement.getAttribute("id").getIntValue();
         //DataType to do ... Exception too
 
         setName(name);
@@ -78,15 +82,15 @@ public abstract class File extends File_Base {
         setId(id);
     }
 
-    public abstract Element xmlExport(Element element);
+    public abstract Element xmlExport();
 
     public Element xmlExportAttributes(Element element) {
 
         element.setAttribute("name", getName());
-        element.setAttribute("owner",getOwner());
+        element.setAttribute("owner",getOwner().getUsername());
         element.setAttribute("mask",getMask());
         element.setAttribute("lastMofification", getLastModification());
-        element.setAttribute("id", getId());
+        element.setAttribute("id", getId().toString());
 
         return element;
     }

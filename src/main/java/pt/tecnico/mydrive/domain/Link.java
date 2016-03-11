@@ -1,6 +1,5 @@
 package pt.tecnico.mydrive.domain;
 
-import java.io.UnsupportedEncodingException;
 import org.jdom2.Element;
 
 public class Link extends Link_Base {
@@ -59,11 +58,12 @@ public class Link extends Link_Base {
         return "Link";
     }
 
-    public void xmlImport(Element fileElement) throws UnsupportedEncodingException {
-        super.xmlImport();
+    public void xmlImport(Element fileElement) {
+        super.xmlImport(fileElement);
     }
 
     public Element xmlExport(){
-        super.xmlExportAttributes();
+        Element link = new Element("link");
+        return super.xmlExportAttributes(link);
     }
 }
