@@ -63,14 +63,22 @@ public class MyDrive extends MyDrive_Base {
         getRootDir().xmlImport(e);
 
     }
-    /*
+   
     public Document xmlExport() {
         Element element = new Element("mydrive");
 	      Document doc = new Document(element);
+        
+        Element users = new Element("users");
+        for(User u: getUserSet()){
+            users.addContent(u.xmlExport());
+        }
+        element.addContent(users);
+
+        element.addContent(getRootDir().xmlExport());
 
         return doc;
     }
-    */
+    
     public File resourceFile(String filename) {
 	      log.trace("Resource: "+filename);
         ClassLoader classLoader = getClass().getClassLoader();
