@@ -59,7 +59,7 @@ public abstract class File extends File_Base {
             path = "/" + dir.getName() + path;
         }
         
-        return path
+        return path;
     }
 
     protected  void remove(){
@@ -79,12 +79,28 @@ public abstract class File extends File_Base {
 
     public void xmlImport(Element fileElement) throws UnsupportedEncodingException, DataConversionException {
         String name = new String(fileElement.getAttribute("name").getValue().getBytes("UTF-8"));
+        String path = new String(fileElement.getAttribute("path").getValue().getBytes("UTF-8"));
         User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue().getBytes("UTF-8")));
         String mask = new String(fileElement.getAttribute("mask").getValue().getBytes("UTF-8"));
         int id = fileElement.getAttribute("id").getIntValue();
         //DataType to do ... Exception too
 
         setName(name);
+
+        String[] parts = path.split("/");
+
+        Dir actual = getMydrive().getRootDir();
+
+        for(int i = 1; i < parts.length - 1; i++) throws FileIsAPlainFileException{
+            if(actual.exists(parts[i])){
+                actual = actual.getDir(parts[i]);
+            }
+            else{
+                actual = actual.createDir(getMydrive().getSuperUser(), parts[i], "");
+            }
+        }
+
+        setParent(actual);
         setOwner(owner);
         setMask(mask);
         setId(id);
@@ -97,7 +113,7 @@ public abstract class File extends File_Base {
         element.setAttribute("name", getName());
         element.setAttribute("owner",getOwner().getUsername());
         element.setAttribute("mask",getMask());
-        element.setAttribute("lastMofification", getLastModification());
+        element.setAttribute("lastModification", getLastModification().toString("G"));
         element.setAttribute("id", getId().toString());
 
         return element;
