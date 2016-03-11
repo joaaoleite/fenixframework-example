@@ -15,4 +15,12 @@ public class App extends App_Base {
     protected String type(){
         return "Application";
     }
+
+    public void xmlImport(Element fileElement) throws UnsupportedEncodingException {
+        super.xmlImport();
+    }
+
+    public Element xmlExport() throws ExportDocException{
+        super.xmlExport();
+    }
 }
