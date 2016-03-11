@@ -64,5 +64,18 @@ public abstract class File extends File_Base {
     protected abstract boolean isDir();
 
     protected abstract String type();
+
+        public void xmlImport(Element fileElement) throws UnsupportedEncodingException {
+        String name = new String(fileElement.getAttribute("name").getValue().getBytes("UTF-8"));
+        User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue().getBytes("UTF-8")));
+        String mask = new String(fileElement.getAttribute("mask").getValue().getBytes("UTF-8"));
+        Int id = fileElement.getAttribute("id").getIntValue();
+        //DataType to do ... Exception too
+
+        setName(name);
+        setOwner(owner);
+        setMask(mask);
+        setId(id);
+    }
 }
 
