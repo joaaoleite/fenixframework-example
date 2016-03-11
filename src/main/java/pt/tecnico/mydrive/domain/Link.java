@@ -27,10 +27,10 @@ public class Link extends Link_Base {
         }
         else{
             actual = getParent();
-            i = 0
+            i = 0;
         }
 
-        for(i; i<path.length-1; i++){
+        for(; i<path.length-1; i++){
             actual = actual.getDir(path[i]);
         }
 
