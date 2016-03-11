@@ -13,6 +13,7 @@ public class FileIsAPlainFileException extends MyDriveException {
 	 * @param name
 	 */
 	public FileIsAPlainFileException(String name) {
+		super();
 		_name = name;
 	}
 
@@ -20,6 +21,6 @@ public class FileIsAPlainFileException extends MyDriveException {
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The File:" + _name + " is a PlainFile.";
+		return "The File " + _name + " is a PlainFile.";
 	}
 }

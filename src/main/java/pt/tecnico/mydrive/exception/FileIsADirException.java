@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.exception;
 
 
-public class FileDoesNotExistException extends MyDriveException {
+public class FileIsADirException extends MyDriveException {
 
     
     private static final long serialVersionUID = 1L;
@@ -12,15 +12,15 @@ public class FileDoesNotExistException extends MyDriveException {
 	/**
 	 * @param name
 	 */
-	public FileDoesNotExistException(String name) {
+	public FileIsADirException(String name) {
 		super();
-		_name = name;
+  		_name = name;
 	}
 
 	
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The File " + _name + " does not exist.";
+		return "The File " + _name + " is a Directory.";
 	}
 }

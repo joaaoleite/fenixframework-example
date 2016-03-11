@@ -13,6 +13,7 @@ public class UserAlreadyExistsException extends MyDriveException {
 	 * @param username
 	 */
 	public UserAlreadyExistsException(String username) {
+		super();
 		_username = username;
 	}
 

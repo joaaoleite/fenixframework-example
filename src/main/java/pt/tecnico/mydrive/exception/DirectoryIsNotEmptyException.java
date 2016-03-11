@@ -13,8 +13,8 @@ public class DirectoryIsNotEmptyException extends MyDriveException {
 	 * @param name
 	 */
 	public DirectoryIsNotEmptyException(String name) {
-	super();
-  _name = name;
+		super();
+  		_name = name;
 	}
 
 	
