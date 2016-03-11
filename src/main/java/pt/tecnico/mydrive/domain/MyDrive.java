@@ -87,13 +87,10 @@ public class MyDrive extends MyDrive_Base {
         Element element = new Element("mydrive");
 	      Document doc = new Document(element);
         
-        Element users = new Element("users");
         for(User u: getUserSet()){
-            users.addContent(u.xmlExport());
+            element = u.xmlExport(element);
         }
-        element.addContent(users);
-
-        //element.addContent(getRootDir().xmlExport());
+        element = getRootDir().xmlExport(element);
 
         return doc;
     }
