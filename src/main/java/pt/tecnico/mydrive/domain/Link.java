@@ -42,7 +42,7 @@ public class Link extends Link_Base {
     }
     
     @Override
-    protected String read(){
+    protected String read() throws FileIsADirException{
         if(isDir()) throw new FileIsADirException(getName());
     	  return ((PlainFile)findFile()).read();
     }    

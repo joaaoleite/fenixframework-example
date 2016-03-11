@@ -51,23 +51,36 @@ public class MyDrive extends MyDrive_Base {
 
     public void xmlImport(Element element) {
 
-        // import users
-        Element users = element.getChild("users"); 
-        for(Element e: users.getChildren("user")){
-            String username = e.getAttribute("username").getValue();
-            User user = getUserByUsername(username);
+        try{
+            // import users
+            Element users = element.getChild("users"); 
+            for(Element e: users.getChildren("user")){
+                String username = e.getAttribute("username").getValue();
+                User user = getUserByUsername(username);
 
-            if(user==null){
-                user = new User(this,username);
+                if(user==null){
+                    user = new User(this,username);
+                }
+                user.xmlImport(e);
+                addUser(user);
             }
-            user.xmlImport(e);
-            addUser(user);
+
+            // import filesystem
+            for(Element e: element.getChildren("dir")){
+                new Dir().xmlImport(e);
+            }
+            for(Element e: element.getChildren("plainfile")){
+                new PlainFile().xmlImport(e);
+            }
+            for(Element e: element.getChildren("link")){
+                new Link().xmlImport(e);
+            }
+            for(Element e: element.getChildren("app")){
+                new App().xmlImport(e);
+            }
+        }catch(Exception e){
+
         }
-
-        //import filesystem
-        Element e = element.getChild("rootdir");
-        getRootDir().xmlImport(e);
-
     }
    
     public Document xmlExport() {

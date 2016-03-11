@@ -77,13 +77,12 @@ public abstract class File extends File_Base {
     
     protected abstract String type();
 
-    public void xmlImport(Element fileElement) throws UnsupportedEncodingException, DataConversionException {
-        String name = new String(fileElement.getAttribute("name").getValue().getBytes("UTF-8"));
-        String path = new String(fileElement.getAttribute("path").getValue().getBytes("UTF-8"));
-        User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue().getBytes("UTF-8")));
-        String mask = new String(fileElement.getAttribute("mask").getValue().getBytes("UTF-8"));
+    public void xmlImport(Element fileElement) throws DataConversionException {
+        String name = new String(fileElement.getAttribute("name").getValue());
+        String path = new String(fileElement.getAttribute("path").getValue());
+        User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue()));
+        String mask = new String(fileElement.getAttribute("mask").getValue());
         int id = fileElement.getAttribute("id").getIntValue();
-        //DataType to do ... Exception too
 
         setName(name);
 
@@ -101,12 +100,13 @@ public abstract class File extends File_Base {
         }
 
         setParent(actual);
+        actual.addFile(this);
         setOwner(owner);
         setMask(mask);
         setId(id);
     }
 
-    public abstract Element xmlExport();
+    public abstract Element xmlExport(Element xmlmydrive);
 
     public Element xmlExportAttributes(Element element) {
 
