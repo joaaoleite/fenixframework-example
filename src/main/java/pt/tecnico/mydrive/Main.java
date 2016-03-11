@@ -67,7 +67,7 @@ public class Main {
         // 7. list /home
         rootdir.getFileByName("home").listDir();*/
     }
-    /* 
+     
     @Atomic
     public static void xmlPrint() {
         log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
@@ -88,5 +88,5 @@ public class Main {
 	      } catch (JDOMException | IOException e) {
 	          e.printStackTrace();
 	      }
-    }*/
+    }
 }

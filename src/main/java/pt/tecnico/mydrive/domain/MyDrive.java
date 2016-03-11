@@ -43,30 +43,34 @@ public class MyDrive extends MyDrive_Base {
         //getRootDir().recursiveR();
     }
 
-    /*public void xmlImport(Element element) {
+    public void xmlImport(Element element) {
 
         // import users
         Element users = element.getChild("users"); 
         for(Element e: users.getChildren("user")){
-            String name = new String(e.getAttribute("password").getValue().getBytes("UTF-8"));
-            User user = new User(this,name);
+            String username = e.getAttribute("username").getValue();
+            User user = getUserByUsername(username);
+
+            if(user==null){
+                user = new User(this,username);
+            }
             user.xmlImport(e);
             addUser(user);
         }
 
-        //import
+        //import filesystem
         Element e = element.getChild("rootdir");
         getRootDir().xmlImport(e);
 
     }
-
+    /*
     public Document xmlExport() {
         Element element = new Element("mydrive");
 	      Document doc = new Document(element);
 
         return doc;
-    }*/
-
+    }
+    */
     public File resourceFile(String filename) {
 	      log.trace("Resource: "+filename);
         ClassLoader classLoader = getClass().getClassLoader();
