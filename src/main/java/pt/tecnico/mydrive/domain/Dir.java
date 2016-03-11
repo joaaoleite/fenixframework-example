@@ -3,7 +3,8 @@ package pt.tecnico.mydrive.domain;
 public class Dir extends Dir_Base {
     
     private Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
-        super(mydrive, parent, owner, name, mask);
+       super();
+       init(mydrive, parent, owner, name, mask);
     }
 
     protected File getFileByName(String name) throws FileDoesNotExistException{
@@ -66,7 +67,7 @@ public class Dir extends Dir_Base {
     
     @Override
     protected void remove() throws DirectoryIsNotEmptyException{
-        if(getFileSet().isEmpty()){
+        if(!getFileSet().isEmpty()){
             throw new DirectoryIsNotEmptyException();
         }
         super.remove();
@@ -98,4 +99,14 @@ public class Dir extends Dir_Base {
         }
         return element;
     }
+
+   @Override
+   protected boolean isDir(){
+        return true;    
+   }
+
+   @Override
+   protected String type(){
+        return "Dir";    
+   }
 }

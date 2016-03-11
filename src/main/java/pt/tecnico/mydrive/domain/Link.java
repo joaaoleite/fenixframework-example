@@ -3,8 +3,9 @@ package pt.tecnico.mydrive.domain;
 public class Link extends Link_Base {
     
     protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
-    	super(mydrive, parent, owner, name, mask);
-    	setContent(content);
+        super();
+        init(mydrive, parent, owner, name, mask);
+    	  setContent(content);
     }
 
     protected File findFile(){
@@ -28,10 +29,6 @@ public class Link extends Link_Base {
         }
     }
     
-    protected boolean isDir(){
-        return false;
-    }
-
     protected String readFile(){
     	return findFile().read();
     }    

@@ -2,8 +2,9 @@ package pt.tecnico.mydrive.domain;
 
 public class App extends App_Base {
     
-    public App() {
+    public App(Mydrive mydrive, Dir parent, User owner, String name, String mask) {
         super();
+        init(mydrive, parent, owner, name, mask);
     }
     
     protected void execute(String[] args){
@@ -13,6 +14,6 @@ public class App extends App_Base {
     }
 
     protected String type(){
-        return "Application";
+        return "App";
     }
 }

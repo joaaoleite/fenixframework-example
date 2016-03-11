@@ -12,8 +12,8 @@ public abstract class File extends File_Base {
     }
 
 
-    protected void init(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
-        if (checkFilename (name)== false ){
+    protected void init(MyDrive mydrive, Dir parent, User owner, String name, String mask) throws FilenameInvalidException {
+        if (!checkFilename(name)){
              throw new FilenameInvalidException(name);
 
         }
@@ -25,7 +25,6 @@ public abstract class File extends File_Base {
         int id = mydrive.getNfile();
         setId(id);
         
-        //Implement name restrictions
         setName(name);
         DateTime last_mod = new DateTime();
         setLast_modification(last_mod);
@@ -36,22 +35,14 @@ public abstract class File extends File_Base {
         return "";
     }
 
-    public boolean checkFilename (String username) {
-        if (username.compareTo("/")==0){
-            return false;
-        }
-        if (username.compareTo("\0")==0){
-            return false;
-        }
-       return true;
+    public boolean checkFilename(String username) {
+        return !(username.contains("/") || username.contains("\0"))
     }
 
     protected void removeR(){
         remove();
     }
 
-    protected abstract int getSize();
- 
     protected  void remove(){
         setMydrive(null);
         setParent(null);
@@ -61,6 +52,8 @@ public abstract class File extends File_Base {
 
     protected abstract boolean isDir();
 
+    protected abstract int getSize();
+    
     protected abstract String type();
 }
 

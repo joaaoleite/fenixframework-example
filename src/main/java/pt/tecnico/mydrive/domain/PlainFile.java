@@ -3,7 +3,8 @@ package pt.tecnico.mydrive.domain;
 public class PlainFile extends PlainFile_Base {
     
     public PlainFile(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
-        super(mydrive, parent, owner, name, mask);
+       super();
+       init(mydrive, parent, owner, name, mask);
     }
   
     protected String read(){
@@ -19,16 +20,13 @@ public class PlainFile extends PlainFile_Base {
         //Implement Logic
     }
 
+    @Override
     protected boolean isDir(){
         return false;
     }
 
     @Override
-    protected void remove(){
-        super.remove();
-    }
-
     protected String type(){
-        return "Plain File";
+        return "PlainFile";
     }
 }
