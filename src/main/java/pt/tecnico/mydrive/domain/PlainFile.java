@@ -56,4 +56,11 @@ public class PlainFile extends PlainFile_Base {
             throw new ImportDocException();
         }
     }
+
+    // could be an error
+    public Element xmlExport(){
+
+        Element element = new Element("plainfile");
+        return super.xmlExportAttributes(element);
+    }
 }
