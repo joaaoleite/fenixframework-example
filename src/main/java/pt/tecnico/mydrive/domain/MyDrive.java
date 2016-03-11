@@ -29,6 +29,12 @@ public class MyDrive extends MyDrive_Base {
         setRoot(FenixFramework.getDomainRoot());
     }
 
+    protected int generateId(){
+        int nfile = getNfile();
+        setNfile(nfile+1);
+        return (int) nfile;
+    }
+
     public void init(){
         RootDir rootdir = new RootDir(this);
         setRootDir(rootdir);
