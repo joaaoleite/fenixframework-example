@@ -20,25 +20,20 @@ public class RootDir extends RootDir_Base {
     }
     
     @Override
-    public void setOwner(SuperUser user){
+    public void setOwner(User user){
         super.setOwner(user);
         Dir home = getDir("home");
         home.setOwner(user);
     }
     
     @Override
-    public Element xmlExport() {
-        Element element = new Element("rootdir");
-
-        element.setAttribute("name", getName());
-        element.setAttribute("owner",getOwner().getUsername());
-        element.setAttribute("mask",getMask());
-        element.setAttribute("lastMofification", getLastModification());
-        element.setAttribute("id", getId().toString());
-
+    public Element xmlExport(Element xmlmydrive) {
+        Element dir = new Element("rootdir");
+        dir = super.xmlExportAttributes(dir);
+        xmlmydrive.addContent(dir);
         for(File f: getFileSet()){
-            element.addContent(f.xmlExport());
+            xmlmydrive = f.xmlExport(xmlmydrive);
         }
-        return element;
+        return xmlmydrive;
     }
 }

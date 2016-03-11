@@ -80,7 +80,7 @@ public class MyDrive extends MyDrive_Base {
         }
         element.addContent(users);
 
-        element.addContent(getRootDir().xmlExport());
+        //element.addContent(getRootDir().xmlExport());
 
         return doc;
     }

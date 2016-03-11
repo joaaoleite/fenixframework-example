@@ -134,7 +134,7 @@ public class Dir extends Dir_Base {
     public Element xmlExport(Element xmlmydrive) {
         Element dir = new Element("dir");
         dir = super.xmlExportAttributes(dir);
-        xmlmydrive.addContent(dir)
+        xmlmydrive.addContent(dir);
         for(File f: getFileSet()){
             xmlmydrive = f.xmlExport(xmlmydrive);
         }

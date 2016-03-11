@@ -50,11 +50,8 @@ public abstract class File extends File_Base {
     }
     
     protected String getPath(){
-        String path = "" getName();
-
-    
-
-
+        //String path = "" getName();
+        return "";
     }
 
     protected  void remove(){
@@ -85,14 +82,14 @@ public abstract class File extends File_Base {
         setId(id);
     }
 
-    public abstract Element xmlExport();
+    public abstract Element xmlExport(Element xmlmydrive);
 
     public Element xmlExportAttributes(Element element) {
 
         element.setAttribute("name", getName());
         element.setAttribute("owner",getOwner().getUsername());
         element.setAttribute("mask",getMask());
-        element.setAttribute("lastMofification", getLastModification());
+        element.setAttribute("lastMofification", getLastModification().toString());
         element.setAttribute("id", getId().toString());
 
         return element;
