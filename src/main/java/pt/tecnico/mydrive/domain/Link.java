@@ -18,26 +18,32 @@ public class Link extends Link_Base {
         String[] path = getContent().split("/");
 
         Dir actual;
+        int i;
 
         if(getContent().charAt(0) == '/'){
 
-            actual = getMydrive().getRootDir();   
+            actual = getMydrive().getRootDir();
+            i = 1;
         }
         else{
             actual = getParent();
+            i = 0
         }
 
-        for(int i=1; i<path.length; i++){
-            if(actual.getFileByName(path[i]).isDir())
-                actual = actual.getDir(path[i]);
-            else
-                return (File) actual;
+        for(i; i<path.length-1; i++){
+            actual = actual.getDir(path[i]);
         }
-        return null;
+
+        if(actual.exists(path[i++])){
+            return getFileByName(path[i]);
+        }
+
+        throw new FileDoesNotExistException(path[i]);
     }
     
     protected String readFile(){
-    	return ((Link)findFile()).read();
+        if(isDir) throw new FileIsADirException(getName());
+    	  return ((PlainFile)findFile()).read();
     }    
     
     protected void writeFile(String content){

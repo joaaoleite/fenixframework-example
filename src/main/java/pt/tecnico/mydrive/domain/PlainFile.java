@@ -36,9 +36,9 @@ public class PlainFile extends PlainFile_Base {
     protected boolean isDir(){
         return false;
     }
-
+    
+    @Override
     protected int getSize(){
-        // TODO (length of linked file) !!!
         return getContent().length();
     }
 

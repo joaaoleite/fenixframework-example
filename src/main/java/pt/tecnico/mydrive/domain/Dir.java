@@ -17,10 +17,11 @@ public class Dir extends Dir_Base {
         init(mydrive, parent, owner, name, mask);
     }
 
-    protected File getFileByName(String name) throws FileDoesNotExistException{
-        for (File file: getFileSet())
+    protected File getFileByName(String name){
+        for (File file: getFileSet()){
             if (file.getName().equals(name))
                 return file;
+        }
         return null;
     } 
 
@@ -38,9 +39,7 @@ public class Dir extends Dir_Base {
     }
 
     protected Boolean exists(String name){
-        if (getFileByName(name) == null)
-            return false;
-        return true;
+        return getFileByName(name) != null;
     }
 
     protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
@@ -82,7 +81,7 @@ public class Dir extends Dir_Base {
         }
         super.remove();
     }
-
+    @Override
     protected int getSize(){
         return (2+ getFileSet().size());
     }
