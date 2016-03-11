@@ -71,12 +71,13 @@ public class User extends User_Base {
         }
     }
 
-    public Element xmlExport(){
-        Element element = new Element("user");
-        element.setAttribute("username", getUsername());
-        element.setAttribute("password", getPassword());
-        element.setAttribute("name", getName());
-        element.setAttribute("umask", getUmask());
-        return element;
+    public Element xmlExport(Element xmlmydrive){
+        Element user = new Element("user");
+        user.setAttribute("username", getUsername());
+        user.setAttribute("password", getPassword());
+        user.setAttribute("name", getName());
+        user.setAttribute("umask", getUmask());
+        xmlmydrive.addContent(user);
+        return xmlmydrive;
     } 
 }
