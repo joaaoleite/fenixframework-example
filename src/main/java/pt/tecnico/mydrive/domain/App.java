@@ -1,7 +1,5 @@
 package pt.tecnico.mydrive.domain;
 
-import pt.tecnico.mydrive.exception.*;
-
 import org.jdom2.Element;
 
 public class App extends App_Base {
