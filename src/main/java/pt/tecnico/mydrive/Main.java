@@ -25,16 +25,17 @@ public class Main {
         System.out.println("*** Welcome to the MyDrive application! ***");
 	      try {
 	          setup();
-	          for (String s: args) xmlScan(new File(s));
-            print();
-            xmlPrint();
+	          //for (String s: args) xmlScan(new File(s));
+            //print();
+            //xmlPrint();
 	      } finally { FenixFramework.shutdown(); }
     }
 
     @Atomic
     public static void init() { // empty mydrive
         log.trace("Init: " + FenixFramework.getDomainRoot());
-	      MyDrive.getInstance().cleanup();
+	      MyDrive mydrive = MyDrive.getInstance();
+        mydrive.cleanup();
         mydrive.init();
     }
 
@@ -42,7 +43,7 @@ public class Main {
     public static void setup() { // mydrive with debug data
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
-        Dir rootdir = mydrive.getRootDir();
+        /*Dir rootdir = mydrive.getRootDir();
         
         // 1. create File /home/README
         PlainFile plain = rootdir.getFileByName("home").createPlainFile(this,"README",rootdir.getOwner(),"");
@@ -64,9 +65,9 @@ public class Main {
         plain.remove();
 
         // 7. list /home
-        rootdir.getFileByName("home").listDir();
+        rootdir.getFileByName("home").listDir();*/
     }
-    
+     
     @Atomic
     public static void xmlPrint() {
         log.trace("xmlPrint: " + FenixFramework.getDomainRoot());

@@ -1,5 +1,9 @@
 package pt.tecnico.mydrive.domain;
 
+import pt.tecnico.mydrive.exception.*;
+
+import org.jdom2.Element;
+
 public class App extends App_Base {
     
     public App(Mydrive mydrive, Dir parent, User owner, String name, String mask) {
@@ -9,11 +13,19 @@ public class App extends App_Base {
     
     protected void execute(String[] args){
         String method = getContent();
-
-        //INCMPLETE!
+        //INCOMPLETE!!!
+        // @tiagofbfernandes
     }
 
     protected String type(){
         return "App";
+    }
+
+    public void xmlImport(Element fileElement) {
+        super.xmlImport(fileElement);
+    }
+
+    public Element xmlExport() throws ExportDocException{
+        return super.xmlExport();
     }
 }

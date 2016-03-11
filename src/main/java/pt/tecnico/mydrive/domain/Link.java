@@ -1,11 +1,17 @@
 package pt.tecnico.mydrive.domain;
 
+import org.jdom2.Element;
+
 public class Link extends Link_Base {
+
+    protected Link(){
+        super();
+    }
     
     protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
         super();
-        init(mydrive, parent, owner, name, mask);
-    	  setContent(content);
+    	init(mydrive, parent, owner, name, mask);
+    	setContent(content);
     }
 
     protected File findFile(){
@@ -13,7 +19,7 @@ public class Link extends Link_Base {
 
         Dir actual;
 
-        if(getContent.charAt(0) == '/'){
+        if(getContent().charAt(0) == '/'){
 
             actual = getMydrive().getRootDir();   
         }
@@ -21,27 +27,39 @@ public class Link extends Link_Base {
             actual = getParent();
         }
 
-        for(int i=1; i<path.lenght(); i++){
+        for(int i=1; i<path.length; i++){
             if(actual.getFileByName(path[i]).isDir())
                 actual = actual.getDir(path[i]);
             else
-                return actual;
+                return (File) actual;
         }
+        return null;
     }
     
     protected String readFile(){
-    	return findFile().read();
+    	return ((Link)findFile()).read();
     }    
     
     protected void writeFile(String content){
-        findFile().write(content);
+        ((Link)findFile()).write(content);
     }
 
     protected void execute(){
-        findFile().execute();
+        // TODO !!!
+        // @tiagofbfernandes
+        //((Link)findFile()).execute();
     }
 
     protected String type(){
         return "Link";
+    }
+
+    public void xmlImport(Element fileElement) {
+        super.xmlImport(fileElement);
+    }
+
+    public Element xmlExport(){
+        Element link = new Element("link");
+        return super.xmlExportAttributes(link);
     }
 }
