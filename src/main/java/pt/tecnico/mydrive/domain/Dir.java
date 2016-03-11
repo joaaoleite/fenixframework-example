@@ -87,6 +87,16 @@ public class Dir extends Dir_Base {
     protected int getSize(){
         return (2+ getFileSet().size());
     }
+
+    @Override
+    protected boolean isDir(){
+        return true;    
+    }
+
+    @Override
+    protected String type(){
+        return "Dir";    
+    }
     
     @Override
     public void xmlImport(Element dirElement) throws ImportDocException{
@@ -129,14 +139,4 @@ public class Dir extends Dir_Base {
         }
         return element;
     }
-
-   @Override
-   protected boolean isDir(){
-        return true;    
-   }
-
-   @Override
-   protected String type(){
-        return "Dir";    
-   }
 }

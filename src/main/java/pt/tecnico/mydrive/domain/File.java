@@ -56,7 +56,9 @@ public abstract class File extends File_Base {
         deleteDomainObject();
     }
 
-    protected abstract boolean isDir();
+    protected boolean isDir(){
+        return false;
+    }
 
     protected abstract int getSize();
     

@@ -29,12 +29,7 @@ public class PlainFile extends PlainFile_Base {
 
     protected void execute(){
         String[] lines = getContent().split("\n");
-        //Implement Logic
-    }
-
-    @Override
-    protected boolean isDir(){
-        return false;
+        
     }
     
     @Override

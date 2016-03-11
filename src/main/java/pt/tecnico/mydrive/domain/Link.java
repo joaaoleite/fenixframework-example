@@ -14,7 +14,7 @@ public class Link extends Link_Base {
     	setContent(content);
     }
 
-    protected File findFile(){
+    protected File findFile() throws FileIsAPlainFileException, FileDoesNotExistException{
         String[] path = getContent().split("/");
 
         Dir actual;
@@ -41,17 +41,20 @@ public class Link extends Link_Base {
         throw new FileDoesNotExistException(path[i]);
     }
     
-    protected String readFile(){
-        if(isDir) throw new FileIsADirException(getName());
+    @Override
+    protected String read(){
+        if(isDir()) throw new FileIsADirException(getName());
     	  return ((PlainFile)findFile()).read();
     }    
     
-    protected void writeFile(String content){
-        ((Link)findFile()).write(content);
+    @Override
+    protected void write(String content){
+        ((PlainFile)findFile()).write(content);
     }
 
+    @Override
     protected void execute(){
-        // TODO !!!
+        // TO DO !!!
         // @tiagofbfernandes
         //((Link)findFile()).execute();
     }
