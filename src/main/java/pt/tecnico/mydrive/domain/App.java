@@ -29,7 +29,10 @@ public class App extends App_Base {
         super.xmlImport(fileElement);
     }
 
-    public Element xmlExport() throws ExportDocException{
-        return super.xmlExport();
+    public Element xmlExport(Element xmlmydrive){
+        Element app = new Element("app");
+        app = super.xmlExportAttributes(app);
+        xmlmydrive.addContent(app);
+        return xmlmydrive;
     }
 }

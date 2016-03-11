@@ -131,12 +131,13 @@ public class Dir extends Dir_Base {
         }
     }
 
-    public Element xmlExport() {
-        Element element = new Element("dir");
-        super.xmlExportAttributes(element);
+    public Element xmlExport(Element xmlmydrive) {
+        Element dir = new Element("dir");
+        dir = super.xmlExportAttributes(dir);
+        xmlmydrive.addContent(dir)
         for(File f: getFileSet()){
-            element.addContent(f.xmlExport());
+            xmlmydrive = f.xmlExport(xmlmydrive);
         }
-        return element;
+        return xmlmydrive;
     }
 }

@@ -51,10 +51,11 @@ public class PlainFile extends PlainFile_Base {
         }
     }
 
-    // could be an error
-    public Element xmlExport(){
+    public Element xmlExport(Element xmlmydrive){
 
-        Element element = new Element("plainfile");
-        return super.xmlExportAttributes(element);
+        Element plainfile = new Element("plainfile");
+        plainfile = super.xmlExportAttributes(plainfile);
+        xmlmydrive.addContent(plainfile);
+        return xmlmydrive;
     }
 }
