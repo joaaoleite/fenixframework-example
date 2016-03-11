@@ -5,6 +5,8 @@ import org.joda.time.DateTime;
 import pt.tecnico.mydrive.exception.*;
 
 public abstract class File extends File_Base {
+
+    protected File(){}
     
     protected File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super();

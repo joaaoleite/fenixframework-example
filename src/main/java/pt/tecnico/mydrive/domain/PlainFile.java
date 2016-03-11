@@ -1,9 +1,15 @@
 package pt.tecnico.mydrive.domain;
 
 public class PlainFile extends PlainFile_Base {
+
+    public PlainFile(){
+        super();
+    }
+
     
     public PlainFile(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
-        super(mydrive, parent, owner, name, mask);
+        super();
+        init(mydrive, parent, owner, name, mask);
     }
   
     protected String read(){
@@ -21,6 +27,11 @@ public class PlainFile extends PlainFile_Base {
 
     protected boolean isDir(){
         return false;
+    }
+
+    protected int getSize(){
+        // TODO (length of linked file) !!!
+        return getContent().length();
     }
 
     @Override

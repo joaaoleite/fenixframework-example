@@ -1,33 +1,34 @@
 package pt.tecnico.mydrive.domain;
 
+import java.io.UnsupportedEncodingException;
+
+import org.jdom2.Element;
+
 import pt.tecnico.mydrive.exception.*;
 
 
 public class User extends User_Base {
+
+    public User(){ }
+
     public User(MyDrive myDrive ,String username ) {
         if (checkUsername(username)==false){
-            throws new UserInvalidException();
+            throw new UserInvalidException(username);
         }
-        init(username, username, username,"rwxd----",myDrive.getRootDir());
-    }
-    public User(MyDrive myDrive ,String username, String umask ) {
-        if (checkUsername(username)==false){
-            throws new UserInvalidException();
-        }
-        init(username, username, username,umask,myDrive.getRootDir());
+        init(myDrive,username, username, username,"rwxd----",myDrive.getRootDir());
     }
     
     public User(MyDrive myDrive ,String username, String password) {
         if (checkUsername(username)==false){
-            throws new UserInvalidException();
+            throw new UserInvalidException(username);
         }
-        init(username, username, password,"rwxd----",myDrive.getRootDir());
+        init(myDrive,username, username, password,"rwxd----",myDrive.getRootDir());
     }
     public User(MyDrive myDrive, String username, String password,String umask ) {
         if (checkUsername(username)==false){
-            throw new UserInvalidException();
+            throw new UserInvalidException(username);
         }
-        init(username, username, password,umask,home, myDrive.getRootDir());
+        init(myDrive,username, username, password,umask, myDrive.getRootDir());
     }    
     
     public void remove(){
@@ -48,7 +49,7 @@ public class User extends User_Base {
     }
     public boolean checkUsername (String username) {
         if (username.compareTo("")==0){
-            return false
+            return false;
         }
         String pattern= "^[a-zA-Z0-9]*$";
         if(username.matches(pattern)){
@@ -77,11 +78,11 @@ public class User extends User_Base {
             element.setAttribute("password", getPassword());
             element.setAttribute("name", getName());
             element.setAttribute("umask", getUmask());
-        } catch(UnsupportedEncodingException e) { 
+            return element;
+        } catch(Exception e) { 
             System.err.println(e); 
             throw new ExportDocException(); 
         }
 
-        return element;
     } 
 }

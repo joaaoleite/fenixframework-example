@@ -1,9 +1,14 @@
 package pt.tecnico.mydrive.domain;
 
 public class Link extends Link_Base {
+
+    protected Link(){
+        super();
+    }
     
     protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
-    	super(mydrive, parent, owner, name, mask);
+        super();
+    	init(mydrive, parent, owner, name, mask);
     	setContent(content);
     }
 
@@ -12,7 +17,7 @@ public class Link extends Link_Base {
 
         Dir actual;
 
-        if(getContent.charAt(0) == '/'){
+        if(getContent().charAt(0) == '/'){
 
             actual = getMydrive().getRootDir();   
         }
@@ -20,12 +25,13 @@ public class Link extends Link_Base {
             actual = getParent();
         }
 
-        for(int i=1; i<path.lenght(); i++){
+        for(int i=1; i<path.length; i++){
             if(actual.getFileByName(path[i]).isDir())
                 actual = actual.getDir(path[i]);
             else
-                return actual;
+                return (File) actual;
         }
+        return null;
     }
     
     protected boolean isDir(){
@@ -33,15 +39,15 @@ public class Link extends Link_Base {
     }
 
     protected String readFile(){
-    	return findFile().read();
+    	return ((Link)findFile()).read();
     }    
     
     protected void writeFile(String content){
-        findFile().write(content);
+        ((Link)findFile()).write(content);
     }
 
     protected void execute(){
-        findFile().execute();
+        //((Link)findFile()).execute();
     }
 
     protected String type(){

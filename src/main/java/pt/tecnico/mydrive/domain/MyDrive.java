@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
+import pt.tecnico.mydrive.exception.*;
+
 import java.io.File;
 
 import org.jdom2.Element;
@@ -38,10 +40,10 @@ public class MyDrive extends MyDrive_Base {
         for(User u: getUserSet())
             u.remove();
 
-        getRootDir().recursiveR();
+        //getRootDir().recursiveR();
     }
 
-    public void xmlImport(Element element) {
+    /*public void xmlImport(Element element) {
 
         // import users
         Element users = element.getChild("users"); 
@@ -63,7 +65,7 @@ public class MyDrive extends MyDrive_Base {
 	      Document doc = new Document(element);
 
         return doc;
-    }
+    }*/
 
     public File resourceFile(String filename) {
 	      log.trace("Resource: "+filename);
@@ -72,7 +74,7 @@ public class MyDrive extends MyDrive_Base {
         return new java.io.File(classLoader.getResource(filename).getFile());
     }
 
-    private User getUserByUsername(String username){
+    protected User getUserByUsername(String username){
         for(User u: getUserSet()){
             if(u.getUsername()==username){
                 return u;
@@ -81,12 +83,13 @@ public class MyDrive extends MyDrive_Base {
         return null;
     }
 
-    public User createUser(String name, String username, String password, String mask){
+    public User createUser(String name, String username, String password, String mask) throws UserAlreadyExistsException{
         if(getUserByUsername(username)!=null){
-            throw new UserAlreadyExists(username);
+            throw new UserAlreadyExistsException(username);
         }
-        User user = new User(this,name,username,password,mask);
+        User user = new User(this,username,password,mask);
         addUser(user);
+        return user;
     }
 
 }

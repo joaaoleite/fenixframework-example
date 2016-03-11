@@ -1,9 +1,20 @@
 package pt.tecnico.mydrive.domain;
 
+import java.io.UnsupportedEncodingException;
+
+import org.jdom2.Element;
+
+import pt.tecnico.mydrive.exception.*;
+
 public class Dir extends Dir_Base {
+
+    public Dir(){
+        super();
+    }
     
     private Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
-        super(mydrive, parent, owner, name, mask);
+        super();
+        init(mydrive, parent, owner, name, mask);
     }
 
     protected File getFileByName(String name) throws FileDoesNotExistException{
@@ -15,14 +26,14 @@ public class Dir extends Dir_Base {
 
     protected Dir getDir(String name) throws FileDoesNotExistException, FileIsAPlainFileException{
         if (exists(name) == false)
-            throw FileDoesNotExistException;
+            throw new FileDoesNotExistException(name);
         else{
             File file = getFileByName(name);
             if (file.isDir()){
-                return file;
+                return (Dir) file;
             }
             else
-                return FileIsAPlainFileException();
+                throw new FileIsAPlainFileException(name);
         }
     }
 
@@ -33,7 +44,7 @@ public class Dir extends Dir_Base {
     }
 
     protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
-        if exists(name) == false{
+        if(exists(name) == false){
             Dir newDir = new Dir(getMydrive(), this, owner, name, mask);
             Dir selfDir = newDir;
             selfDir.setName(".");
@@ -46,20 +57,20 @@ public class Dir extends Dir_Base {
         }
         File file = getFileByName(name);
         if (file.isDir())
-            return file;
-        throw new FileAlreadyExistsException();
+            return (Dir) file;
+        throw new FileAlreadyExistsException(name);
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{
-        if exists(name) == false{
+        if(exists(name) == false){
             return new PlainFile(getMydrive(), this, owner, name, mask);
         }    
         else
-            throw new FileAlreadyExistsException();
+            throw new FileAlreadyExistsException(name);
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
-        Plainfile newPlainFile = createPlainFile(getMydrive(), this, owner, name, mask);
+        PlainFile newPlainFile = createPlainFile(owner, name, mask);
         newPlainFile.write(content);
         return newPlainFile;    
     }
@@ -67,35 +78,47 @@ public class Dir extends Dir_Base {
     @Override
     protected void remove() throws DirectoryIsNotEmptyException{
         if(getFileSet().isEmpty()){
-            throw new DirectoryIsNotEmptyException();
+            throw new DirectoryIsNotEmptyException(getName());
         }
         super.remove();
     }
 
-    public void xmlImport(Element dirElement) throws ImportDocumentException{
+    protected String type(){
+        return "Directory";
+    }
+
+    protected boolean isDir(){
+        return true;
+    }
+
+    protected int getSize(){
+        return (2+ getFileSet().size());
+    }
+
+    public void xmlImport(Element dirElement) throws ImportDocException{
         
         try {
-            for (Element e: directory.getChildren("dir"){
-            String name = new String(fileElement.getAttribute("name").getValue().getBytes("UTF-8"));
-            User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue().getBytes("UTF-8")));
-            String mask = new String(fileElement.getAttribute("mask").getValue().getBytes("UTF-8"));
+            for (Element e: dirElement.getChildren("dir")){
+            String name = new String(e.getAttribute("name").getValue().getBytes("UTF-8"));
+            User owner = getMydrive().getUserByUsername(new String(e.getAttribute("owner").getValue().getBytes("UTF-8")));
+            String mask = new String(e.getAttribute("mask").getValue().getBytes("UTF-8"));
             Dir dir = createDir(owner, name, mask);
             dir.xmlImport(e);
             }
         } catch (UnsupportedEncodingException e) { 
             System.err.println(e); 
-            throw new ImportDocumentException();
+            throw new ImportDocException();
         }
     }
 
     public Element xmlExport() {
         Element element = new Element("dir");
         element.setAttribute("name", getName());
-        element.setAttribute("owner",getOwner());
+        element.setAttribute("owner",getOwner().getUsername());
         element.setAttribute("mask",getMask());
-        for(File f: getFileSet()){
+        /*for(File f: getFileSet()){
             element.addContent(f.xmlExport());
-        }
+        }*/
         return element;
     }
 }
