@@ -71,18 +71,12 @@ public class User extends User_Base {
         }
     }
 
-    public Element xmlExport() throws ExportDocException{
-        try{
-            Element element = new Element("user");
-            element.setAttribute("username", getUsername());
-            element.setAttribute("password", getPassword());
-            element.setAttribute("name", getName());
-            element.setAttribute("umask", getUmask());
-            return element;
-        } catch(Exception e) { 
-            System.err.println(e); 
-            throw new ExportDocException(); 
-        }
-
+    public Element xmlExport(){
+        Element element = new Element("user");
+        element.setAttribute("username", getUsername());
+        element.setAttribute("password", getPassword());
+        element.setAttribute("name", getName());
+        element.setAttribute("umask", getUmask());
+        return element;
     } 
 }
