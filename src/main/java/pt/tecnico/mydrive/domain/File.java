@@ -77,5 +77,18 @@ public abstract class File extends File_Base {
         setMask(mask);
         setId(id);
     }
+
+    public abstract Element xmlExport(Element element);
+
+    public Element xmlExportAttributes(Element element) {
+
+        element.setAttribute("name", getName());
+        element.setAttribute("owner",getOwner());
+        element.setAttribute("mask",getMask());
+        element.setAttribute("lastMofification", getLastModification());
+        element.setAttribute("id", getId());
+
+        return element;
+    }
 }
 
