@@ -1,5 +1,8 @@
 package pt.tecnico.mydrive.domain;
 
+import java.io.UnsupportedEncodingException;
+import org.jdom2.Element;
+
 public class Link extends Link_Base {
 
     protected Link(){

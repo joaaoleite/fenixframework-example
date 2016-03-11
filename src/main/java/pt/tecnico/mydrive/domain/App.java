@@ -1,5 +1,10 @@
 package pt.tecnico.mydrive.domain;
 
+import pt.tecnico.mydrive.exception.*;
+
+import java.io.UnsupportedEncodingException;
+import org.jdom2.Element;
+
 public class App extends App_Base {
     
     public App() {
@@ -8,8 +13,8 @@ public class App extends App_Base {
     
     protected void execute(String[] args){
         String method = getContent();
-
-        //INCMPLETE!
+        //INCOMPLETE!!!
+        // @tiagofbfernandes
     }
 
     protected String type(){
