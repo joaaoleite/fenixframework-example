@@ -18,6 +18,9 @@ public class Dir extends Dir_Base {
     }
 
     protected File getFileByName(String name){
+        if (name.equals(".")) return this;
+        if (name.equals("..")) return getParent();
+
         for (File file: getFileSet()){
             if (file.getName().equals(name))
                 return file;
@@ -38,26 +41,25 @@ public class Dir extends Dir_Base {
         }
     }
 
-    protected Boolean exists(String name){
+    protected boolean exists(String name){
         return getFileByName(name) != null;
     }
 
     protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
         if(exists(name) == false){
             Dir newDir = new Dir(getMydrive(), this, owner, name, mask);
-            Dir selfDir = newDir;
-            selfDir.setName(".");
-            Dir parentDir = this;
-            parentDir.setName("..");
-            newDir.addFile(selfDir);
-            newDir.addFile(parentDir);
             addFile(newDir);
             return newDir;  
         }
-        File file = getFileByName(name);
-        if (file.isDir())
-            return (Dir) file;
         throw new FileAlreadyExistsException(name);
+    }
+
+    protected String listDir(){
+        String list = "";
+        for (File f : getFileSet())
+            list += (f.getName() + "\n");
+        
+        return list;
     }
 
     protected PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{

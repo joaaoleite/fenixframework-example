@@ -41,8 +41,8 @@ public abstract class File extends File_Base {
         return "";
     }
 
-    public boolean checkFilename(String username) {
-        return !(username.contains("/") || username.contains("\0"));
+    public boolean checkFilename(String name) {
+        return !(name.contains("/") || name.contains("\0") || name.equals("..") || name.equals("."));
     }
 
     protected void removeR(){
