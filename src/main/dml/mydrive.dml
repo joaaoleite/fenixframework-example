@@ -25,7 +25,7 @@ class SuperUser extends User;
 class File{
 	Integer id;
 	String name;
-	DateTime last_modification;
+	DateTime lastModification;
 	String mask;
 }
 

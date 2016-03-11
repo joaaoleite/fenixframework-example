@@ -33,12 +33,8 @@ public abstract class File extends File_Base {
         
         setName(name);
         DateTime last_mod = new DateTime();
-        setLast_modification(last_mod);
+        setLastModification(last_mod);
         setMask(mask);
-    }
-
-    protected String getLastModification(){
-        return "";
     }
 
     public boolean checkFilename(String name) {
