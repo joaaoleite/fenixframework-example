@@ -108,14 +108,17 @@ public class Dir extends Dir_Base {
             }
             for(Element e: dirElement.getChildren("plainfile")){
                 PlainFile plain = new PlainFile();
+                plain.setParent(this);
                 plain.xmlImport(e);
             }
             for(Element e: dirElement.getChildren("link")){
                 Link link = new Link();
+                link.setParent(this);
                 link.xmlImport(e);
             }
             for(Element e: dirElement.getChildren("app")){
                 App app = new App();
+                app.setParent(this);
                 app.xmlImport(e);
             }
 
@@ -127,12 +130,10 @@ public class Dir extends Dir_Base {
 
     public Element xmlExport() {
         Element element = new Element("dir");
-        element.setAttribute("name", getName());
-        element.setAttribute("owner",getOwner().getUsername());
-        element.setAttribute("mask",getMask());
-        /*for(File f: getFileSet()){
+        super.xmlExportAttributes(element);
+        for(File f: getFileSet()){
             element.addContent(f.xmlExport());
-        }*/
+        }
         return element;
     }
 }
