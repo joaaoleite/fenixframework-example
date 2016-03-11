@@ -42,7 +42,7 @@ public abstract class File extends File_Base {
     }
 
     public boolean checkFilename(String username) {
-        return !(username.contains("/") || username.contains("\0"))
+        return !(username.contains("/") || username.contains("\0"));
     }
 
     protected void removeR(){

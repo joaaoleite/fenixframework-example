@@ -6,7 +6,11 @@ import org.jdom2.Element;
 
 public class App extends App_Base {
     
-    public App(Mydrive mydrive, Dir parent, User owner, String name, String mask) {
+    public App(){
+        super();
+    }
+
+    public App(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
         super();
         init(mydrive, parent, owner, name, mask);
     }
