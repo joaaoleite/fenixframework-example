@@ -28,7 +28,7 @@ public abstract class File extends File_Base {
         setParent(parent);
         setOwner(owner);
 
-        int id = mydrive.getNfile();
+        int id = mydrive.generateId();
         setId(id);
         
         setName(name);
