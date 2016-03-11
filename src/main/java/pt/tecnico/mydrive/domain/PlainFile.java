@@ -42,4 +42,15 @@ public class PlainFile extends PlainFile_Base {
     protected String type(){
         return "Plain File";
     }
+
+    public void xmlImport(Element fileElement) throws ImportDocException{
+
+        try{
+            super.xmlImport(fileElement);
+            setContent(new String(fileElement.getAttribute("content").getValue().getBytes("UTF-8")));
+        } catch(UnsupportedEncodingException e){
+            System.err.println(e);
+            throw new ImportDocException();
+        }
+    }
 }
