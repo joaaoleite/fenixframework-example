@@ -40,15 +40,9 @@ public class PlainFile extends PlainFile_Base {
         return "PlainFile";
     }
 
+    @Override
     public void xmlImport(Element fileElement) throws ImportDocException{
-
-        try{
-            super.xmlImport(fileElement);
-            setContent(new String(fileElement.getAttribute("content").getValue().getBytes("UTF-8")));
-        } catch(UnsupportedEncodingException | DataConversionException e){
-            System.err.println(e);
-            throw new ImportDocException();
-        }
+        //to do setContent
     }
 
     public Element xmlExport(Element xmlmydrive){

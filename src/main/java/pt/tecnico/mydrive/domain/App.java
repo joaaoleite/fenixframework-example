@@ -25,10 +25,6 @@ public class App extends App_Base {
         return "App";
     }
 
-    public void xmlImport(Element fileElement) {
-        super.xmlImport(fileElement);
-    }
-
     public Element xmlExport(Element xmlmydrive){
         Element app = new Element("app");
         app = super.xmlExportAttributes(app);
