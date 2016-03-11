@@ -23,7 +23,11 @@ public abstract class File extends File_Base {
              throw new FilenameInvalidException(name);
 
         }
+        
+    createFile(mydrive, parent, owner, name, mask);
+    }
 
+    protected void createFile(MyDrive mydrive, Dir parent, User owner, String name, String mask){
         setMydrive(mydrive);
         setParent(parent);
         setOwner(owner);
@@ -43,6 +47,14 @@ public abstract class File extends File_Base {
 
     protected void removeR(){
         remove();
+    }
+    
+    protected String getPath(){
+        String path = "" getName();
+
+    
+
+
     }
 
     protected  void remove(){
