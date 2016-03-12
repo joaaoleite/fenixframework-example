@@ -27,6 +27,7 @@ public class MyDrive extends MyDrive_Base {
 
     private MyDrive() {
         setRoot(FenixFramework.getDomainRoot());
+        init();
     }
 
     protected int generateId(){
@@ -37,9 +38,11 @@ public class MyDrive extends MyDrive_Base {
 
     public void init(){
         RootDir rootdir = new RootDir(this);
+        rootdir.setParent(rootdir);
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
         rootdir.setOwner(superuser);
+
     }
 
     public void cleanup() {

@@ -12,16 +12,16 @@ public class PlainFile extends PlainFile_Base {
     }
 
     
-    public PlainFile(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+    public PlainFile(Dir parent, User owner, String name, String mask) {
         super();
-        init(mydrive, parent, owner, name, mask);
+        init(parent, owner, name, mask);
     }
   
-    protected String read(){
+    public String read(){
         return getContent();
     }
 
-    protected void write(String content){
+    public void write(String content){
         setContent(content);
     }
 

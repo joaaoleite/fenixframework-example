@@ -8,9 +8,9 @@ public class App extends App_Base {
         super();
     }
 
-    public App(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+    public App(Dir parent, User owner, String name, String mask) {
         super();
-        init(mydrive, parent, owner, name, mask);
+        init(parent, owner, name, mask);
     }
     
     protected void execute(String[] args){

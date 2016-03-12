@@ -12,19 +12,19 @@ public abstract class File extends File_Base {
 
     protected File(){}
     
-    protected File(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+    protected File( Dir parent, User owner, String name, String mask) {
         super();
-        init(mydrive, parent, owner, name, mask);
+        init( parent, owner, name, mask);
     }
 
 
-    protected void init(MyDrive mydrive, Dir parent, User owner, String name, String mask) throws FilenameInvalidException {
+    protected void init(Dir parent, User owner, String name, String mask) throws FilenameInvalidException {
         if (!checkFilename(name)){
              throw new FilenameInvalidException(name);
 
         }
-        
-    createFile(mydrive, parent, owner, name, mask);
+    MyDrive mydrive=getParent().getMydrive();
+    createFile(mydrive,parent, owner, name, mask);
     }
 
     protected void createFile(MyDrive mydrive, Dir parent, User owner, String name, String mask){

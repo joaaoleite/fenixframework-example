@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import pt.ist.fenixframework.Atomic;
 import pt.ist.fenixframework.FenixFramework;
 
-import pt.tecnico.mydrive.domain.MyDrive;
+import pt.tecnico.mydrive.domain.*;
 
 public class Main {
     static final Logger log = LogManager.getRootLogger();
@@ -43,12 +43,13 @@ public class Main {
     public static void setup() { // mydrive with debug data
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
-        /*Dir rootdir = mydrive.getRootDir();
+        Dir rootdir = mydrive.getRootDir();
          
         // 1. create File /home/README
-        PlainFile plain = rootdir.getFileByName("home").createPlainFile(this,"README",rootdir.getOwner(),"");
-        plain.write(mydrive.getUsers().toString());
-
+        PlainFile plain = rootdir.getDir("home").createPlainFile(rootdir.getOwner(),"README",""); 
+        /*plain.write(mydrive.getUserSet().toString());
+        System.out.println(plain.read());
+            
         // 2. create Dir /usr/local/bin
         Dir bin = rootdir.createDir("local").createDir("bin");
 

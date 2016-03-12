@@ -10,12 +10,12 @@ public class Dir extends Dir_Base {
         super();
     }
     
-    private Dir(MyDrive mydrive, Dir parent, User owner, String name, String mask) {
+    private Dir(Dir parent, User owner, String name, String mask) {
         super();
-        init(mydrive, parent, owner, name, mask);
+        init(parent, owner, name, mask);
     }
 
-    protected File getFileByName(String name){
+    public  File getFileByName(String name){
         if (name.equals(".")) return this;
         if (name.equals("..")) return getParent();
 
@@ -26,7 +26,7 @@ public class Dir extends Dir_Base {
         return null;
     } 
 
-    protected Dir getDir(String name) throws FileDoesNotExistException, FileIsAPlainFileException{
+    public Dir getDir(String name) throws FileDoesNotExistException, FileIsAPlainFileException{
         if (exists(name) == false)
             throw new FileDoesNotExistException(name);
         else{
@@ -45,7 +45,7 @@ public class Dir extends Dir_Base {
 
     protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
         if(exists(name) == false){
-            Dir newDir = new Dir(getMydrive(), this, owner, name, mask);
+            Dir newDir = new Dir(this, owner, name, mask);
             addFile(newDir);
             return newDir;  
         }
@@ -60,9 +60,9 @@ public class Dir extends Dir_Base {
         return list;
     }
 
-    protected PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{
+    public PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{
         if(exists(name) == false){
-            return new PlainFile(getMydrive(), this, owner, name, mask);
+            return new PlainFile( this, owner, name, mask);
         }    
         else
             throw new FileAlreadyExistsException(name);

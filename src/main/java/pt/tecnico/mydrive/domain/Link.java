@@ -10,7 +10,7 @@ public class Link extends Link_Base {
     
     protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
         super();
-    	init(mydrive, parent, owner, name, mask);
+    	init(parent, owner, name, mask);
     	setContent(content);
     }
 
@@ -42,13 +42,13 @@ public class Link extends Link_Base {
     }
     
     @Override
-    protected String read() throws FileIsADirException{
+    public String read() throws FileIsADirException{
         if(isDir()) throw new FileIsADirException(getName());
     	  return ((PlainFile)findFile()).read();
     }    
     
     @Override
-    protected void write(String content){
+    public void write(String content){
         ((PlainFile)findFile()).write(content);
     }
 

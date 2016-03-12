@@ -9,29 +9,30 @@ import pt.tecnico.mydrive.exception.*;
 
 public class User extends User_Base {
 
-    public User(){ }
+    public User(){ super();}
 
     public User(MyDrive myDrive ,String username ) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }
-        init(myDrive,username, username, username,"rwxd----",myDrive.getRootDir());
+        init(myDrive,username, username, username,"rwxd----");
     }
     
     public User(MyDrive myDrive ,String username, String password) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }
-        init(myDrive,username, username, password,"rwxd----",myDrive.getRootDir());
+        init(myDrive,username, username, password,"rwxd----");
     }
     public User(MyDrive myDrive, String username, String password,String umask ) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }
-        init(myDrive,username, username, password,umask, myDrive.getRootDir());
+        init(myDrive,username, username, password,umask);
     }    
     
     public void remove(){
+        setMydrive(null);
         setUsername(null);
         setUmask(null);
         setName(null);
@@ -40,15 +41,16 @@ public class User extends User_Base {
         deleteDomainObject();
     }
  
-    protected void init(MyDrive myDrive,String username, String name, String password,String umask, Dir home ) {
+    protected void init(MyDrive myDrive,String username, String name, String password,String umask) {
+        setMydrive(myDrive);
         setUsername(username);
         setName(name);
         setPassword(password);
         setUmask(umask);
-        setHomedir(home);
+        setHomedir(myDrive.getRootDir().getDir("home").createDir(this,username,umask));
     }
     public boolean checkUsername (String username) {
-        if (username.compareTo("")==0){
+        if (username.equals("")){
             return false;
         }
         String pattern= "^[a-zA-Z0-9]*$";
