@@ -1,6 +1,5 @@
 package pt.tecnico.mydrive.domain;
 
-import java.io.UnsupportedEncodingException;
 
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
@@ -23,7 +22,7 @@ public abstract class File extends File_Base {
              throw new FilenameInvalidException(name);
 
         }
-    MyDrive mydrive=getParent().getMydrive();
+    MyDrive mydrive=parent.getMydrive();
     createFile(mydrive,parent, owner, name, mask);
     }
 
