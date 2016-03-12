@@ -51,12 +51,14 @@ public class Main {
            
         // 2. create Dir /usr/local/bin
         Dir bin = rootdir.createDir(mydrive.getUserByUsername("root"),"usr","mask").createDir(mydrive.getUserByUsername("root"),"local","mask").createDir(mydrive.getUserByUsername("root"),"bin","mask");
+        System.out.println(rootdir.listDir());
         
-        /*
+        
         // 3. print /home/README
-        System.out.println(plain.read());
+        System.out.println(((PlainFile)rootdir.getDir("home").getFileByName("README")).read());
+        
 
-        // 4. remove /usr/local/bin
+       /* // 4. remove /usr/local/bin
         bin.remove();
 
         // 5. print xmlExport()

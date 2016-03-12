@@ -22,12 +22,14 @@ public class MyDrive extends MyDrive_Base {
 	          return mydrive;
 
 	      log.trace("new MyDrive");
-        return new MyDrive();
+        mydrive=new MyDrive();
+        mydrive.init();
+        return mydrive;
     }
 
     private MyDrive() {
         setRoot(FenixFramework.getDomainRoot());
-        init();
+        
     }
 
     protected int generateId(){
