@@ -4,11 +4,11 @@ import org.jdom2.Element;
 
 public class Link extends Link_Base {
 
-    protected Link(){
+    public  Link(){
         super();
     }
     
-    protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
+    public Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
         super();
     	init(parent, owner, name, mask);
     	setContent(content);
