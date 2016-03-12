@@ -75,7 +75,7 @@ public class Dir extends Dir_Base {
     }
     
     @Override
-    protected void remove() throws DirectoryIsNotEmptyException{
+    public void remove() throws DirectoryIsNotEmptyException{
         if(!getFileSet().isEmpty()){
             throw new DirectoryIsNotEmptyException(getName());
         }

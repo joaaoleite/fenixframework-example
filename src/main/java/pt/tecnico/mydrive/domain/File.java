@@ -61,7 +61,7 @@ public abstract class File extends File_Base {
         return path;
     }
 
-    protected  void remove(){
+    public void remove(){
         setMydrive(null);
         setParent(null);
         setOwner(null);
