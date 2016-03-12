@@ -5,5 +5,9 @@ public class SuperUser extends SuperUser_Base {
         super();
         init(myDrive,"root", "SuperUser", "***","rwxdr-x-"); 
     } 
+    @Override
+    public void remove(){
+    }
+    
     
 }

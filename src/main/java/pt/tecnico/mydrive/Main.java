@@ -63,7 +63,7 @@ public class Main {
 
 
         // 5. print xmlExport()
-        //xmlPrint();
+        xmlPrint();
 
         // 6. remove /home/README
         rootdir.getDir("home").getFileByName("README").remove();
