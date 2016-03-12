@@ -31,17 +31,20 @@ public class MyDrive extends MyDrive_Base {
     }
 
     protected int generateId(){
-        int nfile = getNfile();
-        setNfile(nfile+1);
-        return (int) nfile;
+        int num = getNfile().intValue();
+        setNfile(new Integer(num+1));
+        return num;
     }
 
     public void init(){
         RootDir rootdir = new RootDir(this);
         rootdir.setParent(rootdir);
+        rootdir.createDir(null, "home", "");
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
         rootdir.setOwner(superuser);
+        rootdir.getDir("home").setOwner(superuser);
+        setNfile(new Integer(0));
 
     }
 
