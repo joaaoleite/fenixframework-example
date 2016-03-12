@@ -54,9 +54,6 @@ public class Link extends Link_Base {
 
     @Override
     protected void execute(){
-        // TO DO !!!
-        // @tiagofbfernandes
-        //((Link)findFile()).execute();
     }
 
     protected String type(){

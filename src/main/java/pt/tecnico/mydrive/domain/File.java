@@ -22,8 +22,8 @@ public abstract class File extends File_Base {
              throw new FilenameInvalidException(name);
 
         }
-    MyDrive mydrive=parent.getMydrive();
-    createFile(mydrive,parent, owner, name, mask);
+        MyDrive mydrive=parent.getMydrive();
+        createFile(mydrive,parent, owner, name, mask);
     }
 
     protected void createFile(MyDrive mydrive, Dir parent, User owner, String name, String mask){
@@ -112,7 +112,7 @@ public abstract class File extends File_Base {
         element.setAttribute("name", getName());
         element.setAttribute("owner",getOwner().getUsername());
         element.setAttribute("mask",getMask());
-        element.setAttribute("lastModification", getLastModification().toString("G"));
+        element.setAttribute("lastModification", getLastModification().toString());
         element.setAttribute("id", getId().toString());
 
         return element;

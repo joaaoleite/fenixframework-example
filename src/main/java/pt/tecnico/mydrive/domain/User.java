@@ -59,7 +59,6 @@ public class User extends User_Base {
         }
         return false;
 
-
     }
     
     public void xmlImport(Element userElemet) throws ImportDocException {

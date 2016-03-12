@@ -15,8 +15,6 @@ public class App extends App_Base {
     
     protected void execute(String[] args){
         String method = getContent();
-        //INCOMPLETE!!!
-        // @tiagofbfernandes
     }
 
     protected String type(){

@@ -21,7 +21,7 @@ public class MyDrive extends MyDrive_Base {
         if (mydrive != null)
 	          return mydrive;
 
-	      log.trace("new MyDrive");
+	   log.trace("new MyDrive");
         mydrive=new MyDrive();
         mydrive.init();
         return mydrive;
@@ -92,7 +92,7 @@ public class MyDrive extends MyDrive_Base {
    
     public Document xmlExport() {
         Element element = new Element("mydrive");
-	      Document doc = new Document(element);
+	    Document doc = new Document(element);
         
         for(User u: getUserSet()){
             element = u.xmlExport(element);
@@ -103,7 +103,7 @@ public class MyDrive extends MyDrive_Base {
     }
     
     public File resourceFile(String filename) {
-	      log.trace("Resource: "+filename);
+	    log.trace("Resource: "+filename);
         ClassLoader classLoader = getClass().getClassLoader();
         if (classLoader.getResource(filename) == null) return null;
         return new java.io.File(classLoader.getResource(filename).getFile());
