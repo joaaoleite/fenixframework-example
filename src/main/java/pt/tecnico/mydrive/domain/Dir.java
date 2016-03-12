@@ -43,7 +43,7 @@ public class Dir extends Dir_Base {
         return getFileByName(name) != null;
     }
 
-    protected Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
+    public Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
         if(exists(name) == false){
             Dir newDir = new Dir(this, owner, name, mask);
             addFile(newDir);
@@ -52,7 +52,7 @@ public class Dir extends Dir_Base {
         throw new FileAlreadyExistsException(name);
     }
 
-    protected String listDir(){
+    public String listDir(){
         String list = "";
         for (File f : getFileSet())
             list += (f.getName() + "\n");

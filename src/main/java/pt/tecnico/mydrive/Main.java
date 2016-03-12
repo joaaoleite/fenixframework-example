@@ -48,10 +48,11 @@ public class Main {
         // 1. create File /home/README
         PlainFile plain = rootdir.getDir("home").createPlainFile(rootdir.getOwner(),"README",""); 
         plain.write(mydrive.getUserSet().toString());
-        /*    
+           
         // 2. create Dir /usr/local/bin
-        Dir bin = rootdir.createDir("local").createDir("bin");
-
+        Dir bin = rootdir.createDir(mydrive.getUserByUsername("root"),"usr","mask").createDir(mydrive.getUserByUsername("root"),"local","mask").createDir(mydrive.getUserByUsername("root"),"bin","mask");
+        
+        /*
         // 3. print /home/README
         System.out.println(plain.read());
 

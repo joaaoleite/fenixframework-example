@@ -108,7 +108,7 @@ public class MyDrive extends MyDrive_Base {
         return new java.io.File(classLoader.getResource(filename).getFile());
     }
 
-    protected User getUserByUsername(String username){
+    public User getUserByUsername(String username){
         for(User u: getUserSet()){
             if(u.getUsername()==username){
                 return u;
