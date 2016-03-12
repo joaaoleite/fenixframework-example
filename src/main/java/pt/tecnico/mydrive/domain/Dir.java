@@ -53,9 +53,9 @@ public class Dir extends Dir_Base {
     }
 
     public String listDir(){
-        String list = "";
+        String list = ".\n..";
         for (File f : getFileSet())
-            list += (f.getName() + "\n");
+            list += ("\n" + f.getName());
         
         return list;
     }
