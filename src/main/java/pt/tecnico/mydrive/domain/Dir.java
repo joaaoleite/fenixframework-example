@@ -10,7 +10,7 @@ public class Dir extends Dir_Base {
         super();
     }
     
-    private Dir(Dir parent, User owner, String name, String mask) {
+    public Dir(Dir parent, User owner, String name, String mask) {
         super();
         init(parent, owner, name, mask);
     }

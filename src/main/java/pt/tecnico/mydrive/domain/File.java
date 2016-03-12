@@ -10,9 +10,9 @@ import pt.tecnico.mydrive.exception.*;
 
 public abstract class File extends File_Base {
 
-    protected File(){}
+    public File(){}
     
-    protected File( Dir parent, User owner, String name, String mask) {
+    public File( Dir parent, User owner, String name, String mask) {
         super();
         init( parent, owner, name, mask);
     }
