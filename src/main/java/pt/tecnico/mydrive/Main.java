@@ -44,6 +44,7 @@ public class Main {
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
         Dir rootdir = mydrive.getRootDir();
+        System.out.println(rootdir.listDir()); 
 
          
         // 1. create File /home/README

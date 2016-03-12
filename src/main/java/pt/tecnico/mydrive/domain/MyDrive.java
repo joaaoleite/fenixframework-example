@@ -41,7 +41,6 @@ public class MyDrive extends MyDrive_Base {
     public void init(){
         setNfile(new Integer(0));
         RootDir rootdir = new RootDir(this);
-        rootdir.setParent(rootdir);
         rootdir.createDir(null, "home", "");
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
