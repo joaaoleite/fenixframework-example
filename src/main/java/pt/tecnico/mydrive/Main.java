@@ -44,7 +44,7 @@ public class Main {
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
         Dir rootdir = mydrive.getRootDir();
-        System.out.println(rootdir.listDir()); 
+        
 
          
         // 1. create File /home/README
@@ -57,7 +57,7 @@ public class Main {
         // 3. print /home/README
         System.out.println(((PlainFile)rootdir.getDir("home").getFileByName("README")).read());
         
-
+    
        // 4. remove /usr/local/bin
         rootdir.getDir("usr").getDir("local").getDir("bin").remove();
 
