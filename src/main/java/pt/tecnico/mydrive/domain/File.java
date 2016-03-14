@@ -1,6 +1,5 @@
 package pt.tecnico.mydrive.domain;
 
-
 import java.util.Collections;
 import java.util.Set;
 
@@ -12,9 +11,11 @@ import pt.tecnico.mydrive.exception.*;
 
 public abstract class File extends File_Base {
 
-    public File(){}
+    public File(){
+        super();
+    }
     
-    public File( Dir parent, User owner, String name, String mask) {
+    protected File( Dir parent, User owner, String name, String mask) {
         super();
         init( parent, owner, name, mask);
     }
@@ -43,7 +44,7 @@ public abstract class File extends File_Base {
         setMask(mask);
     }
 
-    public boolean checkFilename(String name) {
+    private boolean checkFilename(String name) {
         return !(name.contains("/") || name.contains("\0") || name.equals("..") || name.equals("."));
     }
 
@@ -51,7 +52,7 @@ public abstract class File extends File_Base {
         remove();
     }
 
-    public Set<File> getChilds(Set<File> list){
+    public Set<File> getChildren(Set<File> list){
         return list;
     }
     
@@ -84,8 +85,6 @@ public abstract class File extends File_Base {
 
     protected abstract int getSize();
     
-    protected abstract String type();
-
     public void xmlImport(Element element) throws DataConversionException {
         String name = element.getChildText("name");
         String path = element.getChildText("path");

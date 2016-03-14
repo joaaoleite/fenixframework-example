@@ -10,9 +10,8 @@ public class PlainFile extends PlainFile_Base {
     public PlainFile(){
         super();
     }
-
     
-    public PlainFile(Dir parent, User owner, String name, String mask) {
+    protected PlainFile(Dir parent, User owner, String name, String mask) {
         super();
         init(parent, owner, name, mask);
     }
@@ -31,11 +30,6 @@ public class PlainFile extends PlainFile_Base {
     @Override
     protected int getSize(){
         return getContent().length();
-    }
-
-    @Override
-    protected String type(){
-        return "PlainFile";
     }
 
     public void print(){

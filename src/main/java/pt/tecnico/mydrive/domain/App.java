@@ -11,17 +11,13 @@ public class App extends App_Base {
         super();
     }
 
-    public App(Dir parent, User owner, String name, String mask) {
+    protected App(Dir parent, User owner, String name, String mask) {
         super();
         init(parent, owner, name, mask);
     }
     
     protected void execute(String[] args){
         String method = getContent();
-    }
-
-    protected String type(){
-        return "App";
     }
 
     public Element xmlExport(Element xmlmydrive){
