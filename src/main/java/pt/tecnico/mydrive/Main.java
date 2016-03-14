@@ -78,7 +78,31 @@ public class Main {
         // 7. list /home
         System.out.println(rootdir.getDir("home").listDir());
     }
-     
+
+    @Atomic
+    public static void print() {
+        log.trace("Print: " + FenixFramework.getDomainRoot());
+        MyDrive mydrive = MyDrive.getInstance();
+
+        for (User u: mydrive.getUserSet()) {
+            System.out.println("The Mydrive has a user with username:" + u.getUsername() + " , password: " + u.getPassword() + ", name: " + u.getName() + "and mask:" + u.getUmask());
+        }
+        for (File f: mydrive.getRootDir().getChilds()){
+            if (f instanceof Dir){
+                System.out.println("The mydrive has a dir with path: " + f.getPath() + " , name: " + f.getName() + ", owner: " + f.getOwner() + ", perm: " + f.getMask();
+            }
+            if (f instanceof App){
+                System.out.println("The mydrive has a app with path: " + f.getPath() + " , name: " + f.getName() + ", owner: " + f.getOwner() + ", perm: " + f.getMask() + ", method: " + f.getContent();
+            }
+            if (f instanceof Link){
+                System.out.println("The mydrive has a link with path: " + f.getPath() + " , name: " + f.getName() + ", owner: " + f.getOwner() + ", perm: " + f.getMask() + ", value: " + f.getContent();
+            }
+            if (f instanceof PlainFile){
+                System.out.println("The mydrive has a plain with path: " + f.getPath() + " , name: " + f.getName() + ", owner " + f.getOwner() + ", perm: " + f.getMask() + ", contents: " + f.getContent();
+            }
+        }
+    }
+
     @Atomic
     public static void xmlPrint() {
         log.trace("xmlPrint: " + FenixFramework.getDomainRoot());
