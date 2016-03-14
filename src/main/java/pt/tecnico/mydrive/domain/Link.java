@@ -10,13 +10,13 @@ public class Link extends Link_Base {
         super();
     }
     
-    public Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
+    protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
         super();
     	init(parent, owner, name, mask);
     	setContent(content);
     }
 
-    protected File findFile() throws FileIsAPlainFileException, FileDoesNotExistException{
+    private File findFile() throws FileIsAPlainFileException, FileDoesNotExistException{
         String[] path = getContent().split("/");
 
         Dir actual;
@@ -58,10 +58,7 @@ public class Link extends Link_Base {
     protected void execute(){
     }
 
-    protected String type(){
-        return "Link";
-    }
-
+    @Override
     public void print(){
         System.out.println("The mydrive has a link with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask() + ", value: " + getContent());
     }
@@ -73,6 +70,7 @@ public class Link extends Link_Base {
         super.xmlImport(fileElement);
     }
 
+    @Override
     public Element xmlExport(Element xmlmydrive){
         Element link = new Element("link");
         link = super.xmlExportAttributes(link);
