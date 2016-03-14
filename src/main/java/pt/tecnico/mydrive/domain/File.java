@@ -90,7 +90,9 @@ public abstract class File extends File_Base {
         String name = element.getChildText("name");
         String path = element.getChildText("path");
         User owner = getMydrive().getUserByUsername(new String(element.getAttribute("owner").getValue()));
-        String mask = element.getChildText("perm");
+        if (element.getChildText("perm") != ""){
+            String mask = element.getChildText("perm");
+        }
         int id = element.getAttribute("id").getIntValue();
         
         setName(name);
