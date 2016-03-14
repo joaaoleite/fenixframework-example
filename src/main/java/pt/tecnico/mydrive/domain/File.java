@@ -52,7 +52,7 @@ public abstract class File extends File_Base {
         String path = "/" + getName();
 
         for(Dir dir = getParent();
-            dir.equals(getParent());
+            dir.getId()!=0;
             dir = dir.getParent()){
 
             path = "/" + dir.getName() + path;
@@ -115,7 +115,6 @@ public abstract class File extends File_Base {
         element.addContent(new Element("owner").setText(getOwner().getUsername()));
         element.addContent(new Element("perm").setText(getMask()));
         element.addContent(new Element("lastModification").setText(getLastModification().toString()));
-
         return element;
     }
 }
