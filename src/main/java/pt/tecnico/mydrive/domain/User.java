@@ -11,20 +11,20 @@ public class User extends User_Base {
 
     public User(){ super();}
 
-    public User(MyDrive myDrive ,String username ) {
+    protected User(MyDrive myDrive ,String username ) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }
         init(myDrive,username, username, username,"rwxd----");
     }
     
-    public User(MyDrive myDrive ,String username, String password) {
+    protected User(MyDrive myDrive ,String username, String password) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }
         init(myDrive,username, username, password,"rwxd----");
     }
-    public User(MyDrive myDrive, String username, String password,String umask ) {
+    protected User(MyDrive myDrive, String username, String password,String umask ) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }

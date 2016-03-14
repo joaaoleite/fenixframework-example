@@ -4,7 +4,7 @@ import org.jdom2.Element;
 
 public class RootDir extends RootDir_Base {
     
-    public RootDir(MyDrive mydrive){
+    protected RootDir(MyDrive mydrive){
         super();
         createFile(mydrive, null, null, "/", "");
     }
