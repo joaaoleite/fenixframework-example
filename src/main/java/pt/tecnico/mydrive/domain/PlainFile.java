@@ -38,6 +38,10 @@ public class PlainFile extends PlainFile_Base {
         return "PlainFile";
     }
 
+    public void print(){
+        System.out.println("The mydrive has a plain with path: " + getPath() + " , name: " + getName() + ", owner " + getOwner().getUsername() + ", perm: " + getMask() + ", contents: " + getContent());
+    }
+
     @Override
     public void xmlImport(Element fileElement) throws ImportDocException, DataConversionException{
         if(getContent()==null)

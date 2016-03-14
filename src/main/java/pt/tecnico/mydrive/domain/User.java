@@ -81,6 +81,10 @@ public class User extends User_Base {
 
     }
 
+    public void print(){
+        System.out.println("The Mydrive has a user with username:" + getUsername() + " , password: " + getPassword() + ", name: " +getName() + "and mask:" + getUmask());
+    }
+
     public Element xmlExport(Element xmlmydrive){
         Element user = new Element("user");
         user.setAttribute("username", getUsername());

@@ -62,6 +62,10 @@ public class Link extends Link_Base {
         return "Link";
     }
 
+    public void print(){
+        System.out.println("The mydrive has a link with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask() + ", value: " + getContent());
+    }
+
     @Override
     public void xmlImport(Element fileElement) throws ImportDocException, DataConversionException{
         String content = new String(fileElement.getChildText("value"));

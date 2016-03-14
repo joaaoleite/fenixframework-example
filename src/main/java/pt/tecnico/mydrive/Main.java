@@ -3,7 +3,7 @@ package pt.tecnico.mydrive;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.File;
+//import java.io.File;
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
@@ -25,8 +25,8 @@ public class Main {
         System.out.println("*** Welcome to the MyDrive application! ***");
 	      try {
 	          setup();
-	          for (String s: args) xmlScan(new File(s));
-            //print();
+	          for (String s: args) xmlScan(new java.io.File(s));
+            print();
             xmlPrint();
 	      } finally { FenixFramework.shutdown(); }
     }
@@ -85,21 +85,10 @@ public class Main {
         MyDrive mydrive = MyDrive.getInstance();
 
         for (User u: mydrive.getUserSet()) {
-            System.out.println("The Mydrive has a user with username:" + u.getUsername() + " , password: " + u.getPassword() + ", name: " + u.getName() + "and mask:" + u.getUmask());
+            u.print();
         }
         for (File f: mydrive.getRootDir().getChilds()){
-            if (f instanceof Dir){
-                System.out.println("The mydrive has a dir with path: " + f.getPath() + " , name: " + f.getName() + ", owner: " + f.getOwner() + ", perm: " + f.getMask();
-            }
-            if (f instanceof App){
-                System.out.println("The mydrive has a app with path: " + f.getPath() + " , name: " + f.getName() + ", owner: " + f.getOwner() + ", perm: " + f.getMask() + ", method: " + f.getContent();
-            }
-            if (f instanceof Link){
-                System.out.println("The mydrive has a link with path: " + f.getPath() + " , name: " + f.getName() + ", owner: " + f.getOwner() + ", perm: " + f.getMask() + ", value: " + f.getContent();
-            }
-            if (f instanceof PlainFile){
-                System.out.println("The mydrive has a plain with path: " + f.getPath() + " , name: " + f.getName() + ", owner " + f.getOwner() + ", perm: " + f.getMask() + ", contents: " + f.getContent();
-            }
+                f.print();
         }
     }
 
@@ -113,7 +102,7 @@ public class Main {
     }
 
     @Atomic
-    public static void xmlScan(File file) {
+    public static void xmlScan(java.io.File file) {
         log.trace("xmlScan: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
 	      SAXBuilder builder = new SAXBuilder();

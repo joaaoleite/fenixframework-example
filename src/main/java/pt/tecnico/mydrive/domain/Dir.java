@@ -2,6 +2,9 @@ package pt.tecnico.mydrive.domain;
 
 import org.jdom2.Element;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import pt.tecnico.mydrive.exception.*;
 
 public class Dir extends Dir_Base {
@@ -95,15 +98,21 @@ public class Dir extends Dir_Base {
     protected String type(){
         return "Dir";    
     }
-
+    
+    public void print(){
+        System.out.println("The mydrive has a dir with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask());
+    }
+    
     public Set<File> getChilds(Set<File> list){
         for(File f: getFileSet()){
-            if (f.instanceof Dir){
-                list = f.childs(list);
-            }
+            list = f.getChilds(list);
             list.add(f);
         }
         return list;
+    }
+
+    public Set<File> getChilds(){
+        return getChilds(new HashSet<File>());
     }
 
     public Element xmlExport(Element xmlmydrive) {

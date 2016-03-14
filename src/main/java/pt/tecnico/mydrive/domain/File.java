@@ -1,6 +1,9 @@
 package pt.tecnico.mydrive.domain;
 
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 import org.joda.time.DateTime;
@@ -47,6 +50,13 @@ public abstract class File extends File_Base {
     protected void removeR(){
         remove();
     }
+
+    public Set<File> getChilds(Set<File> list){
+        return list;
+    }
+    
+
+    public abstract void print();
     
     protected String getPath(){
         String path = "/" + getName();
