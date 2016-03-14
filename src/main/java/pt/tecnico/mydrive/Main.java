@@ -25,9 +25,9 @@ public class Main {
         System.out.println("*** Welcome to the MyDrive application! ***");
 	      try {
 	          setup();
-	          //for (String s: args) xmlScan(new File(s));
+	          for (String s: args) xmlScan(new File(s));
             //print();
-            //xmlPrint();
+            xmlPrint();
 	      } finally { FenixFramework.shutdown(); }
     }
 
@@ -46,29 +46,35 @@ public class Main {
         Dir rootdir = mydrive.getRootDir();
         
 
-         
+        System.out.println("1"); 
         // 1. create File /home/README
         PlainFile plain = rootdir.getDir("home").createPlainFile(rootdir.getOwner(),"README",""); 
         plain.write(mydrive.getUserSet().toString());
            
+        System.out.println("2"); 
         // 2. create Dir /usr/local/bin
         Dir bin = rootdir.createDir(mydrive.getUserByUsername("root"),"usr","mask").createDir(mydrive.getUserByUsername("root"),"local","mask").createDir(mydrive.getUserByUsername("root"),"bin","mask");
         
+        System.out.println("3"); 
         // 3. print /home/README
         System.out.println(((PlainFile)rootdir.getDir("home").getFileByName("README")).read());
         
     
+        System.out.println("4"); 
        // 4. remove /usr/local/bin
         rootdir.getDir("usr").getDir("local").getDir("bin").remove();
 
-
+        
+        System.out.println("5"); 
         // 5. print xmlExport()
         xmlPrint();
 
+        System.out.println("6"); 
         // 6. remove /home/README
         rootdir.getDir("home").getFileByName("README").remove();
         
 
+        System.out.println("7"); 
         // 7. list /home
         System.out.println(rootdir.getDir("home").listDir());
     }
