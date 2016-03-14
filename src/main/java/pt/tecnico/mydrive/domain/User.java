@@ -64,9 +64,17 @@ public class User extends User_Base {
     public void xmlImport(Element userElemet) throws ImportDocException {
 
         try {
-            setPassword(new String(userElemet.getElement("password").getValue().getBytes("UTF-8")));
-            setName(new String(userElemet.getElement("name").getValue().getBytes("UTF-8")));
-        } catch (UnsupportedEncodingException e) { 
+            setUsername(new String(userElemet.getAttribute("username").getValue()));
+            setName(new String(userElemet.getChildText("name")));
+
+            if (userElemet.getChildText("password") != ""){
+                setPassword(new String(userElemet.getChildText("password")));
+            }
+            
+            if (userElemet.getChildText("mask") != ""){
+                setUmask(new String(userElemet.getChildText("mask")));
+            }
+        } catch (UnsupportedEncodingException e) {
             System.err.println(e); 
             throw new ImportDocException(); 
         }
@@ -78,6 +86,7 @@ public class User extends User_Base {
         user.setAttribute("username", getUsername());
         user.addContent(new Element("password").setText(getPassword()));
         user.addContent(new Element("name").setText(getName()));
+        user.addContent(new Element("home").setText("/home/"+getUsername()));
         user.addContent(new Element("umask").setText(getUmask()));
         xmlmydrive.addContent(user);
         return xmlmydrive;
