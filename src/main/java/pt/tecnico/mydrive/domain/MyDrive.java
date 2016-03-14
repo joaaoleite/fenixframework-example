@@ -46,6 +46,7 @@ public class MyDrive extends MyDrive_Base {
         SuperUser superuser = new SuperUser(this);
         rootdir.setOwner(superuser);
         rootdir.getDir("home").setOwner(superuser);
+        rootdir.getDir("home").setMask(superuser.getUmask());
 
     }
 

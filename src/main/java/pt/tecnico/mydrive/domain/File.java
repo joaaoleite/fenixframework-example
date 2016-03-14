@@ -91,8 +91,11 @@ public abstract class File extends File_Base {
         String path = element.getChildText("path");
         User owner = getMydrive().getUserByUsername(new String(element.getAttribute("owner").getValue()));
         if (element.getChildText("perm") != ""){
-            String mask = element.getChildText("perm");
+            setMask(element.getChildText("perm"));
+        }else{
+            setMask(owner.getUmask());
         }
+
         int id = element.getAttribute("id").getIntValue();
         
         setName(name);
@@ -113,7 +116,6 @@ public abstract class File extends File_Base {
         setParent(actual);
         actual.addFile(this);
         setOwner(owner);
-        setMask(mask);
         setId(id);
     }
 
