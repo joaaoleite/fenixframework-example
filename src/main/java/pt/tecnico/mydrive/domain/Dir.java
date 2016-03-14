@@ -13,12 +13,12 @@ public class Dir extends Dir_Base {
         super();
     }
     
-    public Dir(Dir parent, User owner, String name, String mask) {
+    protected Dir(Dir parent, User owner, String name, String mask) {
         super();
         init(parent, owner, name, mask);
     }
 
-    public  File getFileByName(String name){
+    public File getFileByName(String name){
         if (name.equals(".")) return this;
         if (name.equals("..")) return getParent();
 
@@ -71,7 +71,7 @@ public class Dir extends Dir_Base {
             throw new FileAlreadyExistsException(name);
     }
 
-    protected PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
+    public PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
         PlainFile newPlainFile = createPlainFile(owner, name, mask);
         newPlainFile.write(content);
         return newPlainFile;    
@@ -100,26 +100,21 @@ public class Dir extends Dir_Base {
     protected boolean isDir(){
         return true;    
     }
-
-    @Override
-    protected String type(){
-        return "Dir";    
-    }
     
     public void print(){
         System.out.println("The mydrive has a dir with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask());
     }
     
-    public Set<File> getChilds(Set<File> list){
+    public Set<File> getChildren(Set<File> list){
         for(File f: getFileSet()){
-            list = f.getChilds(list);
+            list = f.getChildren(list);
             list.add(f);
         }
         return list;
     }
 
-    public Set<File> getChilds(){
-        return getChilds(new HashSet<File>());
+    public Set<File> getChildren(){
+        return getChildren(new HashSet<File>());
     }
 
     public Element xmlExport(Element xmlmydrive) {
