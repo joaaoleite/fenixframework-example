@@ -44,6 +44,7 @@ public class MyDrive extends MyDrive_Base {
         rootdir.createDir(null, "home", "");
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
+        setSuperUser(superuser);
         rootdir.setOwner(superuser);
         rootdir.getDir("home").setOwner(superuser);
         rootdir.getDir("home").setMask(superuser.getUmask());
@@ -51,8 +52,9 @@ public class MyDrive extends MyDrive_Base {
     }
 
     public void cleanup() {
-        for(User u: getUserSet())
-            u.remove();
+        for(User u: getUserSet()){
+                u.remove();
+        }
 
         getRootDir().removeR();
     }
@@ -102,7 +104,7 @@ public class MyDrive extends MyDrive_Base {
         return doc;
     }
     
-    public File resourceFile(String filename) {
+    public java.io.File resourceFile(String filename) {
 	    log.trace("Resource: "+filename);
         ClassLoader classLoader = getClass().getClassLoader();
         if (classLoader.getResource(filename) == null) return null;
@@ -116,6 +118,23 @@ public class MyDrive extends MyDrive_Base {
             }
         }
         return null;
+    }
+
+    public pt.tecnico.mydrive.domain.File getFileByPath(String pathMixed) throws FileDoesNotExistException{
+        String[] path = pathMixed.split("/");
+
+        Dir actual = getRootDir();
+        int i = 1;
+
+        for(; i<path.length-1; i++){
+            actual = actual.getDir(path[i]);
+        }
+
+        if(actual.exists(path[i++])){
+            return actual.getFileByName(path[i]);
+        }
+
+        throw new FileDoesNotExistException(path[i]);
     }
 
     public User createUser(String name, String username, String password, String mask) throws UserAlreadyExistsException{

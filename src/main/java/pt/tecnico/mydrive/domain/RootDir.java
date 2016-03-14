@@ -11,7 +11,11 @@ public class RootDir extends RootDir_Base {
     public RootDir(){
         super();
     }
-     
+
+    @Override
+    public void remove(){
+    }
+
     @Override
     public Dir getParent(){
         return this;

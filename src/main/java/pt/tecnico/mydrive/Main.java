@@ -36,7 +36,6 @@ public class Main {
         log.trace("Init: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
         mydrive.cleanup();
-        mydrive.init();
     }
 
     @Atomic
@@ -51,7 +50,7 @@ public class Main {
         plain.write(mydrive.getUserSet().toString());
            
         // 2. create Dir /usr/local/bin
-        Dir bin = rootdir.createDir(mydrive.getUserByUsername("root"),"usr","mask").createDir(mydrive.getUserByUsername("root"),"local","mask").createDir(mydrive.getUserByUsername("root"),"bin","mask");
+        Dir bin = rootdir.createDir(mydrive.getSuperUser(),"usr","mask").createDir(mydrive.getSuperUser(),"local","mask").createDir(mydrive.getSuperUser(),"bin","mask");
         
         // 3. print /home/README
         System.out.println(((PlainFile)rootdir.getDir("home").getFileByName("README")).read());

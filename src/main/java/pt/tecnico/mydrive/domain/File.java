@@ -60,7 +60,7 @@ public abstract class File extends File_Base {
     public abstract void print();
     
     protected String getPath(){
-        String path = "/" + getName();
+        String path = "";
 
         for(Dir dir = getParent();
             dir.getId()!=0;
@@ -68,7 +68,7 @@ public abstract class File extends File_Base {
 
             path = "/" + dir.getName() + path;
         }
-        
+        if(path==""){ return "/"; } 
         return path;
     }
 
