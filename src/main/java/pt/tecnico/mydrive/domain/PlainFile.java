@@ -40,8 +40,8 @@ public class PlainFile extends PlainFile_Base {
 
     @Override
     public void xmlImport(Element fileElement) throws ImportDocException, DataConversionException{
-        String content = new String(fileElement.getAttribute("content").getValue());
-        setContent(content);
+        if(getContent()==null)
+            setContent(new String(fileElement.getChildText("content")));
         super.xmlImport(fileElement);
     }
     

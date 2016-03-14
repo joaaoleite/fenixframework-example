@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.domain;
 import pt.tecnico.mydrive.exception.*;
+
+import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
 public class Link extends Link_Base {
@@ -58,6 +60,13 @@ public class Link extends Link_Base {
 
     protected String type(){
         return "Link";
+    }
+
+    @Override
+    public void xmlImport(Element fileElement) throws ImportDocException, DataConversionException{
+        String content = new String(fileElement.getChildText("value"));
+        setContent(content);
+        super.xmlImport(fileElement);
     }
 
     public Element xmlExport(Element xmlmydrive){

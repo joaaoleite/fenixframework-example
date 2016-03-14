@@ -60,8 +60,7 @@ public class MyDrive extends MyDrive_Base {
 
         try{
             // import users
-            Element users = element.getChild("users"); 
-            for(Element e: users.getChildren("user")){
+            for(Element e: element.getChildren("user")){
                 String username = e.getAttribute("username").getValue();
                 User user = getUserByUsername(username);
 
@@ -76,7 +75,7 @@ public class MyDrive extends MyDrive_Base {
             for(Element e: element.getChildren("dir")){
                 new Dir().xmlImport(e);
             }
-            for(Element e: element.getChildren("plainfile")){
+            for(Element e: element.getChildren("plain")){
                 new PlainFile().xmlImport(e);
             }
             for(Element e: element.getChildren("link")){

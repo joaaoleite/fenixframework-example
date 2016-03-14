@@ -76,13 +76,13 @@ public abstract class File extends File_Base {
     
     protected abstract String type();
 
-    public void xmlImport(Element fileElement) throws DataConversionException {
-        String name = new String(fileElement.getAttribute("name").getValue());
-        String path = new String(fileElement.getAttribute("path").getValue());
-        User owner = getMydrive().getUserByUsername(new String(fileElement.getAttribute("owner").getValue()));
-        String mask = new String(fileElement.getAttribute("mask").getValue());
-        int id = fileElement.getAttribute("id").getIntValue();
-
+    public void xmlImport(Element element) throws DataConversionException {
+        String name = element.getChildText("name");
+        String path = element.getChildText("path");
+        User owner = getMydrive().getUserByUsername(new String(element.getAttribute("owner").getValue()));
+        String mask = element.getChildText("perm");
+        int id = element.getAttribute("id").getIntValue();
+        
         setName(name);
 
         String[] parts = path.split("/");
