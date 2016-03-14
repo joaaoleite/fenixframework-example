@@ -96,6 +96,16 @@ public class Dir extends Dir_Base {
         return "Dir";    
     }
 
+    public Set<File> getChilds(Set<File> list){
+        for(File f: getFileSet()){
+            if (f.instanceof Dir){
+                list = f.childs(list);
+            }
+            list.add(f);
+        }
+        return list;
+    }
+
     public Element xmlExport(Element xmlmydrive) {
         Element dir = new Element("dir");
         dir = super.xmlExportAttributes(dir);
