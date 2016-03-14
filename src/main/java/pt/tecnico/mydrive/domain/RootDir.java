@@ -24,9 +24,7 @@ public class RootDir extends RootDir_Base {
     
     @Override
     public Element xmlExport(Element xmlmydrive) {
-        Element dir = new Element("rootdir");
-        dir = super.xmlExportAttributes(dir);
-        xmlmydrive.addContent(dir);
+        
         for(File f: getFileSet()){
             xmlmydrive = f.xmlExport(xmlmydrive);
         }

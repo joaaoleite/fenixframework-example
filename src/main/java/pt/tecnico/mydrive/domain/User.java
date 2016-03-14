@@ -29,7 +29,7 @@ public class User extends User_Base {
             throw new UserInvalidException(username);
         }
         init(myDrive,username, username, password,umask);
-    }    
+    }
     
     public void remove(){
         setMydrive(null);
@@ -64,20 +64,21 @@ public class User extends User_Base {
     public void xmlImport(Element userElemet) throws ImportDocException {
 
         try {
-            setPassword(new String(userElemet.getAttribute("password").getValue().getBytes("UTF-8")));
-            setName(new String(userElemet.getAttribute("name").getValue().getBytes("UTF-8")));
+            setPassword(new String(userElemet.getElement("password").getValue().getBytes("UTF-8")));
+            setName(new String(userElemet.getElement("name").getValue().getBytes("UTF-8")));
         } catch (UnsupportedEncodingException e) { 
             System.err.println(e); 
             throw new ImportDocException(); 
         }
+
     }
 
     public Element xmlExport(Element xmlmydrive){
         Element user = new Element("user");
         user.setAttribute("username", getUsername());
-        user.setAttribute("password", getPassword());
-        user.setAttribute("name", getName());
-        user.setAttribute("umask", getUmask());
+        user.addContent(new Element("password").setText(getPassword()));
+        user.addContent(new Element("name").setText(getName()));
+        user.addContent(new Element("umask").setText(getUmask()));
         xmlmydrive.addContent(user);
         return xmlmydrive;
     } 

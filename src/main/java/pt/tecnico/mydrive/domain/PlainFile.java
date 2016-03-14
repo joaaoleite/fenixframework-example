@@ -47,8 +47,9 @@ public class PlainFile extends PlainFile_Base {
     
     public Element xmlExport(Element xmlmydrive){
 
-        Element plainfile = new Element("plainfile");
+        Element plainfile = new Element("plain");
         plainfile = super.xmlExportAttributes(plainfile);
+        plainfile.addContent(new Element("contents").setText(getContent()));
         xmlmydrive.addContent(plainfile);
         return xmlmydrive;
     }

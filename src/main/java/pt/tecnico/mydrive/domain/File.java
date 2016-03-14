@@ -109,11 +109,12 @@ public abstract class File extends File_Base {
 
     public Element xmlExportAttributes(Element element) {
 
-        element.setAttribute("name", getName());
-        element.setAttribute("owner",getOwner().getUsername());
-        element.setAttribute("mask",getMask());
-        element.setAttribute("lastModification", getLastModification().toString());
         element.setAttribute("id", getId().toString());
+        element.addContent(new Element("name").setText(getName()));
+        element.addContent(new Element("path").setText(getPath()));
+        element.addContent(new Element("owner").setText(getOwner().getUsername()));
+        element.addContent(new Element("perm").setText(getMask()));
+        element.addContent(new Element("lastModification").setText(getLastModification().toString()));
 
         return element;
     }

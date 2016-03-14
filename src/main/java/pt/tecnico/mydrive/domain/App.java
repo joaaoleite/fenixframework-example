@@ -24,6 +24,7 @@ public class App extends App_Base {
     public Element xmlExport(Element xmlmydrive){
         Element app = new Element("app");
         app = super.xmlExportAttributes(app);
+        app.addContent(new Element("method").setText(getContent()));
         xmlmydrive.addContent(app);
         return xmlmydrive;
     }
