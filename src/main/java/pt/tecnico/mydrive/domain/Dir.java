@@ -84,6 +84,13 @@ public class Dir extends Dir_Base {
         }
         super.remove();
     }
+
+    protected void removeR() throws DirectoryIsNotEmptyException{
+        for(File f: getFileSet()){
+            f.removeR();
+        }
+        remove();
+    }
     @Override
     protected int getSize(){
         return (2+ getFileSet().size());
