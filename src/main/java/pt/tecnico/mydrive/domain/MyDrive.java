@@ -53,7 +53,7 @@ public class MyDrive extends MyDrive_Base {
         for(User u: getUserSet())
             u.remove();
 
-        //getRootDir().recursiveR();
+        getRootDir().recursiveR();
     }
 
     public void xmlImport(Element element) {
