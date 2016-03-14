@@ -77,7 +77,7 @@ public class Main {
         for (User u: mydrive.getUserSet()) {
             u.print();
         }
-        for (File f: mydrive.getRootDir().getChilds()){
+        for (File f: mydrive.getRootDir().getChildren()){
                 f.print();
         }
     }
