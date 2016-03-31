@@ -42,5 +42,11 @@ public abstract class AbstractServiceTest {
         }
     }
 
+    protected int login(username, password){
+        LoginService service = new LoginService();
+        Boolean isLoggedIn = service.login(username, password);
+        if(isLoggedIn) return service.getToken();
+    }
+
     protected abstract void populate(); // each test adds its own data
 }

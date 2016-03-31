@@ -13,9 +13,9 @@ public class Dir extends Dir_Base {
         super();
     }
     
-    protected Dir(Dir parent, User owner, String name, String mask) {
+    protected Dir(Dir parent, User owner, String name) {
         super();
-        init(parent, owner, name, mask);
+        init(parent, owner, name);
     }
 
     public File getFileByName(String name){
@@ -46,9 +46,9 @@ public class Dir extends Dir_Base {
         return getFileByName(name) != null;
     }
 
-    public Dir createDir(User owner, String name, String mask) throws FileAlreadyExistsException{
+    public Dir createDir(User owner, String name) throws FileAlreadyExistsException{
         if(exists(name) == false){
-            Dir newDir = new Dir(this, owner, name, mask);
+            Dir newDir = new Dir(this, owner, name);
             addFile(newDir);
             return newDir;  
         }
@@ -63,16 +63,16 @@ public class Dir extends Dir_Base {
         return list;
     }
 
-    public PlainFile createPlainFile(User owner, String name, String mask) throws FileAlreadyExistsException{
+    public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException{
         if(exists(name) == false){
-            return new PlainFile( this, owner, name, mask);
+            return new PlainFile( this, owner, name);
         }    
         else
             throw new FileAlreadyExistsException(name);
     }
 
-    public PlainFile createPlainFile(User owner, String name, String mask, String content) throws FileAlreadyExistsException{
-        PlainFile newPlainFile = createPlainFile(owner, name, mask);
+    public PlainFile createPlainFile(User owner, String name, String content) throws FileAlreadyExistsException{
+        PlainFile newPlainFile = createPlainFile(owner, name);
         newPlainFile.write(content);
         return newPlainFile;    
     }
