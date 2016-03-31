@@ -111,6 +111,7 @@
         <version.slf4j.api>1.7.7</version.slf4j.api>
         <version.ch.qos.logback.logback.classic>1.1.2</version.ch.qos.logback.logback.classic>
         <version.org.jdom.jdom>2.0.5</version.org.jdom.jdom>
+        <version.junit>4.12</version.junit>
     </properties>
     <build>
         <plugins>
@@ -200,6 +201,12 @@
             <groupId>pt.ist</groupId>
             <artifactId>fenix-framework-backend-${fenix.framework.backend}-runtime</artifactId>
             <version>${version.pt.ist.fenix.framework}</version>
+        </dependency> 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -226,6 +233,11 @@
             <artifactId>log4j-core</artifactId>
             <version>2.0-rc1</version>
         </dependency>
+        <dependency>
+	          <groupId>org.jmockit</groupId>
+	          <artifactId>jmockit</artifactId>
+	          <version>1.21</version>
+	      </dependency>
     </dependencies>
     <repositories>
         <repository>
