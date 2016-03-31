@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import pt.tecnico.mydrive.domain.*;
 
-public class ChangeDirectoryTest extends AbstractServiceTest{111111
-    
+public class ChangeDirectoryTest extends AbstractServiceTest{    
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         Dir rootdir = mydrive.getRootDir();
