@@ -24,6 +24,12 @@ public class User extends User_Base {
         }
         init(myDrive,username, username, password,"rwxd----");
     }
+    public User(MyDrive myDrive, String username, String password,String umask ) {
+        if (checkUsername(username)==false){
+            throw new UserInvalidException(username);
+        }
+        init(myDrive,username, username, password,umask);
+    }
     
     public void remove(){
         setMydrive(null);
