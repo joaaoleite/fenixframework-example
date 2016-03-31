@@ -52,7 +52,7 @@ relation registedUsers {
 
 relation myDriveHasSuperUser {
     MyDrive playsRole app {
-        multiplicity 0;
+        multiplicity 1;
     }
     SuperUser playsRole superUser {
         multiplicity 1;
@@ -64,7 +64,7 @@ relation allFiles {
         multiplicity 1;
     }
     File playsRole file {
-        multiplicity 0;
+        multiplicity 1;
     }
 }
 
@@ -73,7 +73,7 @@ relation home {
         multiplicity 1;
     }
     User playsRole user {
-        multiplicity 0;
+        multiplicity 1;
     }
 }
 
@@ -100,7 +100,7 @@ relation myDriveHasRootDir {
         multiplicity 1;
     }
     MyDrive playsRole app{
-        multiplicity 0;
+        multiplicity 1;
     }
 }
 
