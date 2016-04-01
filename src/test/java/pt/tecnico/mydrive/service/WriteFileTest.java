@@ -24,35 +24,64 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         mydrive.createUser("Titi", "marshall", "missy");
         mydrive.createUser("Tony", "selecta", "rufus");
         mydrive.getRootDir().getDir("home").getDir("marshall").createDir(getUserByUsername("marshall"), "test");
-        mydrive.getRootDir().getDir("home").getDir("marshall").createPlainFile(getUserByUsername("marshall"), "test plain", "abcdefghijklmnopqrstuvwxyz")
-        mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createLink(!!!);
-        mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createApp(!!!);
+        mydrive.getRootDir().getDir("home").getDir("marshall").createPlainFile(getUserByUsername("marshall"), "testplain", "abcdefghijklmnopqrstuvwxyz")
+        mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createLink(getUserByUsername("marshall"), "testlink","/home/marshall/testplain");
+        /*mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createApp(!!!);*/
     } 
 
     @Test
-    public void success() {
+    public void successPlain() {
         final int token = login("marshall", "missy");
-        final String namefile = "test plain";
+        final String namefile = "testplain";
         final String content = "teste123"
 
         WriteFileService service = new WriteFileService(token, namefile, content);
         service.execute();
 
-        String result = mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("test plain").read();
+        String result = mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testplain").read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "teste123",result);
     }
 
     @Test
-    public void successWithNullContent() {
+    public void successPlainWithNullContent() {
         final int token = login("marshall", "missy");
-        final String namefile = "test plain";
+        final String namefile = "testplain";
 
         WriteFileService service = new WriteFileService(token, namefile, null);
         service.execute();
 
-        String result = mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("test plain").read();
+        String result = mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testplain").read();
+
+        assertNotNull("Content is null", result);
+        assertEquals("Write not successfull", "",result);
+    }
+
+     @Test
+    public void successLink() {
+        final int token = login("marshall", "missy");
+        final String namefile = "testlink";
+        final String content = "teste123"
+
+        WriteFileService service = new WriteFileService(token, namefile, content);
+        service.execute();
+
+        String result = mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testlink").read();
+
+        assertNotNull("Content is null", result);
+        assertEquals("Write not successfull", "teste123",result);
+    }
+
+    @Test
+    public void successLinkWithNullContent() {
+        final int token = login("marshall", "missy");
+        final String namefile = "testlink";
+
+        WriteFileService service = new WriteFileService(token, namefile, null);
+        service.execute();
+
+        String result = mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testlink").read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "",result);
