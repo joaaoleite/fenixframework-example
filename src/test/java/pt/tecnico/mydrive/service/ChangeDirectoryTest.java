@@ -14,7 +14,8 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         mydrive.
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(getUserByUsername("halib"), "test");
         mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti");
-    }
+        mydrive.getRootDir().getDir("home").getDir("zetrigo").createPlainFile(getUserByUsername("zetrigo"), "loans");
+   }
     
     @Test
     public void successUserToHisDirRel(){
@@ -53,6 +54,22 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     public void invalidUserToOtherDirAbs(){
         final int token = login("halib", "uht");
         final String path = "/home/zetrigo";
+        ChangeDirectoryService service = new ChangeDirectoryService(token, path);
+        String newPath = service.execute();
+    }
+
+    @Test(expected = FileDoesNotExistsException.class)
+    public void invalidPathRel(){
+        final int token = login("halib", "uht");
+        final String path = "photos";
+        ChangeDirectoryService service = new ChangeDirectoryService(token, path);
+        String newPath = service.execute();
+    }
+    
+    @Test(expected = FileIsAPlainFileException.class)
+    public void invalidPathPointsToPlainFileAbs(){
+        final int token = login("zetrigo", "tetetiti");
+        final String path = "/home/zetrigo/loans";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         String newPath = service.execute();
     }
