@@ -10,14 +10,14 @@ public class LoginServiceTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         Dir rootdir = mydrive.getRootDir();
-        mydrive.createUser("Halibio", "halib", "uht");
+        mydrive.createUser("John", "john", "john");
     }
     
     @Test
     public void successLogin(){
         LoginService service = new LoginService();
 
-        service.login("halib","uht");
+        service.login("john","uht");
         int token = service.execute();
         
         assertNotNull("Login failed", token);
@@ -27,7 +27,7 @@ public class LoginServiceTest extends AbstractServiceTest{
     public void userDoesNotExists(){
         LoginService service = new LoginService();
 
-        service.login("eunaoexisto","123");
+        service.login("alice","123");
         service.execute();
     }
 
@@ -35,7 +35,7 @@ public class LoginServiceTest extends AbstractServiceTest{
     public void userDoesNotExists(){
         LoginService service = new LoginService();
 
-        service.login("halib","esquecimedapassword");
+        service.login("john","dontknowmypassword");
         service.execute();
     }
 
