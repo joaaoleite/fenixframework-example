@@ -137,6 +137,10 @@ public class MyDrive extends MyDrive_Base {
         throw new FileDoesNotExistException(path[i]);
     }
 
+    public boolean hasUser(String name){
+        return getUserByUsername(username) != null;
+    }
+
     public User createUser(String name, String username, String password, String mask) throws UserAlreadyExistsException{
         if(getUserByUsername(username)!=null){
             throw new UserAlreadyExistsException(username);
