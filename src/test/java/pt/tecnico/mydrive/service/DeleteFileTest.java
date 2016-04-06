@@ -18,36 +18,49 @@ public class DeleteFileTest extends AbstractServiceTest{
 
         File file =  rootdir.getDir("home").getDir("laurinha").createFile(laura,"text.txt","rwxd----"); 
 
-        Link link = rootdir.getDir("home").getDir("laurinha").createLink(laura, "text.txt","rwxd----");
-         
+    }   
 
-        @Test
-    	public void success() {
-        	final String filename = "text.txt";  
-            final int token = login("laurinha", "laurinha");
-        	DeleteFileService service = new DeleteFileService(personName);
-        	service.execute();
+    @Test
+	public void success() {
+    	final String filename = "text.txt";  
+        final int token = login("laurinha", "laurinha");
+    	DeleteFileService service = new DeleteFileService(filename);
+    	service.execute();
+        assertNull("File was not deleted", MyDriveService.getMyDrive().getRootDir().getDir("home").getFileByName(filename));
+    }
 
+
+
+    @Test(expected = InsufficientPermissionsException.class)
+    public void DeleteFileWithoutPermissions() {
+        final String filename = "text.txt";  
+        final int token = login("laurinha", "laurinha");
+        final String filename = "NewDir";
+
+        ChangeDirectoryService service = new ChangeDirectoryService(token, filename);
+        String newToken = service.execute();
         
+        DeleteFileService service = new DeleteFileService(filename);
+        service.execute();
+    }
 
 
-        // check person was removed
-        assertFalse("File was not deleted", MyDriveService.getDir().h(personName));
-        
+    @Test(expected = ExpiredTokenException.class)
+    public void tokenExpired(){
+        final int token = 234257263578354;
+        final String filename = "link";
+
+        DeleteFileService service = new DeleteFileService(token, filename);
+        service.execute();
+
+    }
 
 
 
-
-
-
-
-        //*Verify line 32
-
-
-        @Test(expected = FileDoesNotExistException.class)
-        public void removeNonexistingPerson() {
-            DeleteFileService service = new DeleteFileService("toni");
-            service.execute();
+    @Test(expected = FileDoesNotExistException.class)
+    public void removeNonexistingPerson() {
+        DeleteFileService service = new DeleteFileService("other.txt");
+        service.execute();
     }
 
 
