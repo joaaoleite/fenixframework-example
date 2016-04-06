@@ -25,9 +25,14 @@ public class CreateFileService extends MyDriveService{
         _content = content;
     }    
     
-    private void dispatch() throws MyDriveException{
+    private void dispatch() throws MyDriveException, InsufficientPermissionsException{
         
         File newFile;
+
+        if(!(_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(1) == 'w')
+            && !(!_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(5) == 'w')
+            && !(login.getUser().getUsername().equals("root")))
+            throw new InsufficientPermissionsException();
 
         switch(_type){
             case "dir":
