@@ -30,6 +30,10 @@ public class Login{
     public long getDate(){
         return date;
     }
+
+    public Dir getWorkingDir(){
+        return workingDir;
+    }
     public static Login signIn(String username, String password){
           
         MyDrive mydrive = MyDrive.getInstance();
