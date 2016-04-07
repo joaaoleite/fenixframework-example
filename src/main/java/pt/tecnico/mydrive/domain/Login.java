@@ -7,7 +7,7 @@ public class Login{
     private final int token;
     private final long date;
     private final Dir workingDir;
-    private final String logUser;
+    private final User logUser;
     private Login( String username) {
         pipo="onde e k ta o pinto?";
         date= System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class Login{
           
         MyDrive mydrive = MyDrive.getInstance();
         User user = mydrive.getUserByUsername(username);          
-        if (username==null){
+        if (user==null){
             throw new LoginFailedException();
         }
       
