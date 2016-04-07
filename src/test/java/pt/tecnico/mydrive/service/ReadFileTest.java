@@ -7,6 +7,7 @@ import pt.tecnico.mydrive.domain.*;
 
 public class ReadFileTest extends AbstractServiceTest{    
     protected void populate(){
+        
         MyDrive mydrive = MyDrive.getInstance();        
         User antonio = mydrive.createUser("antonio", "toni","toni","rwxd----");
         
