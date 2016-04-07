@@ -21,7 +21,7 @@ public class MyDrive extends MyDrive_Base {
         if (mydrive != null)
 	          return mydrive;
 
-	   log.trace("new MyDrive");
+	      log.trace("new MyDrive");
         mydrive=new MyDrive();
         mydrive.init();
         return mydrive;
@@ -41,7 +41,7 @@ public class MyDrive extends MyDrive_Base {
     public void init(){
         setNfile(new Integer(0));
         RootDir rootdir = new RootDir(this);
-        rootdir.createDir(null, "home", "");
+        rootdir.createDir(null, "home");
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
         setSuperUser(superuser);
