@@ -39,7 +39,7 @@ public class LoginServiceTest extends AbstractServiceTest{
         service.execute();
     }
 
-    @Test(expected = IUserDoesNotExistsException.class)
+    @Test(expected = UserDoesNotExistsException.class)
     public void userDoesNotExists(){
         LoginService service = new LoginService();
 

@@ -88,6 +88,7 @@ public class ImportTest extends AbstractServiceTest {
         assertEquals("value content created correctly", "/home/jtb/documents", mydrive.getRootDir().getDir("jtb").getFileByName("doc").getContent());
         assertTrue("Dir created", mydrive.getRootDir().getDir("jtb").getFileByName("bin").isDir());
         assertTrue("App created", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello"));
+        assertEquals("Permissions correct", "rwxdr-x-", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello").getUmask());
         assertEquals("method content created correctly","pt.tecnico.myDrive.app.Hello", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello").getContent()));
     }
 }
