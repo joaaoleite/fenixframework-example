@@ -8,10 +8,8 @@ import pt.tecnico.mydrive.domain.*;
 public class ChangeDirectoryTest extends AbstractServiceTest{    
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
-        Dir rootdir = mydrive.getRootDir();
         
         mydrive.createUser("Halibio", "halib", "uht");
-        mydrive.
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(getUserByUsername("halib"), "test");
         mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti");
         mydrive.getRootDir().getDir("home").getDir("zetrigo").createPlainFile(getUserByUsername("zetrigo"), "loans");
