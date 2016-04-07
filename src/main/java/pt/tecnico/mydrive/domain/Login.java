@@ -34,6 +34,10 @@ public class Login{
     public Dir getWorkingDir(){
         return workingDir;
     }
+
+    public voi setWorkingDir(String newDir){
+        workingDir = newDir;
+    }
     public static Login signIn(String username, String password){
           
         MyDrive mydrive = MyDrive.getInstance();
