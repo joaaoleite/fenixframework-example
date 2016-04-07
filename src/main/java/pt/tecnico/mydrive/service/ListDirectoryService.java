@@ -18,11 +18,18 @@ public class ListDirectoryService extends MyDriveService{
     public ListDirectoryService(token){
     	super();
 
-    	//criar login, verificar token e tal
+    	_login = Login.getLoginByToken(token);
     	_token = token;
+        _workingDir = Login.getWorkingDir();
     }
 
     private File dispatch() throws InsuffientPermissionsException{
+
+        if(!(_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(0) == 'r')
+        && !(!_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(4) == 'r')
+        && !(login.getUser().getUsername().equals("root")))
+        throw new InsufficientPermissionsException();
+
         _workingDir.listDir();
     }
 }
