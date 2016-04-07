@@ -62,7 +62,7 @@ public abstract class File extends File_Base {
 
     public abstract void print();
     
-    protected String getPath(){
+    public String getPath(){
         String path = "";
 
         for(Dir dir = getParent();
@@ -82,7 +82,7 @@ public abstract class File extends File_Base {
         deleteDomainObject();
     }
 
-    protected boolean isDir(){
+    public boolean isDir(){
         return false;
     }
 

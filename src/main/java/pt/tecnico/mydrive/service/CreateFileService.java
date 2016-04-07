@@ -25,36 +25,36 @@ public class CreateFileService extends MyDriveService{
         _content = content;
     }    
     
-    private void dispatch() throws MyDriveException, InsufficientPermissionsException{
+    protected void dispatch() throws MyDriveException, InsufficientPermissionsException{
         
         File newFile;
 
-        if(!(_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getUmask().charAt(1) == 'w')
-            && !(!_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getUmask().charAt(5) == 'w')
+        if(!(_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getMask().charAt(1) == 'w')
+            && !(!_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getMask().charAt(5) == 'w')
             && !(_login.getUser().getUsername().equals("root")))
-            throw new InsufficientPermissionsException();
+            throw new InsufficientPermissionsException(_filename);
 
         switch(_type){
             case "dir":
-                newFile = _workingDir.createDir(_login.getUser(), filename);
+                newFile = _workingDir.createDir(_login.getUser(), _filename);
                 break;
             case "plain":
-                if(content == null)
-                    newFile = _workingDir.createPlainFile(_login.getUser(), filename);
+                if(_content == null)
+                    newFile = _workingDir.createPlainFile(_login.getUser(), _filename);
                 else
-                    newFile = _workingDir.createPlainFile(_login.getUser(), filename, content);
+                    newFile = _workingDir.createPlainFile(_login.getUser(), _filename, _content);
                 break;
             case "link":
-                if(content == null)
-                    newFile = _workingDir.createLink(_login.getUser(), filename);
+                if(_content == null)
+                    newFile = _workingDir.createLink(_login.getUser(), _filename);
                 else
-                    newFile = _workingDir.createLink(_login.getUser(), filename, content);
+                    newFile = _workingDir.createLink(_login.getUser(), _filename, _content);
                 break;
             case "app":
                 if(content == null)
-                    newFile = _workingDir.createApp(_login.getUser(), filename);
+                    newFile = _workingDir.createApp(_login.getUser(), _filename);
                 else
-                    newFile = _workingDir.createApp(_login.getUser(), filename, content);
+                    newFile = _workingDir.createApp(_login.getUser(), _filename, _content);
                 break;
         }
     }

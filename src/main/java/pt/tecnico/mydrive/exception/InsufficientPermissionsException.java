@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.exception;
 
 
-public class InsufficientPermissionsExceptions extends MyDriveException {
+public class InsufficientPermissionsException extends MyDriveException {
 
     
     private static final long serialVersionUID = 1L;
@@ -12,7 +12,7 @@ public class InsufficientPermissionsExceptions extends MyDriveException {
 	/**
 	 * @param name
 	 */
-	public InsufficientPermissionsExceptions(String name) {
+	public InsufficientPermissionsException(String name) {
 		super();
   		_name = name;
 	}

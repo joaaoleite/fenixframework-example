@@ -11,55 +11,56 @@ public class ChangeDirectoryService extends MyDriveService{
 	MyDrive md = MyDrive.getInstance();
 
     private Dir _workingDir;
-    private Login _login;
+    private Login login;
+    private int _token;
     private String _path;
 
 
-    public ChangeDirectoryService(token, path){
+    public ChangeDirectoryService(int token, String path){
     	super();
 
-    	_login = Login.getLoginByToken(token);
+    	login = Login.getLoginByToken(token);
     	_token = token;
     	_path = path;
 
     }
 
-    private File dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
-        String[] _path = path.split("/");
+    protected void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
+        String[] path = _path.split("/");
 
         Dir actual;
         int i;
 
-        if(path.charAt(0) == '/'){
+        if(_path.charAt(0) == '/'){
 
             actual = md.getRootDir();
             i = 1;
         }
         else{
-            actual = _login.getWorkingDir();
+            actual = login.getWorkingDir();
             i = 0;
         }
 
-        for(; i<_path.length-1; i++){
-            actual = actual.getDir(_path[i]);
+        for(; i<path.length-1; i++){
+            actual = actual.getDir(path[i]);
         }
 
-        if(actual.exists(_path[i++])){
-        	if (actual.getDir(_path[i]).isDir){
-        		_workingDir = actual.getDir(_path[i]);
+        if(actual.exists(path[i++])){
+        	if (actual.getFileByName(path[i]).isDir()){
+        		_workingDir = actual.getDir(path[i]);
 
-                if(!(_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(0) == 'r')
-                && !(!_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(4) == 'r')
+                if(!(_workingDir.getOwner().equals(login.getUser()) && _workingDir.getMask().charAt(0) == 'r')
+                && !(!_workingDir.getOwner().equals(login.getUser()) && _workingDir.getMask().charAt(4) == 'r')
                 && !(login.getUser().getUsername().equals("root")))
-                throw new InsufficientPermissionsException();
+                throw new InsufficientPermissionsException(_path);
 
-        		_login.setWorkingDir(_workingDir);
-        		return _workingDir.getPath();
+        		login.setWorkingDir(_workingDir);
+        		_workingDir.getPath();
         	}
         	else
-            	throw new FileIsAPlainFileException(_path[i]);
+            	throw new FileIsAPlainFileException(path[i]);
         }
 
-        throw new FileDoesNotExistException(_path[i]);
+        throw new FileDoesNotExistException(path[i]);
     }
 }

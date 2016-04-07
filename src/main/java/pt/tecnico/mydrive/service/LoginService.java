@@ -10,13 +10,19 @@ import pt.tecnico.mydrive.exception.*;
 public class LoginService extends MyDriveService{
     private final String user;
     private final String pass;
+    private int token;
     public LoginService(String username, String password){
         user= username;
         pass=password;
     }
-    private void dispatch() throws  LoginFailedException{
-        Login login = Login.sigIn(user,pass);
-        return login.getToken();
+    protected void dispatch() throws  LoginFailedException{
+        Login login = Login.signIn(user,pass);
+        token = login.getToken();
+    }
+
+    public int getToken(){
+        super.execute();
+        return token;
     }
 }
 

@@ -42,7 +42,7 @@ public class Dir extends Dir_Base {
         }
     }
 
-    protected boolean exists(String name){
+    public boolean exists(String name){
         return getFileByName(name) != null;
     }
 
@@ -65,6 +65,10 @@ public class Dir extends Dir_Base {
                     output += (file.getClass().getSimpleName()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification().toString()+" "+file.getName()+"\n");
             }
         return output;
+    }
+
+    public App createApp(User owner, String name) throws FileAlreadyExistsException{
+        return null;
     }
 
     public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException{
@@ -101,7 +105,7 @@ public class Dir extends Dir_Base {
     }
 
     @Override
-    protected boolean isDir(){
+    public boolean isDir(){
         return true;    
     }
     

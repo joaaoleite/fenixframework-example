@@ -1,17 +1,17 @@
 package pt.tecnico.mydrive.domain;
 import pt.tecnico.mydrive.exception.*;
-import java.lang.*;
 
 public class Login{
     private final String pipo;
     private final int token;
     private final long date;
-    private final Dir workingDir;
+    private Dir workingDir;
     private final User logUser;
     private Login( String username) {
         pipo="onde e k ta o pinto?";
         date= System.currentTimeMillis();
-        token=newBigInteger(64,newRandom()).longValue();
+        //token=newBigInteger(64,newRandom()).longValue();
+        token=123;
         MyDrive mydrive = MyDrive.getInstance();
         workingDir = mydrive.getRootDir().getDir("home").getDir(username);
         logUser= mydrive.getUserByUsername(username);
@@ -20,7 +20,7 @@ public class Login{
         MyDrive mydrive = MyDrive.getInstance();
         mydrive.addHash(token,this);
     }
-    public long getToken(){
+    public int getToken(){
         return token;
     }
     
@@ -35,7 +35,7 @@ public class Login{
         return workingDir;
     }
 
-    public voi setWorkingDir(String newDir){
+    public void setWorkingDir(Dir newDir){
         workingDir = newDir;
     }
     public static Login signIn(String username, String password){
