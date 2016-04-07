@@ -10,11 +10,14 @@ import org.jdom2.Document;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import pt.ist.fenixframework.FenixFramework;
 
 public class MyDrive extends MyDrive_Base {
 
     static final Logger log = LogManager.getRootLogger();
+    
+    private HashMap<long,Login> loginHash = new HashMap<long,Login>();
 
     public static MyDrive getInstance() {
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
@@ -150,4 +153,14 @@ public class MyDrive extends MyDrive_Base {
         return user;
     }
 
+
+
+    //////////////////////////////////////////////////////////////////////////
+    public void addHash (long token ,Login login){
+        loginHash.put(token,login);
+    }
+    
+    public Login getLoginByToken(long token ){
+        return (Login) loginHash.get(token);
+    }
 }

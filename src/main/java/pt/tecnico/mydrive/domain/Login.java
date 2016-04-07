@@ -7,7 +7,7 @@ public class Login{
     private final int token;
     private final long date;
     private final Dir workingDir;
-    private final String logUser;
+    private final User logUser;
     private Login( String username) {
         pipo="onde e k ta o pinto?";
         date= System.currentTimeMillis();
@@ -18,7 +18,7 @@ public class Login{
    }
     public void init(){
         MyDrive mydrive = MyDrive.getInstance();
-        mydrive.add(token,this);
+        mydrive.addHash(token,this);
     }
     public long getToken(){
         return token;
@@ -38,7 +38,7 @@ public class Login{
           
         MyDrive mydrive = MyDrive.getInstance();
         User user = mydrive.getUserByUsername(username);          
-        if (username==null){
+        if (user==null){
             throw new LoginFailedException();
         }
       
@@ -50,7 +50,7 @@ public class Login{
         
     }
 
-    public static Login  getLoginByToken(int token){
+    public static Login  getLoginByToken(long token){
         MyDrive mydrive = MyDrive.getInstance();
         Login login=  mydrive.getLoginByToken(token);
         long date = login.getDate();

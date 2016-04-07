@@ -56,11 +56,15 @@ public class Dir extends Dir_Base {
     }
 
     public String listDir(){
-        String list = ".\n..";
-        for (File f : getFileSet())
-            list += ("\n" + f.getName());
-        
-        return list;
+        String output = (getClass().getSimpleName() +" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n"+getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+getParent().getName()+"\n");
+            for (File file: getFileSet()){
+                if (file.isLink()){
+                    output += (file.getClass().getSimpleName()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification().toString()+" "+file.getName()+file.getName()+"->"+file.getContent()+"\n");
+                }
+                else
+                    output += (file.getClass().getSimpleName()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification().toString()+" "+file.getName()+"\n");
+            }
+        return output;
     }
 
     public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException{
