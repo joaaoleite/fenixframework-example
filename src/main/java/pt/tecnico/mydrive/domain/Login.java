@@ -18,7 +18,7 @@ public class Login{
    }
     public void init(){
         MyDrive mydrive = MyDrive.getInstance();
-        mydrive.add(token,this);
+        mydrive.addHash(token,this);
     }
     public long getToken(){
         return token;
@@ -50,7 +50,7 @@ public class Login{
         
     }
 
-    public static Login  getLoginByToken(int token){
+    public static Login  getLoginByToken(long token){
         MyDrive mydrive = MyDrive.getInstance();
         Login login=  mydrive.getLoginByToken(token);
         long date = login.getDate();
