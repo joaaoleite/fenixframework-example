@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 
+import static org.junit.Assert.*;
+
 import pt.ist.fenixframework.FenixFramework;
 import pt.ist.fenixframework.core.WriteOnReadError;
 import pt.tecnico.mydrive.Main;
@@ -19,13 +21,14 @@ import pt.tecnico.mydrive.domain.*;
 
 public abstract class WriteFileTest extends AbstractServiceTest {
     protected static final Logger log = LogManager.getRootLogger();
-
+    
+    private Mydrive mydrive;
     @override
     protected void populate(){
-        MyDrive mydrive = mydrive.getInstance();
+        mydrive = mydrive.getInstance();
 
-        mydrive.createUser("Titi", "marshall", "missy");
-        mydrive.createUser("Tony", "selecta", "rufus");
+        mydrive.createUser("Titi", "marshall", "missy", "rwxd----");
+        mydrive.createUser("Tony", "selecta", "rufus", "rwxd----");
         mydrive.getRootDir().getDir("home").getDir("marshall").createDir(mydrive.getUserByUsername("marshall"), "test");
         mydrive.getRootDir().getDir("home").getDir("marshall").createPlainFile(mydrive.getUserByUsername("marshall"), "testplain", "abcdefghijklmnopqrstuvwxyz");
         mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createLink(mydrive.getUserByUsername("marshall"), "testlink","/home/marshall/testplain");
@@ -115,7 +118,7 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         final long token = login("marshall", "missy");
         final String namefile = "test";
         final String content = "teste123";
-        final int fakeToken = "123456789";
+        final long fakeToken = "123456789";
 
         WriteFileService service = new WriteFileService(fakeToken, namefile, content);
         service.execute();
