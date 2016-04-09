@@ -17,7 +17,7 @@ public class CreateFileTest extends AbstractServiceTest{
         
         Link link = rootdir.getDir("home").getDir("luis").createLink(luis,"link","rwxd----");
         App app = rootdir.getDir("home").getDir("luis").createApp(luis,"app","rwxd----");
-        Dir dir = rootdir.getDir("home").getDir("luis").createDir(luis,"NewDir","rwxd----");
+        rootdir.getDir("home").getDir("luis").createDir(luis,"NewDir","rwxd----");
         PlainFile plain = rootdir.getDir("home").getDir("luis").createPlainFile(luis,"new.txt","rwxd----"); 
 
    }
@@ -30,10 +30,11 @@ public class CreateFileTest extends AbstractServiceTest{
         final String content = "";
 
         CreateFileService service = new CreateFileService(token, filename, type , content);
-        File file = service.execute();
+        service.execute();
+        File file = service.result(); 
         
         assertNotNull("LinkFile not created", file);
-        assertEquals("No match in filenameame", "link", file.getFilename());
+        assertEquals("No match in filenameame", "link", file.getFileName());
         assertEquals("No match in type", "link", file.getType());
     }
 
@@ -48,7 +49,7 @@ public class CreateFileTest extends AbstractServiceTest{
         File file = service.execute();
         
         assertNotNull("AppFile not created", file);
-        assertEquals("No match in filename", "app", file.getFilename());
+        assertEquals("No match in filename", "app", file.getFileName());
         assertEquals("No match in type", "App", getClass().getName());
     }
 
@@ -62,7 +63,7 @@ public class CreateFileTest extends AbstractServiceTest{
         File file = service.execute();
         
         assertNotNull("DirFile not created", file);
-        assertEquals("No match in filename", "NewDir", file.getFilename());
+        assertEquals("No match in filename", "NewDir", file.getFileName());
         assertEquals("No match in type", "Dir", file.isDir());
     }
 
@@ -86,7 +87,7 @@ public class CreateFileTest extends AbstractServiceTest{
         final long token = login("luisinho", "luisinho");
         final String filename = "ze.txt";
         
-        CreateFileService service = new CreateFileService(token, filename);
+        CreateFileService service = new CreateFileService(token, filename, type);
         service.execute();
     }
 
@@ -107,7 +108,7 @@ public class CreateFileTest extends AbstractServiceTest{
         final long token = 234257263;
         final String filename = "link";
 
-        CreateFileService service = new CreateFileService(token, filename,"Link");
+        CreateFileService service = new CreateFileService(token, filename, type);
         service.execute();
 
     }
