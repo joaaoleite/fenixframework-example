@@ -71,6 +71,17 @@ public class Dir extends Dir_Base {
         return null;
     }
 
+    public App createApp(User owner, String name, String content) throws FileAlreadyExistsException{
+        return null;
+    }
+
+    public Link createLink(User owner, String name) throws FileAlreadyExistsException{
+        return null;
+    }
+
+    public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException{
+        return null;
+    }
     public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException{
         if(exists(name) == false){
             return new PlainFile( this, owner, name);
@@ -93,7 +104,7 @@ public class Dir extends Dir_Base {
         super.remove();
     }
 
-    protected void removeR() throws DirectoryIsNotEmptyException{
+    public void removeR() throws DirectoryIsNotEmptyException{
         for(File f: getFileSet()){
             f.removeR();
         }
