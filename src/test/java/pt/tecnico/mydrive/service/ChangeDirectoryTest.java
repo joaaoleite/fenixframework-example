@@ -21,7 +21,8 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         final long token = login("halib", "uht");
         final String path = "test";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        String newPath = service.execute();
+        service.execute();
+        String newPath = service.result(); 
         
         assertNotNull("Directory was not changed", newPath);
         assertEquals("Wrong current directory", "/home/halib/test", newPath);
@@ -32,7 +33,8 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         final long token = login("root", "***");
         final String path = "/home/halib/test";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        String newPath = service.execute();
+        service.execute();
+        String newPath = service.result(); 
         
         assertNotNull("Directory was not changed", newPath);
         assertEquals("Wrong current directory", "/home/halib/test", newPath);
@@ -43,7 +45,8 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         final long token = login("zetrigo", "tetetiti");
         final String path = "..";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        String newPath = service.execute();
+        service.execute();
+        String newPath = service.result(); 
         
         assertNotNull("Directory was not changed", newPath);
         assertEquals("Wrong current directory", "/home", newPath);
@@ -54,7 +57,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         final long token = login("halib", "uht");
         final String path = "/home/zetrigo";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        String newPath = service.execute();
+        service.execute();
     }
 
     @Test(expected = FileDoesNotExistsException.class)
@@ -62,7 +65,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         final int token = login("halib", "uht");
         final String path = "photos";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        String newPath = service.execute();
+        service.execute();
     }
     
     @Test(expected = FileIsAPlainFileException.class)
@@ -70,6 +73,6 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         final int token = login("zetrigo", "tetetiti");
         final String path = "/home/zetrigo/loans";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        String newPath = service.execute();
+        service.execute();
     }
 }

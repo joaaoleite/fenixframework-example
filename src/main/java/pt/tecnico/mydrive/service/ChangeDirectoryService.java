@@ -12,7 +12,6 @@ public class ChangeDirectoryService extends MyDriveService{
 
     private Dir _workingDir;
     private Login _login;
-    private long _token;
     private String _path;
 
 
@@ -20,9 +19,12 @@ public class ChangeDirectoryService extends MyDriveService{
     	super();
 
     	_login = Login.getLoginByToken(token);
-    	_token = token;
     	_path = path;
 
+    }
+    
+    public String result{
+        return _workingDir.getPath();
     }
 
     protected void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
@@ -55,7 +57,6 @@ public class ChangeDirectoryService extends MyDriveService{
                 throw new InsufficientPermissionsException(_path);
 
         		_login.setWorkingDir(_workingDir);
-        		_workingDir.getPath();
         	}
         	else
             	throw new FileIsAPlainFileException(path[i]);
