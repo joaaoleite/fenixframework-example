@@ -15,13 +15,12 @@ public class LoginService extends MyDriveService{
         user= username;
         pass=password;
     }
-    protected void dispatch() throws  LoginFailedException{
+    public final void dispatch() throws  LoginFailedException{
         Login login = Login.signIn(user,pass);
         token = login.getToken();
     }
 
-    public long getToken(){
-        super.execute();
+    public final long result(){
         return token;
     }
 }
