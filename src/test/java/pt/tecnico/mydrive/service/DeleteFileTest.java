@@ -74,8 +74,8 @@ public class DeleteFileTest extends AbstractServiceTest{
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
         
-        DeleteFileService service = new DeleteFileService(token, filename);
-        service.execute();
+        DeleteFileService service2 = new DeleteFileService(token, filename);
+        service2.execute();
     }
 
     @Test(expected = ExpiredTokenException.class)
@@ -90,6 +90,7 @@ public class DeleteFileTest extends AbstractServiceTest{
 
     @Test(expected = FileDoesNotExistException.class)
     public void DeleteNonExistingFile() {
+        final long token = login("laurinha", "laurinha");
         final String filename = "manel.txt";
 
         DeleteFileService service = new DeleteFileService(token, filename);
