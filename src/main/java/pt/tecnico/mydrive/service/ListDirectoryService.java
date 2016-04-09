@@ -10,28 +10,30 @@ import pt.tecnico.mydrive.exception.*;
 public class ListDirectoryService extends MyDriveService{
 	MyDrive md = MyDrive.getInstance();
 
-    private Dir workingDir;
-    private Login login;
-    private String res;
+    private Dir _workingDir;
+    private Login _login;
+    private String _res;
 
 
-    public ListDirectoryService(long token){
-    	  super();
-        login = Login.getLoginByToken(token);
-        workingDir = login.getWorkingDir();
+    public ListDirectoryService(int token){
+    	super();
+
+    	_login = Login.getLoginByToken(token);
+      _workingDir = _login.getWorkingDir();
     }
 
-    protected final void dispatch() throws InsufficientPermissionsException{
 
-        if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
-        && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
+    public String result(){
+        return _res; 
+    }
+
+    protected final void  dispatch() throws InsuffientPermissionsException{
+
+        if(!(_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(0) == 'r')
+        && !(!_workingDir.getOwner().equals(login.getUser()) && _workingDir.getUmask().charAt(4) == 'r')
         && !(login.getUser().getUsername().equals("root")))
-        throw new InsufficientPermissionsException(workingDir.getName());
+        throw new InsufficientPermissionsException();
 
-        res = workingDir.listDir();
-    }
-
-    public final String result() {
-        return res;
+        _res = _workingDir.listDir();
     }
 }

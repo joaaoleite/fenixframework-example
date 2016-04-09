@@ -19,8 +19,8 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     public void successUserOnHisDir(){
         final long token = login("halib", "uht");
         ListDirectoryService service = new ListDirectoryService(token);
-        String[] list = service.execute();
-        service.result().split("\\r?\\n");
+        service.execute();
+        String[] list = service.result().split("\\r?\\n");
        
         assertNotNull("Directory was not listed", list);
        
@@ -56,7 +56,8 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/root");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);
-        String[] list = service.execute().split("\\r?\\n");
+        service.execute()
+        String[] list = service.result().split("\\r?\\n");
        
         assertNotNull("Directory was not listed", list);
        
@@ -84,6 +85,6 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/halib");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);
-        String[] list = service.execute().split("\\r?\\n");
+        service.execute()
     }
 }
