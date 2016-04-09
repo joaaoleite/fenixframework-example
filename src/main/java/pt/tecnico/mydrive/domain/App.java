@@ -16,8 +16,21 @@ public class App extends App_Base {
         init(parent, owner, name, mask);
     }
     
-    protected void execute(String[] args){
-        String method = getContent();
+    protected Object execute(String[] args){
+        String[] str = getContent().split(" ");
+        String[] exec = str[0].split(".");
+        str = Arrays.copyOfRange(str, 1, str.length);
+        Class cls = Class.forName(exec[0] + exec[1]);
+        Object obj = cls.newInstance();
+       
+        if(exec.length == 3)
+            Method method = cls.getDeclaredMethod(exec[2], String[].class);
+        else
+            Method method = cls.getDeclaredMethod("main", String[].class);
+        
+        Object obj = method.invoke(obj, str);
+
+        return obj;
     }
 
     public Element xmlExport(Element xmlmydrive){
