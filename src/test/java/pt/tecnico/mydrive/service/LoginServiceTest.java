@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.service;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
@@ -24,7 +24,7 @@ public class LoginServiceTest extends AbstractServiceTest{
         assertNotNull("Login failed", token);
     }
 
-    @Test(expected = UserDoesNotExistsException.class)
+    @Test(expected = UserDoesNotExistException.class)
     public void userDoesNotExists(){
         LoginService service = new LoginService("alice","123");
 
@@ -32,14 +32,14 @@ public class LoginServiceTest extends AbstractServiceTest{
     }
 
     @Test(expected = InvalidPasswordException.class)
-    public void userDoesNotExists(){
+    public void userDoesNotExists1(){
         LoginService service = new LoginService("john","dontknowmypassword");
 
         service.execute();
     }
 
-    @Test(expected = UserDoesNotExistsException.class)
-    public void userDoesNotExists(){
+    @Test(expected = UserDoesNotExistException.class)
+    public void userDoesNotExists2(){
         LoginService service = new LoginService(null,null);
         service.execute();
     }
