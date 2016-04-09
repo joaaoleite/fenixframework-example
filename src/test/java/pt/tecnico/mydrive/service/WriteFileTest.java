@@ -1,29 +1,16 @@
 package pt.tecnico.mydrive.service;
 
-import javax.transaction.NotSupportedException;
-import javax.transaction.SystemException;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-
-import static org.junit.Assert.*;
-
-import pt.ist.fenixframework.FenixFramework;
-import pt.ist.fenixframework.core.WriteOnReadError;
-import pt.tecnico.mydrive.Main;
-
-import pt.tecnico.mydrive.exception.*;
 import pt.tecnico.mydrive.domain.*;
+import pt.tecnico.mydrive.exception.*;
 
 public abstract class WriteFileTest extends AbstractServiceTest {
     protected static final Logger log = LogManager.getRootLogger();
     
     private Mydrive mydrive;
-    @override
+    @Override
     protected void populate(){
         mydrive = mydrive.getInstance();
 
@@ -118,7 +105,7 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         final long token = login("marshall", "missy");
         final String namefile = "test";
         final String content = "teste123";
-        final long fakeToken = 123456789;
+        final long fakeToken = "123456789";
 
         WriteFileService service = new WriteFileService(fakeToken, namefile, content);
         service.execute();
