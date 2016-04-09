@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.service;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;

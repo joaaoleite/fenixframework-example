@@ -1,13 +1,12 @@
 package pt.tecnico.mydrive.service;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
 public abstract class WriteFileTest extends AbstractServiceTest {
-    protected static final Logger log = LogManager.getRootLogger();
     
     private Mydrive mydrive;
     @Override
@@ -105,7 +104,7 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         final long token = login("marshall", "missy");
         final String namefile = "test";
         final String content = "teste123";
-        final long fakeToken = "123456789";
+        final long fakeToken = 123456789;
 
         WriteFileService service = new WriteFileService(fakeToken, namefile, content);
         service.execute();
