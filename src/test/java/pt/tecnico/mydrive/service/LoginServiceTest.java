@@ -11,14 +11,13 @@ public class LoginServiceTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         Dir rootdir = mydrive.getRootDir();
-        mydrive.createUser("John", "john", "john");
+        mydrive.createUser("John", "john", "john","rwxd----");
     }
     
     @Test
     public void successLogin(){
-        LoginService service = new LoginService();
+        LoginService service = new LoginService("john","uht");
 
-        service.login("john","uht");
         service.execute();
         long token = service.result();
         
@@ -27,25 +26,21 @@ public class LoginServiceTest extends AbstractServiceTest{
 
     @Test(expected = UserDoesNotExistsException.class)
     public void userDoesNotExists(){
-        LoginService service = new LoginService();
+        LoginService service = new LoginService("alice","123");
 
-        service.login("alice","123");
         service.execute();
     }
 
     @Test(expected = InvalidPasswordException.class)
     public void userDoesNotExists(){
-        LoginService service = new LoginService();
+        LoginService service = new LoginService("john","dontknowmypassword");
 
-        service.login("john","dontknowmypassword");
         service.execute();
     }
 
     @Test(expected = UserDoesNotExistsException.class)
     public void userDoesNotExists(){
-        LoginService service = new LoginService();
-
-        service.login(null,null);
+        LoginService service = new LoginService(null,null);
         service.execute();
     }
 
