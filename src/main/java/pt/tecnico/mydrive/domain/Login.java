@@ -10,7 +10,7 @@ public class Login{
     private Login( String username) {
         pipo="onde e k ta o pinto?";
         date= System.currentTimeMillis();
-        //token=newBigInteger(64,newRandom()).longValue();
+        token=new BigInteger(64,new Random()).longValue();
         token=123;
         MyDrive mydrive = MyDrive.getInstance();
         workingDir = mydrive.getRootDir().getDir("home").getDir(username);
