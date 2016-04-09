@@ -12,7 +12,7 @@ public class DeleteFileService extends MyDriveService {
     private Sting token;
     private String fileName;
 
-    public DeleteContactService(String token, String fileName) {
+    public DeleteFileService(String token, String fileName) {
         this.token = token;
         this.fileName = fileName;
     }
