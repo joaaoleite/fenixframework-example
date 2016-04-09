@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.service;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import pt.tecnico.mydrive.exception.*;
 import pt.tecnico.mydrive.domain.*;
@@ -12,7 +12,7 @@ public class ReadFileTest extends AbstractServiceTest{
         MyDrive mydrive = MyDrive.getInstance();        
         User antonio = mydrive.createUser("antonio", "toni","toni","rwxd----");
         
-        Dir roodir =mydrive.getRootDir();
+        Dir rootdir =mydrive.getRootDir();
             
         PlainFile plain = rootdir.getDir("home").getDir("toni").createPlainFile(antonio,"text.txt","rwxd----"); 
         plain.write("texto de teste");
