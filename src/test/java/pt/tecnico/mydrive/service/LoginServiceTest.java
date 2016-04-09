@@ -32,14 +32,14 @@ public class LoginServiceTest extends AbstractServiceTest{
     }
 
     @Test(expected = InvalidPasswordException.class)
-    public void userDoesNotExists(){
+    public void userDoesNotExists1(){
         LoginService service = new LoginService("john","dontknowmypassword");
 
         service.execute();
     }
 
     @Test(expected = UserDoesNotExistException.class)
-    public void userDoesNotExists(){
+    public void userDoesNotExists2(){
         LoginService service = new LoginService(null,null);
         service.execute();
     }
