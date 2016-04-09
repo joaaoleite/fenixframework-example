@@ -32,7 +32,8 @@ public class ListDirectoryService extends MyDriveService{
         if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
         && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
         && !(login.getUser().getUsername().equals("root")))
-        throw new InsufficientPermissionsException();
+        throw new InsufficientPermissionsException(login.getUser().getUsername());
+        
 
         res = workingDir.listDir();
     }

@@ -28,12 +28,12 @@ public class ChangeDirectoryService extends MyDriveService{
     }
 
     protected final void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
-        String[] path = path.split("/");
+        String[] parts = path.split("/");
 
         Dir actual;
         int i;
 
-        if(path.charAt(0) == '/'){
+        if(parts.charAt(0) == '/'){
 
             actual = md.getRootDir();
             i = 1;
@@ -43,25 +43,25 @@ public class ChangeDirectoryService extends MyDriveService{
             i = 0;
         }
 
-        for(; i<path.length-1; i++){
-            actual = actual.getDir(path[i]);
+        for(; i<parts.length-1; i++){
+            actual = actual.getDir(parts[i]);
         }
 
-        if(actual.exists(path[i++])){
-        	if (actual.getFileByName(path[i]).isDir()){
-        		workingDir = actual.getDir(path[i]);
+        if(actual.exists(parts[i++])){
+        	if (actual.getFileByName(parts[i]).isDir()){
+        		workingDir = actual.getDir(parts[i]);
 
                 if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
                 && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
                 && !(login.getUser().getUsername().equals("root")))
-                throw new InsufficientPermissionsException(path);
+                throw new InsufficientPermissionsException(parts);
 
         		login.setWorkingDir(workingDir);
         	}
         	else
-            	throw new FileIsAPlainFileException(path[i]);
+            	throw new FileIsAPlainFileException(parts[i]);
         }
 
-        throw new FileDoesNotExistException(path[i]);
+        throw new FileDoesNotExistException(parts[i]);
     }
 }
