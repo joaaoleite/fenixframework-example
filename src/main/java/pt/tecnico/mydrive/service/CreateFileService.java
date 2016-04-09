@@ -9,62 +9,62 @@ import pt.tecnico.mydrive.exception.*;
 
 public class CreateFileService extends MyDriveService{
 
-    private String _filename;
-    private String _type;
-    private String _content;
-    private Dir _workingDir;
-    private Login _login;
+    private String filename;
+    private String type;
+    private String content;
+    private Dir workingDir;
+    private Login login;
     
     public CreateFileService(long token, String filename, String type, String content){
         super();
         
-        _login = Login.getLoginByToken(token);
-        _workingDir = _login.getWorkingDir();
-        _filename = filename;
-        _type = type;
-        _content = content;
+        this.login = Login.getLoginByToken(token);
+        this.workingDir = login.getWorkingDir();
+        this.filename = filename;
+        this.type = type;
+        this.content = content;
     }    
 
     public CreateFileService(long token, String filename, String type){
         super();
         
-        _login = Login.getLoginByToken(token);
-        _workingDir = _login.getWorkingDir();
-        _filename = filename;
-        _type = type;
-        _content = null;
+        this.login = Login.getLoginByToken(token);
+        this.workingDir = login.getWorkingDir();
+        this.filename = filename;
+        this.type = type;
+        this.content = null;
     }    
     
     protected final void dispatch() throws MyDriveException, InsufficientPermissionsException{
         
         File newFile;
 
-        if(!(_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getMask().charAt(1) == 'w')
-            && !(!_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getMask().charAt(5) == 'w')
-            && !(_login.getUser().getUsername().equals("root")))
-            throw new InsufficientPermissionsException(_filename);
+        if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(1) == 'w')
+            && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(5) == 'w')
+            && !(login.getUser().getUsername().equals("root")))
+            throw new InsufficientPermissionsException(filename);
 
-        switch(_type){
+        switch(type){
             case "dir":
-                newFile = _workingDir.createDir(_login.getUser(), _filename);
+                newFile = workingDir.createDir(login.getUser(), filename);
                 break;
             case "plain":
                 if(_content == null)
-                    newFile = _workingDir.createPlainFile(_login.getUser(), _filename);
+                    newFile = workingDir.createPlainFile(login.getUser(), filename);
                 else
-                    newFile = _workingDir.createPlainFile(_login.getUser(), _filename, _content);
+                    newFile = workingDir.createPlainFile(login.getUser(), filename, content);
                 break;
             case "link":
-                if(_content == null)
-                    newFile = _workingDir.createLink(_login.getUser(), _filename);
+                if(content == null)
+                    newFile = workingDir.createLink(login.getUser(), filename);
                 else
-                    newFile = _workingDir.createLink(_login.getUser(), _filename, _content);
+                    newFile = workingDir.createLink(login.getUser(), filename, content);
                 break;
             case "app":
-                if(_content == null)
-                    newFile = _workingDir.createApp(_login.getUser(), _filename);
+                if(content == null)
+                    newFile = workingDir.createApp(login.getUser(), filename);
                 else
-                    newFile = _workingDir.createApp(_login.getUser(), _filename, _content);
+                    newFile = workingDir.createApp(login.getUser(), filename, content);
                 break;
         }
     }
