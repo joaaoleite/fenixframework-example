@@ -24,7 +24,7 @@ public class LoginServiceTest extends AbstractServiceTest{
         assertNotNull("Login failed", token);
     }
 
-    @Test(expected = UserDoesNotExistsException.class)
+    @Test(expected = UserDoesNotExistException.class)
     public void userDoesNotExists(){
         LoginService service = new LoginService("alice","123");
 
@@ -38,7 +38,7 @@ public class LoginServiceTest extends AbstractServiceTest{
         service.execute();
     }
 
-    @Test(expected = UserDoesNotExistsException.class)
+    @Test(expected = UserDoesNotExistException.class)
     public void userDoesNotExists(){
         LoginService service = new LoginService(null,null);
         service.execute();
