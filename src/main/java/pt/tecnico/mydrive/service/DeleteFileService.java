@@ -9,10 +9,10 @@ import pt.tecnico.mydrive.exception.*;
 
 public class DeleteFileService extends MyDriveService {
 
-    private Sting token;
+    private int token;
     private String fileName;
 
-    public DeleteFileService(String token, String fileName) {
+    public DeleteFileService(int token, String fileName) {
         this.token = token;
         this.fileName = fileName;
     }
@@ -20,9 +20,9 @@ public class DeleteFileService extends MyDriveService {
     @Override
     public final void dispatch() throws MyDriveException, ExpiredTokenException, FileDoesNotExistException {
 
-    	File f = mydrive.getLogin().getWorkingDir(token).getFileByFileName(fileName);
+    File f = Login.getLoginByToken(token).getWorkingDir().getFileByName(fileName);
 		if (f == null){
-			throw new FileDoesNotExistException();
+			throw new FileDoesNotExistException(fileName);
 		}
 		else{
 			if (f.isDir() == true){

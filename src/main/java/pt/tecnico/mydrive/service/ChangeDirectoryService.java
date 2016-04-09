@@ -49,9 +49,9 @@ public class ChangeDirectoryService extends MyDriveService{
         	if (actual.getFileByName(path[i]).isDir()){
         		_workingDir = actual.getDir(path[i]);
 
-                if(!(_workingDir.getOwner().equals(login.getUser()) && _workingDir.getMask().charAt(0) == 'r')
-                && !(!_workingDir.getOwner().equals(login.getUser()) && _workingDir.getMask().charAt(4) == 'r')
-                && !(login.getUser().getUsername().equals("root")))
+                if(!(_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getMask().charAt(0) == 'r')
+                && !(!_workingDir.getOwner().equals(_login.getUser()) && _workingDir.getMask().charAt(4) == 'r')
+                && !(_login.getUser().getUsername().equals("root")))
                 throw new InsufficientPermissionsException(_path);
 
         		_login.setWorkingDir(_workingDir);
