@@ -11,7 +11,7 @@ public class ChangeDirectoryService extends MyDriveService{
 	MyDrive md = MyDrive.getInstance();
 
     private Dir _workingDir;
-    private Login login;
+    private Login _login;
     private int _token;
     private String _path;
 
@@ -19,7 +19,7 @@ public class ChangeDirectoryService extends MyDriveService{
     public ChangeDirectoryService(int token, String path){
     	super();
 
-    	login = Login.getLoginByToken(token);
+    	_login = Login.getLoginByToken(token);
     	_token = token;
     	_path = path;
 
@@ -37,7 +37,7 @@ public class ChangeDirectoryService extends MyDriveService{
             i = 1;
         }
         else{
-            actual = login.getWorkingDir();
+            actual = _login.getWorkingDir();
             i = 0;
         }
 
@@ -54,7 +54,7 @@ public class ChangeDirectoryService extends MyDriveService{
                 && !(login.getUser().getUsername().equals("root")))
                 throw new InsufficientPermissionsException(_path);
 
-        		login.setWorkingDir(_workingDir);
+        		_login.setWorkingDir(_workingDir);
         		_workingDir.getPath();
         	}
         	else
