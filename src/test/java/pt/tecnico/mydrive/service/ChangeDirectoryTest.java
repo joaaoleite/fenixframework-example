@@ -10,10 +10,10 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         
-        mydrive.createUser("Halibio", "halib", "uht");
-        mydrive.getRootDir().getDir("home").getDir("halib").createDir(getUserByUsername("halib"), "test");
-        mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti");
-        mydrive.getRootDir().getDir("home").getDir("zetrigo").createPlainFile(getUserByUsername("zetrigo"), "loans");
+        mydrive.createUser("Halibio", "halib", "uht", "rwxd----");
+        mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
+        mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti", "rwxd----");
+        mydrive.getRootDir().getDir("home").getDir("zetrigo").createPlainFile(mydrive.getUserByUsername("zetrigo"), "loans");
    }
     
     @Test
@@ -60,9 +60,9 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
         service.execute();
     }
 
-    @Test(expected = FileDoesNotExistsException.class)
+    @Test(expected = FileDoesNotExistException.class)
     public void invalidPathRel(){
-        final int token = login("halib", "uht");
+        final long token = login("halib", "uht");
         final String path = "photos";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
@@ -70,7 +70,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     
     @Test(expected = FileIsAPlainFileException.class)
     public void invalidPathPointsToPlainFileAbs(){
-        final int token = login("zetrigo", "tetetiti");
+        final long token = login("zetrigo", "tetetiti");
         final String path = "/home/zetrigo/loans";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
