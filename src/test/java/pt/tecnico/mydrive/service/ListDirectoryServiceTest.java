@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.service;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
@@ -10,7 +10,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         
-        mydrive.createUser("Halibio", "halib", "uht");
+        mydrive.createUser("Halibio", "halib", "uht","rwxd----");
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
         mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti","rwxd----");
    }
@@ -56,7 +56,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/root");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);
-        service.execute()
+        service.execute();
         String[] list = service.result().split("\\r?\\n");
        
         assertNotNull("Directory was not listed", list);
@@ -85,6 +85,6 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/halib");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);
-        service.execute()
+        service.execute();
     }
 }

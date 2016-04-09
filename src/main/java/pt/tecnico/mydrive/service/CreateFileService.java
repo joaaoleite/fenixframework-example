@@ -49,7 +49,7 @@ public class CreateFileService extends MyDriveService{
                 newFile = workingDir.createDir(login.getUser(), filename);
                 break;
             case "plain":
-                if(_content == null)
+                if(content == null)
                     newFile = workingDir.createPlainFile(login.getUser(), filename);
                 else
                     newFile = workingDir.createPlainFile(login.getUser(), filename, content);

@@ -33,7 +33,7 @@ public class ChangeDirectoryService extends MyDriveService{
         Dir actual;
         int i;
 
-        if(parts.charAt(0) == '/'){
+        if(path.charAt(0) == '/'){
 
             actual = md.getRootDir();
             i = 1;
@@ -54,7 +54,7 @@ public class ChangeDirectoryService extends MyDriveService{
                 if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
                 && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
                 && !(login.getUser().getUsername().equals("root")))
-                throw new InsufficientPermissionsException(parts);
+                throw new InsufficientPermissionsException(workingDir.getName());
 
         		login.setWorkingDir(workingDir);
         	}

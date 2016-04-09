@@ -15,7 +15,7 @@ public class ListDirectoryService extends MyDriveService{
     private String res;
 
 
-    public ListDirectoryService(int token){
+    public ListDirectoryService(long token){
     	super();
 
     	this.login = Login.getLoginByToken(token);
