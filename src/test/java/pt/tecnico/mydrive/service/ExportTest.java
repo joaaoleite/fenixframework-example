@@ -26,7 +26,6 @@ public class ExportTest extends AbstractServiceTest {
         mydrive.getRootDir().getDir("home").getDir("Toni").createPlainFile(toni,"toni.txt");
         mydrive.getRootDir().getDir("home").getDir("Toni").createDir(toni,"folder").createPlainFile(toni,"plain.txt");
         mydrive.getRootDir().getDir("home").getDir("Ze").createPlainFile(ze,"test.txt");
-
     }
 
     @Test
@@ -34,6 +33,5 @@ public class ExportTest extends AbstractServiceTest {
         ExportMyDriveService service = new ExportMyDriveService();
         service.execute();
 		    Document doc = service.result();
-
     }
 }
