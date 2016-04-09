@@ -118,7 +118,7 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         final long token = login("marshall", "missy");
         final String namefile = "test";
         final String content = "teste123";
-        final long fakeToken = "123456789";
+        final long fakeToken = 123456789;
 
         WriteFileService service = new WriteFileService(fakeToken, namefile, content);
         service.execute();
