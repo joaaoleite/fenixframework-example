@@ -26,7 +26,7 @@ public class ReadFileTest extends AbstractServiceTest{
         
         ReadFileService service = new ReadFileService(token, filename);
         service.execute();
-        String content = service.result()
+        String content = service.result();
         assertNotNull("File doesn't exist", content);
         assertEquals("Wrong match", "texto de teste", content);
     }

@@ -4,6 +4,8 @@ import org.jdom2.DataConversionException;
 import org.jdom2.Element;
 
 import pt.tecnico.mydrive.exception.ImportDocException;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 public class App extends App_Base {
     
@@ -20,17 +22,21 @@ public class App extends App_Base {
         String[] str = getContent().split(" ");
         String[] exec = str[0].split(".");
         str = Arrays.copyOfRange(str, 1, str.length);
-        Class cls = Class.forName(exec[0] + exec[1]);
-        Object obj = cls.newInstance();
-       
-        if(exec.length == 3)
-            Method method = cls.getDeclaredMethod(exec[2], String[].class);
-        else
-            Method method = cls.getDeclaredMethod("main", String[].class);
+        try{
+            Class cls = Class.forName(exec[0] + exec[1]);
+            Object obj = cls.newInstance();
+            Method method; 
+            if(exec.length == 3)
+                method = cls.getDeclaredMethod(exec[2], String[].class);
+            else
+                method = cls.getDeclaredMethod("main", String[].class);
         
-        Object obj = method.invoke(obj, str);
-
-        return obj;
+            obj = method.invoke(obj, str);
+            return obj;
+        }catch(Exception e){
+            
+        }
+        return null;
     }
 
     public Element xmlExport(Element xmlmydrive){

@@ -16,7 +16,7 @@ public class WriteFileService extends MyDriveService{
         this.filename = filename;
         this.text = content;
     }
-    protected void dispatch() throws LoginFailedException{
+    protected final void dispatch() throws LoginFailedException{
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
         PlainFile file = ((PlainFile) workingDir.getFileByName(filename));

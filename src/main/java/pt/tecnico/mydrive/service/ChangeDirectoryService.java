@@ -23,11 +23,11 @@ public class ChangeDirectoryService extends MyDriveService{
 
     }
     
-    public String result{
+    public final String result(){
         return _workingDir.getPath();
     }
 
-    protected void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
+    protected final void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
         String[] path = _path.split("/");
 
         Dir actual;

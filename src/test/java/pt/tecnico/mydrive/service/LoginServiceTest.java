@@ -20,7 +20,7 @@ public class LoginServiceTest extends AbstractServiceTest{
 
         service.login("john","uht");
         service.execute();
-        long token = service.getToken();
+        long token = service.result();
         
         assertNotNull("Login failed", token);
     }

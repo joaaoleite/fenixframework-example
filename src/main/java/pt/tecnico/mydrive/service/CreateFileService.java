@@ -35,7 +35,7 @@ public class CreateFileService extends MyDriveService{
         _content = null;
     }    
     
-    protected void dispatch() throws MyDriveException, InsufficientPermissionsException{
+    protected final void dispatch() throws MyDriveException, InsufficientPermissionsException{
         
         File newFile;
 
