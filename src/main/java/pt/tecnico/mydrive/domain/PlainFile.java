@@ -11,9 +11,9 @@ public class PlainFile extends PlainFile_Base {
         super();
     }
     
-    protected PlainFile(Dir parent, User owner, String name, String mask) {
+    protected PlainFile(Dir parent, User owner, String name) {
         super();
-        init(parent, owner, name, mask);
+        init(parent, owner, name);
     }
   
     public String read(){

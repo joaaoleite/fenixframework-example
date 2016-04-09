@@ -10,7 +10,7 @@ import pt.tecnico.mydrive.exception.*;
 public class LoginService extends MyDriveService{
     private final String user;
     private final String pass;
-    private int token;
+    private long token;
     public LoginService(String username, String password){
         user= username;
         pass=password;
@@ -20,7 +20,7 @@ public class LoginService extends MyDriveService{
         token = login.getToken();
     }
 
-    public int getToken(){
+    public long getToken(){
         super.execute();
         return token;
     }

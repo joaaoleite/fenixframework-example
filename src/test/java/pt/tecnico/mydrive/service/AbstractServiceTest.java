@@ -42,7 +42,7 @@ public abstract class AbstractServiceTest {
         }
     }
 
-    protected int login(username, password){
+    protected long login(String username, String password){
         LoginService service = new LoginService();
         Boolean isLoggedIn = service.login(username, password);
         if(isLoggedIn) return service.getToken();

@@ -9,10 +9,10 @@ import pt.tecnico.mydrive.exception.*;
 
 public class DeleteFileService extends MyDriveService {
 
-    private int token;
+    private long token;
     private String fileName;
 
-    public DeleteFileService(int token, String fileName) {
+    public DeleteFileService(long token, String fileName) {
         this.token = token;
         this.fileName = fileName;
     }

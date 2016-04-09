@@ -7,20 +7,20 @@ public class ExpiredTokenException extends MyDriveException {
     private static final long serialVersionUID = 1L;
 
 
-	private final String _token;
+	private final long date;
 
 	/**
 	 * @param name
 	 */
-	public ExpiredTokenException(String token) {
+	public ExpiredTokenException(long date) {
 		super();
-		_token = token;
+		this.date = date;
 	}
 
 	
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The Token " + _token + " is expired.";
+		return "The Token " + date + " is expired.";
 	}
 }

@@ -15,7 +15,7 @@ public class ListDirectoryService extends MyDriveService{
     private String res;
 
 
-    public ListDirectoryService(int token){
+    public ListDirectoryService(long token){
     	  super();
         login = Login.getLoginByToken(token);
         workingDir = login.getWorkingDir();
@@ -29,5 +29,9 @@ public class ListDirectoryService extends MyDriveService{
         throw new InsufficientPermissionsException(workingDir.getName());
 
         res = workingDir.listDir();
+    }
+
+    public final String result() {
+        return res;
     }
 }

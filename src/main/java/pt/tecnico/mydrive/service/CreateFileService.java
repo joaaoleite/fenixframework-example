@@ -15,7 +15,7 @@ public class CreateFileService extends MyDriveService{
     private Dir _workingDir;
     private Login _login;
     
-    public CreateFileService(int token, String filename, String type, String content){
+    public CreateFileService(long token, String filename, String type, String content){
         super();
         
         _login = Login.getLoginByToken(token);
@@ -23,6 +23,16 @@ public class CreateFileService extends MyDriveService{
         _filename = filename;
         _type = type;
         _content = content;
+    }    
+
+    public CreateFileService(long token, String filename, String type){
+        super();
+        
+        _login = Login.getLoginByToken(token);
+        _workingDir = _login.getWorkingDir();
+        _filename = filename;
+        _type = type;
+        _content = null;
     }    
     
     protected void dispatch() throws MyDriveException, InsufficientPermissionsException{
@@ -51,7 +61,7 @@ public class CreateFileService extends MyDriveService{
                     newFile = _workingDir.createLink(_login.getUser(), _filename, _content);
                 break;
             case "app":
-                if(content == null)
+                if(_content == null)
                     newFile = _workingDir.createApp(_login.getUser(), _filename);
                 else
                     newFile = _workingDir.createApp(_login.getUser(), _filename, _content);

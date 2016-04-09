@@ -12,11 +12,11 @@ public class ChangeDirectoryService extends MyDriveService{
 
     private Dir _workingDir;
     private Login _login;
-    private int _token;
+    private long _token;
     private String _path;
 
 
-    public ChangeDirectoryService(int token, String path){
+    public ChangeDirectoryService(long token, String path){
     	super();
 
     	_login = Login.getLoginByToken(token);

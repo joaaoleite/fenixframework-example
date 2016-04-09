@@ -3,6 +3,7 @@ package pt.tecnico.mydrive.domain;
 import pt.tecnico.mydrive.exception.*;
 
 import java.io.File;
+import java.math.BigInteger;
 
 import org.jdom2.Element;
 import org.jdom2.Document;
@@ -11,13 +12,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
+
 import pt.ist.fenixframework.FenixFramework;
 
 public class MyDrive extends MyDrive_Base {
 
     static final Logger log = LogManager.getRootLogger();
     
-    private HashMap<long,Login> loginHash = new HashMap<long,Login>();
+    private HashMap<Long,Login> loginHash = new HashMap<Long,Login>();
 
     public static MyDrive getInstance() {
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
@@ -141,7 +143,7 @@ public class MyDrive extends MyDrive_Base {
     }
 
     public boolean hasUser(String name){
-        return getUserByUsername(username) != null;
+        return getUserByUsername(name) != null;
     }
 
     public User createUser(String name, String username, String password, String mask) throws UserAlreadyExistsException{

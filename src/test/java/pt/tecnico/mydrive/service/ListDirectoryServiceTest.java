@@ -4,21 +4,23 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import pt.tecnico.mydrive.domain.*;
+import pt.tecnico.mydrive.exception.*;
 
 public class ListDirectoryServiceTest extends AbstractServiceTest{    
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         
         mydrive.createUser("Halibio", "halib", "uht");
-        mydrive.getRootDir().getDir("home").getDir("halib").createDir(getUserByUsername("halib"), "test");
-        mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti");
+        mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
+        mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti","rwxd----");
    }
     
     @Test
     public void successUserOnHisDir(){
-        final int token = login("halib", "uht");
+        final long token = login("halib", "uht");
         ListDirectoryService service = new ListDirectoryService(token);
-        String[] list = service.execute().split("\\r?\\n");
+        String[] list = service.execute();
+        service.result().split("\\r?\\n");
        
         assertNotNull("Directory was not listed", list);
        
@@ -50,7 +52,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     
     @Test
     public void successUserOnSuperUserDir(){
-        final int token = login("halib", "uht");
+        final long token = login("halib", "uht");
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/root");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);
@@ -78,7 +80,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
 
     @Test(expected = InsufficientPermissionsException.class)
     public void invalidUserOnOtherUserDir(){
-        final int token = login("zetrigo", "tetetiti");
+        final long token = login("zetrigo", "tetetiti");
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/halib");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);

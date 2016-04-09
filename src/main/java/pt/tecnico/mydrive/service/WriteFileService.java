@@ -8,10 +8,10 @@ import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
 public class WriteFileService extends MyDriveService{
-    private final int token;
+    private final long token;
     private final String filename;
     private final String text;
-    public WriteFileService(int session, String filename, String content){
+    public WriteFileService(long session, String filename, String content){
         this.token = session;
         this.filename = filename;
         this.text = content;

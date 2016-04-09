@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import pt.tecnico.mydrive.domain.*;
+import pt.tecnico.mydrive.exception.*;
 
 public class CreateFileTest extends AbstractServiceTest{    
     protected void populate(){
@@ -12,7 +13,7 @@ public class CreateFileTest extends AbstractServiceTest{
         User luis = mydrive.createUser("luis", "luisinho","luisinho","rwxd----");
         User ze = mydrive.createUser("ze", "zezinho","zezinho","rwxd----");
         
-        Dir roodir = mydrive.getRootDir();
+        Dir rootdir = mydrive.getRootDir();
         
         Link link = rootdir.getDir("home").getDir("luis").createLink(luis,"link","rwxd----");
         App app = rootdir.getDir("home").getDir("luis").createApp(luis,"app","rwxd----");
@@ -23,7 +24,7 @@ public class CreateFileTest extends AbstractServiceTest{
 
     @Test
     public void successCreateLinkFile(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String type = "link";
         final String filename = "link";
         final String content = "";
@@ -38,7 +39,7 @@ public class CreateFileTest extends AbstractServiceTest{
 
     @Test
     public void successCreateAppFile(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String type = "App"; 
         final String filename = "link";
         final String content = "";
@@ -48,12 +49,12 @@ public class CreateFileTest extends AbstractServiceTest{
         
         assertNotNull("AppFile not created", file);
         assertEquals("No match in filename", "app", file.getFilename());
-        assertEquals("No match in type", "app", file.getType());
+        assertEquals("No match in type", "App", getClass().getName());
     }
 
     @Test
     public void successCreateDirFile(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String type = "Dir"; 
         final String filename = "link";
         
@@ -67,7 +68,7 @@ public class CreateFileTest extends AbstractServiceTest{
 
     @Test
     public void successCreatePlainFile(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String type = "Plain"; 
         final String filename = "new.txt";
         final String content = "Projecto de ES";
@@ -76,13 +77,13 @@ public class CreateFileTest extends AbstractServiceTest{
         File file = service.execute();
         
         assertNotNull("AppFile not created", file);
-        assertEquals("No match in filename", "new.txt", file.getFilename());
+        assertEquals("No match in filename", "new.txt", file.getFileName());
         assertEquals("No match in type", "Plain", file.getType());
     }
 
     @Test(expected = FileDoesNotExistException.class)
     public void cantFindFile(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String filename = "ze.txt";
         
         CreateFileService service = new CreateFileService(token, filename);
@@ -91,7 +92,7 @@ public class CreateFileTest extends AbstractServiceTest{
 
     @Test(expected = FileIsADirException.class)
     public void DirWithoutContent(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String type = "Dir"; 
         final String filename = "NewDir";
         final String content = "Directory with content";
@@ -103,17 +104,17 @@ public class CreateFileTest extends AbstractServiceTest{
 
     @Test(expected = ExpiredTokenException.class)
     public void tokenExpired(){
-        final int token = 234257263578354;
+        final long token = 234257263;
         final String filename = "link";
 
-        CreateFileService service = new CreateFileService(token, filename);
+        CreateFileService service = new CreateFileService(token, filename,"Link");
         service.execute();
 
     }
 
     @Test(expected = InsufficientPermissionsException.class)
     public void FileInAnotherUserDir(){
-        final int token = login("luisinho", "luisinho");
+        final long token = login("luisinho", "luisinho");
         final String path = "/home/ze";
         final String type = "Dir"; 
         final String filename = "NewDir";
@@ -122,8 +123,8 @@ public class CreateFileTest extends AbstractServiceTest{
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         String newPath = service.execute();
 
-        CreateFileService service = new CreateFileService(token, filename, type, content);
-        service.execute();
+        CreateFileService service2 = new CreateFileService(token, filename, type, content);
+        service2.execute();
 
     } 
 }

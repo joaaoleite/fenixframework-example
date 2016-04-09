@@ -50,7 +50,7 @@ public class Main {
         plain.write(mydrive.getUserSet().toString());
            
         // 2. create Dir /usr/local/bin
-        Dir bin = rootdir.createDir(mydrive.getSuperUser(),"usr","mask").createDir(mydrive.getSuperUser(),"local","mask").createDir(mydrive.getSuperUser(),"bin","mask");
+        Dir bin = rootdir.createDir(mydrive.getSuperUser(),"usr").createDir(mydrive.getSuperUser(),"local").createDir(mydrive.getSuperUser(),"bin");
         
         // 3. print /home/README
         System.out.println(((PlainFile)rootdir.getDir("home").getFileByName("README")).read());

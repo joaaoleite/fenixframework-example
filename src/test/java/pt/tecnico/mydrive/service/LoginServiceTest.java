@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import pt.tecnico.mydrive.domain.*;
+import pt.tecnico.mydrive.exception.*;
 
 public class LoginServiceTest extends AbstractServiceTest{
     
@@ -18,7 +19,8 @@ public class LoginServiceTest extends AbstractServiceTest{
         LoginService service = new LoginService();
 
         service.login("john","uht");
-        int token = service.execute();
+        service.execute();
+        long token = service.getToken();
         
         assertNotNull("Login failed", token);
     }

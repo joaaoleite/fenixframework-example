@@ -55,7 +55,7 @@ public class Dir extends Dir_Base {
         throw new FileAlreadyExistsException(name);
     }
 
-    public String listDir(){
+    public String listDir(){ /*
         String output = (getClass().getSimpleName() +" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n"+getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+getParent().getName()+"\n");
             for (File file: getFileSet()){
                 if (file.isLink()){
@@ -64,7 +64,8 @@ public class Dir extends Dir_Base {
                 else
                     output += (file.getClass().getSimpleName()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification().toString()+" "+file.getName()+"\n");
             }
-        return output;
+        return output; */
+        return "";
     }
 
     public App createApp(User owner, String name) throws FileAlreadyExistsException{

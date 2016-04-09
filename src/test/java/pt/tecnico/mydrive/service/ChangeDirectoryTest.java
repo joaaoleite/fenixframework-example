@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import pt.tecnico.mydrive.domain.*;
+import pt.tecnico.mydrive.exception.*;
 
 public class ChangeDirectoryTest extends AbstractServiceTest{    
     protected void populate(){
@@ -17,7 +18,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     
     @Test
     public void successUserToHisDirRel(){
-        final int token = login("halib", "uht");
+        final long token = login("halib", "uht");
         final String path = "test";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         String newPath = service.execute();
@@ -28,7 +29,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
 
     @Test
     public void successSuperUserToOtherDirAbs(){
-        final int token = login("root", "***");
+        final long token = login("root", "***");
         final String path = "/home/halib/test";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         String newPath = service.execute();
@@ -39,7 +40,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
 
     @Test
     public void successUserToSuperUserDirRel(){
-        final int token = login("zetrigo", "tetetiti");
+        final long token = login("zetrigo", "tetetiti");
         final String path = "..";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         String newPath = service.execute();
@@ -50,7 +51,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
 
     @Test(expected = InsufficientPermissionsException.class)
     public void invalidUserToOtherDirAbs(){
-        final int token = login("halib", "uht");
+        final long token = login("halib", "uht");
         final String path = "/home/zetrigo";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         String newPath = service.execute();

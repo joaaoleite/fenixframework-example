@@ -3,6 +3,7 @@ package pt.tecnico.mydrive.service;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import pt.tecnico.mydrive.exception.*;
 import pt.tecnico.mydrive.domain.*;
 
 public class ReadFileTest extends AbstractServiceTest{    
@@ -20,7 +21,7 @@ public class ReadFileTest extends AbstractServiceTest{
    } 
     @Test
     public void successReadFile(){
-        final int token = login("toni", "toni");
+        final long token = login("toni", "toni");
         final String filename = "text.txt";
         
         ReadFileService service = new ReadFileService(token, filename);
@@ -33,7 +34,7 @@ public class ReadFileTest extends AbstractServiceTest{
 
     @Test(expected = FileDoesNotExistException.class)
     public void cantFindFile(){
-        final int token = login("toni", "toni");
+        final long token = login("toni", "toni");
         final String filename = "tex.txt";
         
         ReadFileService service = new ReadFileService(token, filename);
@@ -41,7 +42,7 @@ public class ReadFileTest extends AbstractServiceTest{
     }
     @Test(expected = FileIsADirException.class)
     public void isDir(){
-        final int token = login("toni", "toni");
+        final long token = login("toni", "toni");
         final String filename = "teste";
         ReadFileService service = new ReadFileService(token, filename);
         service.execute();
@@ -49,7 +50,7 @@ public class ReadFileTest extends AbstractServiceTest{
     } 
     @Test(expected = ExpiredTokenException.class)
     public void tokenExpired(){
-        final int token = 111111111111111;
+        final long token = 1111111;
         final String filename = "teste";
         ReadFileService service = new ReadFileService(token, filename);
         service.execute();

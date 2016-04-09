@@ -51,7 +51,7 @@ public abstract class File extends File_Base {
         return !(name.contains("/") || name.contains("\0") || name.equals("..") || name.equals("."));
     }
 
-    protected void removeR(){
+    public void removeR(){
         remove();
     }
 
@@ -111,7 +111,7 @@ public abstract class File extends File_Base {
                 actual = actual.getDir(parts[i]);
             }
             else{
-                actual = actual.createDir(getMydrive().getSuperUser(), parts[i], "");
+                actual = actual.createDir(getMydrive().getSuperUser(), parts[i]);
             }
         }
 

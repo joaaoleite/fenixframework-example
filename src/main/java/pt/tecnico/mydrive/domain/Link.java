@@ -12,7 +12,7 @@ public class Link extends Link_Base {
     
     protected Link(MyDrive mydrive, Dir parent, User owner, String name, String mask, String content) {
         super();
-    	init(parent, owner, name, mask);
+    	init(parent, owner, name);
     	setContent(content);
     }
 

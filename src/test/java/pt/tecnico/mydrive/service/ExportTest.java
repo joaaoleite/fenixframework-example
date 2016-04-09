@@ -12,6 +12,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Attribute;
 
+import pt.tecnico.mydrive.exception.*;
+import pt.tecnico.mydrive.domain.*;
+
 public class ExportTest extends AbstractServiceTest {
 
     protected void populate() {
