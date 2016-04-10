@@ -60,12 +60,17 @@ public class Dir extends Dir_Base {
 
     public String listDir(){
         String output = "";
+        
+        ArrayList<String> str = new ArrayList<String>();
 
-        ArrayList<File> list = new ArrayList<File>(getFileSet());
-        Collections.sort(list, new Comparator<File>());
+        for(File file : getFileSet()){
+            str.add(file.getName());
+        }
 
-        for(File file : list){
-            output = output + file.print();    
+        Collections.sort(str);
+
+        for(String filename : str){
+            output += getFileByName(filename).print();   
         }
 
         output = getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+"."+"\n"
