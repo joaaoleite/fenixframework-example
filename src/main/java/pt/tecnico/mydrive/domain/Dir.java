@@ -82,25 +82,33 @@ public class Dir extends Dir_Base {
         
     }
 
-    public App createApp(User owner, String name) throws FileAlreadyExistsException{
-        return null;
+    public App createApp(User owner, String name) throws FileAlreadyExistsExceptioin, PathTooLongException{
+        if(exists(name) == false){
+            if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
+            return new App(this, owner, name);
+        }    
+        else
+            throw new FileAlreadyExistsException(name);
     }
 
-    public App createApp(User owner, String name, String content) throws FileAlreadyExistsException{
-        return null;
+    public App createApp(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
+        App app = createApp(owner, name);
+        app.setContent(content);
+        return app;
     }
 
-    public Link createLink(User owner, String name) throws FileAlreadyExistsException{
-        return null;
-    }
-
-    public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException{
-        return null;
+    public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
+        if(exists(name) == false){
+            if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
+            return new Link(this, owner, name, content);
+        }    
+        else
+            throw new FileAlreadyExistsException(name);
     }
     public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException, PathTooLongException{
         if(exists(name) == false){
             if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
-            return new PlainFile( this, owner, name);
+            return new PlainFile(this, owner, name);
         }    
         else
             throw new FileAlreadyExistsException(name);
