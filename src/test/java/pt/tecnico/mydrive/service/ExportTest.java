@@ -18,14 +18,14 @@ public class ExportTest extends AbstractServiceTest {
         MyDrive mydrive = MyDrive.getInstance();
 
         User toni = mydrive.createUser("Toni","antonio","antonio","rwdx----");
-        User ze = mydrive.createUser("Ze","zezinho","zezinho","rwdx----");
+        User ze = mydrive.createUser("Ze","zezinho","password","rwdx----");
 
-        mydrive.getRootDir().getDir("home").getDir("Toni").createPlainFile(toni,"toni.txt");
-        mydrive.getRootDir().getDir("home").getDir("Toni").createDir(toni,"folder").createPlainFile(toni,"plain.txt");
-        mydrive.getRootDir().getDir("home").getDir("Ze").createPlainFile(ze,"test.txt");
-        mydrive.getRootDir().getDir("home").getDir("Ze").createLink(ze,"link","/home/zezinho");
-        mydrive.getRootDir().getDir("home").getDir("Ze").createApp(ze,"app");
-        mydrive.getRootDir().getDir("home").getDir("Ze").createDir(ze,"foldertest");
+        mydrive.getRootDir().getDir("home").getDir("antonio").createPlainFile(toni,"toni.txt");
+        mydrive.getRootDir().getDir("home").getDir("antonio").createDir(toni,"folder").createPlainFile(toni,"plain.txt");
+        mydrive.getRootDir().getDir("home").getDir("zezinho").createPlainFile(ze,"test.txt","content");
+        mydrive.getRootDir().getDir("home").getDir("zezinho").createLink(ze,"link","/home/zezinho");
+        mydrive.getRootDir().getDir("home").getDir("zezinho").createApp(ze,"app");
+        mydrive.getRootDir().getDir("home").getDir("zezinho").createDir(ze,"foldertest");
 
     }
 
@@ -42,33 +42,77 @@ public class ExportTest extends AbstractServiceTest {
         assertEquals("Exported 1 Link", 1, e.getChildren("link").size());
         assertEquals("Exported 1 App", 1, e.getChildren("app").size());
         //User
-        assertEquals("User username", "Toni", e.getChildren("user").getAttribute("username").getValue());
-        assertEquals("User Password", "rwdx----", e.getChildren("user").getChildText("password"));
-        assertEquals("User name", "Toni", e.getChildren("user").getChildText("name"));
-        assertEquals("User homefolder", "rwdx----", e.getChildren("user").getChildText("home"));
-        assertEquals("User mask", "rwdx----", e.getChildren("user").getChildText("mask"));
-        //Dir
-        assertEquals("Dir path", "/home/antonio", e.getChildren("dir").getChildText("path"));
-        assertEquals("Dir name", "Toni", e.getChildren("dir").getChildText("name"));
-        assertEquals("Dir owner", "antonio", e.getChildren("dir").getChildText("owner"));
-        assertEquals("Dir perm", "rwdx----", e.getChildren("dir").getChildText("perm"));
-        //PlainFile
-        assertEquals("Plain path", "/home/antonio", e.getChildren("plain").getChildText("path"));
-        assertEquals("Plain name", "Toni", e.getChildren("plain").getChildText("name"));
-        assertEquals("Plain homefolder", "antonio", e.getChildren("plain").getChildText("home"));
-        assertEquals("Plain perm", "rwdx----", e.getChildren("plain").getChildText("mask"));
-        assertEquals("Plain content", "", e.getChildren("plain").getChildText("content"));
-        //Link
-        assertEquals("Link path", "/home/antonio", e.getChildren("link").getChildText("path"));
-        assertEquals("Link name", "Toni", e.getChildren("link").getChildText("name"));
-        assertEquals("Link homefolder", "antonio", e.getChildren("link").getChildText("home"));
-        assertEquals("Link perm", "rwdx----", e.getChildren("link").getChildText("mask"));
-        assertEquals("Link value", "/home/zezinho", e.getChildren("link").getChildText("value"));
-        //App
-        assertEquals("App path", "/home/antonio", e.getChildren("app").getChildText("path"));
-        assertEquals("App name", "Toni", e.getChildren("app").getChildText("name"));
-        assertEquals("App homefolder", "antonio", e.getChildren("app").getChildText("home"));
-        assertEquals("App perm", "rwdx----", e.getChildren("app").getChildText("mask"));
-        assertEquals("App content", "", e.getChildren("app").getChildText("method"));
+        for(Element u: e.getChildren("user")){
+            
+            if(u.getAttribute("username").getValue()=="antonio"){
+                assertEquals("User Password", "antonio", u.getChildText("password"));
+                assertEquals("User name", "Toni", u.getChildText("name"));
+                assertEquals("User homefolder", "/home/antonio", u.getChildText("home"));
+                assertEquals("User mask", "rwdx----", u.getChildText("mask"));
+            }
+            else if(u.getAttribute("username").getValue()=="zezinho"){
+                assertEquals("User Password", "password", u.getChildText("password"));
+                assertEquals("User name", "Ze", u.getChildText("name"));
+                assertEquals("User homefolder", "/home/zezinho", u.getChildText("home"));
+                assertEquals("User mask", "rwdx----", u.getChildText("mask"));
+            }
+            else{
+                fail("invalid username");
+            }
+        }
+        
+        boolean dirTest = false;
+        for(Element d: e.getChildren("dir")){
+
+            if(d.getChildText("path")=="/home/antonio"){
+                dirTest=true;
+                assertEquals("Dir owner", "antonio", d.getChildText("owner"));
+                assertEquals("Dir perm", "rwdx----", d.getChildText("perm"));
+            }
+        }
+        if(!dirTest)
+            fail("Invalid Dir path");
+
+        boolean plainTest = false;
+        for(Element d: e.getChildren("plain")){
+
+            if(d.getChildText("path")=="/home/antonio/folder/plain.txt"){
+                plainTest=true;
+                assertEquals("Invalid file owner", "antonio", d.getChildText("owner"));
+                assertEquals("Dir perm", "rwdx----", d.getChildText("perm"));
+            }
+            if(d.getChildText("path")=="/home/zezinho/test.txt"){
+                plainTest=true;
+                assertEquals("Invalid file owner", "zezinho", d.getChildText("owner"));
+                assertEquals("Dir perm", "rwdx----", d.getChildText("perm"));
+                assertEquals("Invalid file contents", "content", d.getChildText("content"));
+            }
+        }
+        if(!plainTest)
+            fail("Invalid PlainFile path");
+
+        boolean linkTest = false;
+        for(Element d: e.getChildren("plain")){
+
+            if(d.getChildText("path")=="/home/zezinho/link"){
+                linkTest=true;
+                assertEquals("Invalid file owner", "zezinho", d.getChildText("owner"));
+                assertEquals("Link perm", "rwdx----", d.getChildText("mask"));
+                assertEquals("Link value", "/home/zezinho", d.getChildText("value"));
+            }
+        }
+        if(!linkTest)
+            fail("Invalid Link path");
+
+        boolean appTest = false;
+        for(Element d: e.getChildren("plain")){
+
+            if(d.getChildText("path")=="/home/zezinho/link"){
+                appTest=true;
+                assertEquals("App perm", "rwdx----", d.getChildText("mask"));
+            }
+        }
+        if(!appTest)
+            fail("Invalid App path");
     }
 }
