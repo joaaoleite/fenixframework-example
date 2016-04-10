@@ -17,8 +17,8 @@ public class ExportMyDriveService extends MyDriveService{
     public ExportMyDriveService(){}
 
     @Override
-    protected void dispatch() throws ExportDocumentException{
-	    doc = getPhoneBook().xmlExport();
+    protected void dispatch() throws ExportDocException{
+	      doc = getMyDrive().xmlExport();
     }
 
     public final Document result() {

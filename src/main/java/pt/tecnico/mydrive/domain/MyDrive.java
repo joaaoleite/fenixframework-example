@@ -3,10 +3,12 @@ package pt.tecnico.mydrive.domain;
 import pt.tecnico.mydrive.exception.*;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
 import org.jdom2.Element;
 import org.jdom2.Document;
+import org.jdom2.DataConversionException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -63,7 +65,7 @@ public class MyDrive extends MyDrive_Base {
         getRootDir().removeR();
     }
 
-    public void xmlImport(Element element) {
+    public void xmlImport(Element element) throws ImportDocException{
 
         try{
             // import users
@@ -91,7 +93,7 @@ public class MyDrive extends MyDrive_Base {
             for(Element e: element.getChildren("app")){
                 new App().xmlImport(e);
             }
-        }catch(UnsupportedEncodingException | DataConversionException e){
+        }catch(DataConversionException e){
             e.printStackTrace();
             throw new ImportDocException();
         }

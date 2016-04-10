@@ -20,7 +20,7 @@ public class ImportMyDriveService extends MyDriveService {
     }
 
     @Override
-    protected void dispatch() throws ImportDocumentException {
+    protected void dispatch() throws ImportDocException {
         getMyDrive().xmlImport(doc.getRootElement());
     }
 }
