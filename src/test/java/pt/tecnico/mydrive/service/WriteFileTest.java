@@ -99,7 +99,7 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         service.execute();
     }
 
-    @Test(expected = ExpiredTokenException.class)
+    @Test(expected = TokenDoesNotExistException.class)
     public void expiredToken() {
         final long token = login("marshall", "missy");
         final String namefile = "test";

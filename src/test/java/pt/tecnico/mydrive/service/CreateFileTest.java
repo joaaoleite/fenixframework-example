@@ -107,7 +107,7 @@ public class CreateFileTest extends AbstractServiceTest{
 
     }
 
-    @Test(expected = ExpiredTokenException.class)
+    @Test(expected = TokenDoesNotExistException.class)
     public void tokenExpired(){
         final long token = 234257263;
         final String filename = "link";

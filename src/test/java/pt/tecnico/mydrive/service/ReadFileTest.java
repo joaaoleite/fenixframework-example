@@ -48,7 +48,7 @@ public class ReadFileTest extends AbstractServiceTest{
         service.execute();
 
     } 
-    @Test(expected = ExpiredTokenException.class)
+    @Test(expected = TokenDoesNotExistException.class)
     public void tokenExpired(){
         final long token = 1111111;
         final String filename = "teste";

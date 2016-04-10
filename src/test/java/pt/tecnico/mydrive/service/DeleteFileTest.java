@@ -78,7 +78,7 @@ public class DeleteFileTest extends AbstractServiceTest{
         service2.execute();
     }
 
-    @Test(expected = ExpiredTokenException.class)
+    @Test(expected = TokenDoesNotExistException.class)
     public void tokenExpired(){
         final long token = 765437263;
         final String filename = "link";
