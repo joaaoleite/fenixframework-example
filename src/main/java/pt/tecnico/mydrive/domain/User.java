@@ -54,6 +54,9 @@ public class User extends User_Base {
         if (username.equals("")){
             return false;
         }
+        if (username.length()<3){
+            return false;
+        }
         String pattern= "^[a-zA-Z0-9]*$";
         if(username.matches(pattern)){
             return true;
