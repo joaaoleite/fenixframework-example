@@ -67,7 +67,7 @@ public abstract class File extends File_Base{
     }
     
     public String getPath(){
-        String path = "/" + getName();
+        String path = "";
 
         for(Dir dir = getParent();
             dir.getId()!=0;

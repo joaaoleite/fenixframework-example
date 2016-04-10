@@ -58,8 +58,8 @@ public class ChangeDirectoryService extends MyDriveService{
                     throw new InsufficientPermissionsException(workingDir.getName());
                 }
                 
-        		    login.setWorkingDir(workingDir);
-                res = workingDir.getPath();
+        		login.setWorkingDir(workingDir);
+                res = workingDir.getPath() + "/" + workingDir().getName();
 
         	  }
         	  else{
