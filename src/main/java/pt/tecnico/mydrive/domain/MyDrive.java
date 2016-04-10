@@ -19,7 +19,6 @@ public class MyDrive extends MyDrive_Base {
 
     static final Logger log = LogManager.getRootLogger();
     
-    private HashMap<Long,Login> loginHash = new HashMap<Long,Login>();
 
     public static MyDrive getInstance() {
         MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
@@ -126,6 +125,15 @@ public class MyDrive extends MyDrive_Base {
         return null;
     }
 
+    public Login getLoginByToken(long token){
+        for(Login u: getLoginSet()){
+            if(u.getToken()==token){
+                return u;
+            }
+        }
+        return null;
+    }
+
     public pt.tecnico.mydrive.domain.File getFileByPath(String pathMixed) throws FileDoesNotExistException{
         String[] path = pathMixed.split("/");
 
@@ -156,14 +164,4 @@ public class MyDrive extends MyDrive_Base {
         return user;
     }
 
-
-
-    //////////////////////////////////////////////////////////////////////////
-    public void addHash (long token ,Login login){
-        loginHash.put(token,login);
-    }
-    
-    public Login getLoginByToken(long token ){
-        return (Login) loginHash.get(token);
-    }
 }

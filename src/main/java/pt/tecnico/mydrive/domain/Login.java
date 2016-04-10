@@ -6,40 +6,20 @@ import pt.tecnico.mydrive.exception.*;
 
 public class Login{
     private final String pipo;
-    private final long token;
-    private final long date;
-    private Dir workingDir;
-    private final User logUser;
     private Login( String username) {
         pipo="onde e k ta o pinto?";
-        date= System.currentTimeMillis();
-        token = new BigInteger(64,new Random()).longValue();
+        setDate( System.currentTimeMillis());
+        setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
-        workingDir = mydrive.getRootDir().getDir("home").getDir(username);
-        logUser= mydrive.getUserByUsername(username);
+        setWorkingDir(mydrive.getRootDir().getDir("home").getDir(username));
+        setUser(mydrive.getUserByUsername(username));
    }
     public void init(){
         MyDrive mydrive = MyDrive.getInstance();
-        mydrive.addHash(token,this);
-    }
-    public long getToken(){
-        return token;
-    }
-    
-    public User getUser(){
-        return logUser;
-    }
-    public long getDate(){
-        return date;
+        mydrive.addLogin(this);
     }
 
-    public Dir getWorkingDir(){
-        return workingDir;
-    }
 
-    public void setWorkingDir(Dir newDir){
-        workingDir = newDir;
-    }
     public static Login signIn(String username, String password){
           
         MyDrive mydrive = MyDrive.getInstance();
@@ -59,9 +39,13 @@ public class Login{
     public static Login  getLoginByToken(long token){
         MyDrive mydrive = MyDrive.getInstance();
         Login login=  mydrive.getLoginByToken(token);
+        if (login==null){
+            throw new TokenDoesNotExist(token);
+        }
         long date = login.getDate();
         long currentTime = System.currentTimeMillis();
         if(currentTime<(date+(2*3600000))){
+            login.setDate(System.currentTimeMillis());
             return login;
         }
         throw new ExpiredTokenException(date);
