@@ -55,17 +55,22 @@ public class Dir extends Dir_Base {
         throw new FileAlreadyExistsException(name);
     }
 
-    public String listDir(){ /*
-        String output = (getClass().getSimpleName() +" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n"+getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+getParent().getName()+"\n");
-            for (File file: getFileSet()){
-                if (file.isLink()){
-                    output += (file.getClass().getSimpleName()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification().toString()+" "+file.getName()+file.getName()+"->"+file.getContent()+"\n");
-                }
-                else
-                    output += (file.getClass().getSimpleName()+" "+file.getMask()+" "+file.getSize()+" "+file.getOwner().getUsername()+" "+file.getId()+" "+file.getLastModification().toString()+" "+file.getName()+"\n");
-            }
-        return output; */
-        return "";
+    public String listDir(){
+        String output = "";
+
+        List<File> list = new ArrayList<File>(getFileSet());
+        Collections.sort(list, File.Comparators.NAME);
+
+        for(file : list){
+            output += file.print();    
+        }
+
+        output = getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+"."+"\n"
+        +getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+".."+"\n")
+        +output;
+
+        return output;
+        
     }
 
     public App createApp(User owner, String name) throws FileAlreadyExistsException{
@@ -119,10 +124,6 @@ public class Dir extends Dir_Base {
     @Override
     public boolean isDir(){
         return true;    
-    }
-    
-    public void print(){
-        System.out.println("The mydrive has a dir with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask());
     }
     
     public Set<File> getChildren(Set<File> list){

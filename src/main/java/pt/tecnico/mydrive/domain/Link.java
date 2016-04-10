@@ -59,8 +59,9 @@ public class Link extends Link_Base {
     }
 
     @Override
-    public void print(){
-        System.out.println("The mydrive has a link with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask() + ", value: " + getContent());
+    public String print(){
+        return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+" -> "+getContent()+"\n");
+
     }
 
     @Override

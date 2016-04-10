@@ -47,10 +47,6 @@ public class App extends App_Base {
         return xmlmydrive;
     }
 
-    public void print(){
-        System.out.println("The mydrive has a app with path: " + getPath() + " , name: " + getName() + ", owner: " + getOwner().getUsername() + ", perm: " + getMask() + ", method: " + getContent());
-    }
-
     @Override
     public void xmlImport(Element fileElement) throws ImportDocException, DataConversionException{
         String content = new String(fileElement.getChildText("method"));
