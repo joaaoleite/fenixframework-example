@@ -42,30 +42,6 @@ public class Main {
     public static void setup() { // mydrive with debug data
         log.trace("Setup: " + FenixFramework.getDomainRoot());
 	      MyDrive mydrive = MyDrive.getInstance();
-        Dir rootdir = mydrive.getRootDir();
-        
-
-        // 1. create File /home/README
-        PlainFile plain = rootdir.getDir("home").createPlainFile(rootdir.getOwner(),"README",""); 
-        plain.write(mydrive.getUserSet().toString());
-           
-        // 2. create Dir /usr/local/bin
-        Dir bin = rootdir.createDir(mydrive.getSuperUser(),"usr").createDir(mydrive.getSuperUser(),"local").createDir(mydrive.getSuperUser(),"bin");
-        
-        // 3. print /home/README
-        System.out.println(((PlainFile)rootdir.getDir("home").getFileByName("README")).read());
-        
-       // 4. remove /usr/local/bin
-        rootdir.getDir("usr").getDir("local").getDir("bin").remove();
-    
-        // 5. print xmlExport()
-        xmlPrint();
-
-        // 6. remove /home/README
-        rootdir.getDir("home").getFileByName("README").remove();
-         
-        // 7. list /home
-        System.out.println(rootdir.getDir("home").listDir());
     }
 
     @Atomic

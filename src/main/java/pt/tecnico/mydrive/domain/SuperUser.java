@@ -11,7 +11,7 @@ public class SuperUser extends SuperUser_Base {
     } 
     @Override
     public void remove(){
-        throw new SuperUserCannotBeRemovedException();
+        //throw new SuperUserCannotBeRemovedException();
     }
     
     public Element xmlExport(Element xmlmydrive){

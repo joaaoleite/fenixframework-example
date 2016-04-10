@@ -29,7 +29,9 @@ public abstract class File extends File_Base{
         }
         MyDrive mydrive=parent.getMydrive();
 
-        String mask = owner.getUmask();
+        String mask = null;
+        if(owner!=null)
+            mask = owner.getUmask();
 
         createFile(mydrive,parent, owner, name, mask);
     }
@@ -38,7 +40,7 @@ public abstract class File extends File_Base{
         setMydrive(mydrive);
         setParent(parent);
         setOwner(owner);
-
+        
         int id = mydrive.generateId();
         setId(id);
         

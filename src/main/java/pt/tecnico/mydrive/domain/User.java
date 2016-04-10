@@ -48,7 +48,6 @@ public class User extends User_Base {
         setName(name);
         setPassword(password);
         setUmask(umask);
-        setHomedir(myDrive.getRootDir().getDir("home").createDir(this,username));
     }
     public boolean checkUsername (String username) {
         if (username==null){

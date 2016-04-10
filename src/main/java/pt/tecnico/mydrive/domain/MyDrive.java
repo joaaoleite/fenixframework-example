@@ -48,7 +48,7 @@ public class MyDrive extends MyDrive_Base {
     public void init(){
         setNfile(new Integer(0));
         RootDir rootdir = new RootDir(this);
-        rootdir.createDir(null, "home");
+        rootdir.createDir(null,"home").setMask(rootdir.getMask());
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
         setSuperUser(superuser);
@@ -60,7 +60,7 @@ public class MyDrive extends MyDrive_Base {
 
     public void cleanup() {
         for(User u: getUserSet()){
-                u.remove();
+            u.remove();
         }
 
         getRootDir().removeR();
@@ -177,6 +177,8 @@ public class MyDrive extends MyDrive_Base {
             throw new UserAlreadyExistsException(username);
         }
         User user = new User(this,username,password,mask);
+        Dir tmpdir=getRootDir().getDir("home").createDir(user,username);
+        user.setHomedir(tmpdir);
         addUser(user);
         return user;
     }

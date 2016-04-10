@@ -22,7 +22,7 @@ public abstract class AbstractServiceTest {
     @BeforeClass // run once berfore each test class
     public static void setUpBeforeAll() throws Exception {
 	      // run tests with a clean database!!!
-	      Main.init();
+	     // Main.init();
     }
 
     @Before // run before each test
