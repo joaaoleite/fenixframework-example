@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 
 import pt.tecnico.mydrive.exception.*;
 
-public abstract class File extends File_Base implements Comparable<File>{
+public abstract class File extends File_Base{
 
     public File(){
         super();
@@ -48,10 +48,6 @@ public abstract class File extends File_Base implements Comparable<File>{
         setMask(mask);
     }
     
-    protected int compareTo(File f){
-        return getName().compareTo(f.getName()); 
-    }
-
     private boolean checkFilename(String name) {
         return !(name.contains("/") || name.contains("\0") || name.equals("..") || name.equals("."));
     }
