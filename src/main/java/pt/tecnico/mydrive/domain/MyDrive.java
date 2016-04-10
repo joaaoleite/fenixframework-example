@@ -59,11 +59,11 @@ public class MyDrive extends MyDrive_Base {
     }
 
     public void cleanup() {
-        for(User u: getUserSet()){
+        /*for(User u: getUserSet()){
             u.remove();
         }
 
-        getRootDir().removeR();
+        getRootDir().removeR();*/
     }
 
     public void xmlImport(Element element) throws ImportDocException{
@@ -144,7 +144,7 @@ public class MyDrive extends MyDrive_Base {
 
     protected Login getLoginByToken(long token){
         for(Login u: super.getLoginSet()){
-            if(u.token()==token){
+            if(u.getToken()==token){
                 return u;
             }
         }

@@ -75,7 +75,7 @@ relation allFiles {
         multiplicity 1;
     }
     File playsRole file {
-        multiplicity 1;
+        multiplicity *;
     }
 }
 

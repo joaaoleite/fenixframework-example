@@ -30,14 +30,6 @@ public class Login extends Login_Base{
     @Override
     public void setUser(User u){}
 
-    @Override
-    public Long getToken(){
-        return null;
-    }
-
-    protected Long token(){
-        return super.getToken();
-    }
     
     @Override
     public void setDate(Long date){}
