@@ -12,24 +12,21 @@ public class CreateFileService extends MyDriveService{
     private String filename;
     private String type;
     private String content;
-    private Dir workingDir;
-    private Login login;
+    private long token;
     
     public CreateFileService(long token, String filename, String type, String content){
         super();
         
-        this.login = Login.getLoginByToken(token);
-        this.workingDir = login.getWorkingDir();
         this.filename = filename;
         this.type = type;
         this.content = content;
+        this.token = token;
     }    
 
     public CreateFileService(long token, String filename, String type){
         super();
         
-        this.login = Login.getLoginByToken(token);
-        this.workingDir = login.getWorkingDir();
+        this.token = token;
         this.filename = filename;
         this.type = type;
         this.content = null;
@@ -37,6 +34,9 @@ public class CreateFileService extends MyDriveService{
     
     protected final void dispatch() throws MyDriveException, InsufficientPermissionsException{
         
+        Login login = Login.getLoginByToken(token);
+        workingDir = login.getWorkingDir();
+
         File newFile;
 
         if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(1) == 'w')

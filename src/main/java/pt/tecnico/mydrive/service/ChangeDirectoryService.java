@@ -10,24 +10,26 @@ import pt.tecnico.mydrive.exception.*;
 public class ChangeDirectoryService extends MyDriveService{
 	MyDrive md = MyDrive.getInstance();
 
-    private Dir workingDir;
-    private Login login;
+    private String res;
     private String path;
+    private long token;
 
 
     public ChangeDirectoryService(long token, String path){
     	super();
 
-    	this.login = Login.getLoginByToken(token);
+    	this.token = token;
     	this.path = path;
-
     }
     
     public final String result(){
-        return workingDir.getPath();
+        return res;
     }
 
     protected final void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
+        
+        Login login = Login.getLoginByToken(token);
+
         String[] parts = path.split("/");
 
         Dir actual;
@@ -57,6 +59,8 @@ public class ChangeDirectoryService extends MyDriveService{
                 throw new InsufficientPermissionsException(workingDir.getName());
 
         		login.setWorkingDir(workingDir);
+                res = workingDir.getPath();
+
         	}
         	else
             	throw new FileIsAPlainFileException(parts[i]);

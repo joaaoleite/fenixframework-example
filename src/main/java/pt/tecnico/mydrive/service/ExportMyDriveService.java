@@ -7,14 +7,18 @@ import pt.ist.fenixframework.Atomic;
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.output.XMLOutputter;
+
 public class ExportMyDriveService extends MyDriveService{
     private Document doc;
     
     public ExportMyDriveService(){}
 
     @Override
-    protected void dispatch() throws ExportDocumentException{
-	    doc = getPhoneBook().xmlExport();
+    protected void dispatch() throws ExportDocException{
+	      doc = getMyDrive().xmlExport();
     }
 
     public final Document result() {

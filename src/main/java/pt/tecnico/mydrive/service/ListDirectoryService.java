@@ -10,16 +10,15 @@ import pt.tecnico.mydrive.exception.*;
 public class ListDirectoryService extends MyDriveService{
 	MyDrive md = MyDrive.getInstance();
 
-    private Dir workingDir;
-    private Login login;
     private String res;
+    private long token;
 
 
     public ListDirectoryService(long token){
     	super();
 
-    	this.login = Login.getLoginByToken(token);
-      this.workingDir = login.getWorkingDir();
+    	this.token = token; 
+        
     }
 
 
@@ -28,6 +27,9 @@ public class ListDirectoryService extends MyDriveService{
     }
 
     protected final void  dispatch() throws InsufficientPermissionsException{
+
+        Login login = Login.getLoginByToken(token);
+        workingDir = login.getWorkingDir();
 
         if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
         && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')

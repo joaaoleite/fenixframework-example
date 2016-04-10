@@ -7,6 +7,11 @@ import pt.ist.fenixframework.Atomic;
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
+import org.jdom2.Element;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
 public class ImportMyDriveService extends MyDriveService {
     private final Document doc;
 
@@ -15,7 +20,7 @@ public class ImportMyDriveService extends MyDriveService {
     }
 
     @Override
-    protected void dispatch() throws ImportDocumentException {
+    protected void dispatch() throws ImportDocException {
         getMyDrive().xmlImport(doc.getRootElement());
     }
 }
