@@ -74,9 +74,9 @@ public class User extends User_Base {
             if (userElemet.getChildText("mask") != ""){
                 setUmask(new String(userElemet.getChildText("mask")));
             }
-        } catch (Exception e) {
-            System.err.println(e); 
-            throw new ImportDocException(); 
+        }catch(UnsupportedEncodingException | DataConversionException e){
+            e.printStackTrace();
+            throw new ImportDocException();
         }
 
     }
