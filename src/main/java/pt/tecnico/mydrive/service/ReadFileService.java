@@ -30,6 +30,6 @@ public class ReadFileService extends MyDriveService{
         if (file==null) throw new FileDoesNotExistException(filename);
         if (file.isDir()) throw new FileIsADirException(filename);
 
-        res = ((FilePlain)(file.read()));
+        res = ((FilePlain)(file)).read();
     }
 }

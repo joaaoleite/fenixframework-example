@@ -92,8 +92,9 @@ public class MyDrive extends MyDrive_Base {
             for(Element e: element.getChildren("app")){
                 new App().xmlImport(e);
             }
-        }catch(Exception e){
-
+        }catch(UnsupportedEncodingException | DataConversionException e){
+            e.printStackTrace();
+            throw new ImportDocException();
         }
     }
    

@@ -34,7 +34,7 @@ public class App extends App_Base {
             obj = method.invoke(obj, str);
             return obj;
         }catch(Exception e){
-            
+            e.printStackTrace();    
         }
         return null;
     }
