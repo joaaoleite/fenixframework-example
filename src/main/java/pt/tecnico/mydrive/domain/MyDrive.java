@@ -51,6 +51,7 @@ public class MyDrive extends MyDrive_Base {
         rootdir.createDir(null,"home").setMask(rootdir.getMask());
         setRootDir(rootdir);
         SuperUser superuser = new SuperUser(this);
+        superuser.setHomedir(getRootDir().getDir("home").createDir(superuser,"root"));
         setSuperUser(superuser);
         rootdir.setOwner(superuser);
         rootdir.getDir("home").setOwner(superuser);

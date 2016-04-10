@@ -16,7 +16,7 @@ public class DeleteFileTest extends AbstractServiceTest{
         Dir rootdir = mydrive.getRootDir();
             
         PlainFile plain = rootdir.getDir("home").getDir("laurinha").createPlainFile(laura,"laura.txt"); 
-        Link link = rootdir.getDir("home").getDir("laurinha").createLink(laura,"link");
+        Link link = rootdir.getDir("home").getDir("laurinha").createLink(laura,"link","/");
         App app = rootdir.getDir("home").getDir("laurinha").createApp(laura,"app");
         Dir dir = rootdir.getDir("home").getDir("laurinha").createDir(laura,"Dir");
     }   

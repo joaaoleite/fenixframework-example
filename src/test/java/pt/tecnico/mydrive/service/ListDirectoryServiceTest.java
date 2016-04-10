@@ -33,21 +33,21 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         assertEquals("Wrong directory list", "3", line1[2]);
         assertEquals("Wrong directory list", "halib", line1[3]);
         assertEquals("Wrong directory list", "3", line1[4]);
-        assertEquals("Wrong directory list", ".", line1[5]);
+        assertEquals("Wrong directory list", ".", line1[6]);
 
         assertEquals("Wrong directory list", "Dir", line2[0]);
         assertEquals("Wrong directory list", "rwxdr-x-", line2[1]);
         assertEquals("Wrong directory list", "5", line2[2]);
         assertEquals("Wrong directory list", "root", line2[3]);
         assertEquals("Wrong directory list", "1", line2[4]);
-        assertEquals("Wrong directory list", "..", line2[5]);
+        assertEquals("Wrong directory list", "..", line2[6]);
 
         assertEquals("Wrong directory list", "Dir", line3[0]);
         assertEquals("Wrong directory list", "rwxd----", line3[1]);
         assertEquals("Wrong directory list", "2", line3[2]);
         assertEquals("Wrong directory list", "halib", line3[3]);
         assertEquals("Wrong directory list", "4", line3[4]);
-        assertEquals("Wrong directory list", "test", line3[5]);
+        assertEquals("Wrong directory list", "test", line3[6]);
     }
     
     @Test
@@ -69,14 +69,14 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         assertEquals("Wrong directory list", "2", line1[2]);
         assertEquals("Wrong directory list", "root", line1[3]);
         assertEquals("Wrong directory list", "2", line1[4]);
-        assertEquals("Wrong directory list", ".", line1[5]);
+        assertEquals("Wrong directory list", ".", line1[6]);
         
         assertEquals("Wrong directory list", "Dir", line2[0]);
         assertEquals("Wrong directory list", "rwxdr-x-", line2[1]);
         assertEquals("Wrong directory list", "5", line2[2]);
         assertEquals("Wrong directory list", "root", line2[3]);
         assertEquals("Wrong directory list", "1", line2[4]);
-        assertEquals("Wrong directory list", "..", line2[5]);
+        assertEquals("Wrong directory list", "..", line2[6]);
     }
 
     @Test(expected = InsufficientPermissionsException.class)
