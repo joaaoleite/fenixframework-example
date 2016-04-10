@@ -79,7 +79,7 @@ public class Login extends Login_Base{
         throw new ExpiredTokenException(date);
     }
 
-    public void remove(){
+    private void remove(){
         setDate(null);
         setToken(null);
         setWorkingDir(null);
