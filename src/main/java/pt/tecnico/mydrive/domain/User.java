@@ -51,7 +51,13 @@ public class User extends User_Base {
         setHomedir(myDrive.getRootDir().getDir("home").createDir(this,username));
     }
     public boolean checkUsername (String username) {
+        if (username==null){
+            return false;
+        }
         if (username.equals("")){
+            return false;
+        }
+        if (username.length()<3){
             return false;
         }
         String pattern= "^[a-zA-Z0-9]*$";

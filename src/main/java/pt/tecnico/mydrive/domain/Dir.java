@@ -49,8 +49,9 @@ public class Dir extends Dir_Base {
         return getFileByName(name) != null;
     }
 
-    public Dir createDir(User owner, String name) throws FileAlreadyExistsException{
+    public Dir createDir(User owner, String name) throws FileAlreadyExistsException, PathTooLongException{
         if(exists(name) == false){
+            if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
             Dir newDir = new Dir(this, owner, name);
             addFile(newDir);
             return newDir;  
@@ -96,15 +97,16 @@ public class Dir extends Dir_Base {
     public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException{
         return null;
     }
-    public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException{
+    public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException, PathTooLongException{
         if(exists(name) == false){
+            if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
             return new PlainFile( this, owner, name);
         }    
         else
             throw new FileAlreadyExistsException(name);
     }
 
-    public PlainFile createPlainFile(User owner, String name, String content) throws FileAlreadyExistsException{
+    public PlainFile createPlainFile(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
         PlainFile newPlainFile = createPlainFile(owner, name);
         newPlainFile.write(content);
         return newPlainFile;    
