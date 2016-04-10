@@ -137,6 +137,9 @@ public class MyDrive extends MyDrive_Base {
 
     protected void login(Login login){
         super.addLogin(login);
+        for(Login u: super.getLoginSet()){
+            u.verify();
+        }
     }
 
     protected Login getLoginByToken(long token){
