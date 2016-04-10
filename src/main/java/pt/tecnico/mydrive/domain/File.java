@@ -79,6 +79,14 @@ public abstract class File extends File_Base{
         return path;
     }
 
+    public String getFullPath(){
+
+        if(getPath().equals("/"))
+            return "/" + getName();
+        else
+            return getPath() + "/" + getName();
+    }
+
     public void remove(){
         setMydrive(null);
         setParent(null);
