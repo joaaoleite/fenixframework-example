@@ -45,22 +45,19 @@ public class CreateFileService extends MyDriveService{
             throw new InsufficientPermissionsException(filename);
 
         switch(type){
-            case "dir":
+            case "Dir":
                 newFile = workingDir.createDir(login.getUser(), filename);
                 break;
-            case "plain":
+            case "Plain":
                 if(content == null)
                     newFile = workingDir.createPlainFile(login.getUser(), filename);
                 else
                     newFile = workingDir.createPlainFile(login.getUser(), filename, content);
                 break;
-            case "link":
-                if(content == null)
-                    newFile = workingDir.createLink(login.getUser(), filename);
-                else
+            case "Link":
                     newFile = workingDir.createLink(login.getUser(), filename, content);
                 break;
-            case "app":
+            case "App":
                 if(content == null)
                     newFile = workingDir.createApp(login.getUser(), filename);
                 else

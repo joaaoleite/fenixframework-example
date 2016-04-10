@@ -13,7 +13,7 @@ public class App extends App_Base {
         super();
     }
 
-    protected App(Dir parent, User owner, String name, String mask) {
+    protected App(Dir parent, User owner, String name) {
         super();
         init(parent, owner, name);
     }

@@ -82,7 +82,7 @@ public class Dir extends Dir_Base {
         
     }
 
-    public App createApp(User owner, String name) throws FileAlreadyExistsExceptioin, PathTooLongException{
+    public App createApp(User owner, String name) throws FileAlreadyExistsException, PathTooLongException{
         if(exists(name) == false){
             if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
             return new App(this, owner, name);
