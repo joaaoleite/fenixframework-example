@@ -38,15 +38,15 @@ public class ImportTest extends AbstractServiceTest {
         assertEquals("Check mask created correctly", "rwxd----" , mydrive.getUserByUsername("mja").getUmask());
         assertEquals("Check home folder created correctly", "mja" , mydrive.getRootDir().getDir("home").getDir("mja"));
         assertEquals("jtb has 5 files", 5, mydrive.getUserByUsername("jtb").getFileSet().size());
-        assertTrue("jtb has a Dir", mydrive.getRootDir().getDir("home").getDir("jtb").getDir("bin"));
+        assertEquals("jtb has a Dir", "bin",mydrive.getRootDir().getDir("home").getDir("jtb").getDir("bin").getName());
         assertEquals("Permissions are the same?", mydrive.getUserByUsername("jtb").getUmask(), mydrive.getRootDir().getDir("home").getDir("jtb").getMask());
-        assertTrue("PlainFile created", mydrive.getRootDir().getDir("jtb").getFileByName("profile"));
-        assertEquals("Content correct","Primeiro chefe de Estado do regime republicano (acumulando com a chefia do governo), numa capacidade provisória até à eleição do primeiro presidente da República.", mydrive.getRootDir().getDir("jtb").getFileByName("profile").getContent());
-        assertTrue("Link created", mydrive.getRootDir().getDir("jtb").getFileByName("doc"));
-        assertEquals("value content created correctly", "/home/jtb/documents", mydrive.getRootDir().getDir("jtb").getFileByName("doc").getContent());
+        assertNotNull("PlainFile created", mydrive.getRootDir().getDir("jtb").getFileByName("profile"));
+        assertEquals("Content correct","Primeiro chefe de Estado do regime republicano (acumulando com a chefia do governo), numa capacidade provisória até à eleição do primeiro presidente da República.", ((PlainFile)(mydrive.getRootDir().getDir("jtb").getFileByName("profile"))).getContent());
+        assertNotNull("Link created", mydrive.getRootDir().getDir("jtb").getFileByName("doc"));
+        assertEquals("value content created correctly", "/home/jtb/documents", ((Link)(mydrive.getRootDir().getDir("jtb").getFileByName("doc"))).getContent());
         assertTrue("Dir created", mydrive.getRootDir().getDir("jtb").getFileByName("bin").isDir());
-        assertTrue("App created", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello"));
-        assertEquals("Permissions correct", "rwxdr-x-", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello").getUmask());
-        assertEquals("method content created correctly","pt.tecnico.myDrive.app.Hello", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello").getContent());
+        assertNotNull("App created", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello"));
+        assertEquals("Permissions correct", "rwxdr-x-", mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello").getMask());
+        assertEquals("method content created correctly","pt.tecnico.myDrive.app.Hello", ((App)(mydrive.getRootDir().getDir("jtb").getDir("bin").getFileByName("hello"))).getContent());
     }
 }
