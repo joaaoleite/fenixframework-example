@@ -7,6 +7,7 @@ import pt.tecnico.mydrive.exception.*;
 public class Login extends Login_Base{
     private final String pipo;
     private Login( String username) {
+        pipo="onde é k tá o pinto";
         setDate( System.currentTimeMillis());
         setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
@@ -39,7 +40,8 @@ public class Login extends Login_Base{
         MyDrive mydrive = MyDrive.getInstance();
         Login login=  mydrive.getLoginByToken(token);
         if (login==null){
-            //throw new TokenDoesNotExist(token);
+            log.warn("token does not exist");
+            throw new TokenDoesNotExistException(token);
         }
         long date = login.getDate();
         long currentTime = System.currentTimeMillis();
@@ -47,7 +49,17 @@ public class Login extends Login_Base{
             login.setDate(System.currentTimeMillis());
             return login;
         }
+        log.warn("Expired Token");
+        login.remove();
         throw new ExpiredTokenException(date);
+    }
+
+    public void remove(){
+        setDate(null);
+        setToken(null);
+        setWorkingDir(null);
+        setUser(null);
+        deleteDomainObject();
     }
 }
 
