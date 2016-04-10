@@ -48,27 +48,26 @@ public class ChangeDirectoryService extends MyDriveService{
             actual = actual.getDir(parts[i]);
         }
         
-        System.out.println("i:"+i+" parts[i]:"+parts[i]);
         if(actual.exists(parts[i])){
-
-        	if (actual.getFileByName(parts[i]).isDir()){
+            if (actual.getFileByName(parts[i]).isDir()){
         		    Dir workingDir = actual.getDir(parts[i]);
-
+                
                 if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
                 && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
                 && !(login.getUser().getUsername().equals("root"))){
                     throw new InsufficientPermissionsException(workingDir.getName());
                 }
-
+                
         		    login.setWorkingDir(workingDir);
                 res = workingDir.getPath();
-                return;
 
-        	}
-        	else
+        	  }
+        	  else{
             	throw new FileIsAPlainFileException(parts[i]);
+            }   
         }
-
-        throw new FileDoesNotExistException(parts[i]);
+        else{
+            throw new FileDoesNotExistException(parts[i]);
+        }
     }
 }
