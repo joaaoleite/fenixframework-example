@@ -51,6 +51,9 @@ public class User extends User_Base {
         setHomedir(myDrive.getRootDir().getDir("home").createDir(this,username));
     }
     public boolean checkUsername (String username) {
+        if (username==null){
+            return false;
+        }
         if (username.equals("")){
             return false;
         }
