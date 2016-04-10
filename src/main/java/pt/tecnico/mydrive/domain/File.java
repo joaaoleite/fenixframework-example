@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 
 import pt.tecnico.mydrive.exception.*;
 
-public abstract class File extends File_Base {
+public abstract class File extends File_Base implements Comparable<File>{
 
     public File(){
         super();
@@ -59,8 +59,9 @@ public abstract class File extends File_Base {
         return list;
     }
     
-
-    public abstract void print();
+    public String print(){
+        return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n");
+    }
     
     public String getPath(){
         String path = "";
@@ -119,6 +120,21 @@ public abstract class File extends File_Base {
         actual.addFile(this);
         setOwner(owner);
         setId(id);
+    }
+
+    @Override
+    protected int compareTo(File f) {
+        return Comparators.NAME.compare(this, f);
+    }
+
+    public static class Comparators{
+
+        public static Comparator<File> NAME = new Comparator<File>() {
+            @Override
+            public int compare(File f1, File f2) {
+                return f1.getName().compareTo(f2.getName());
+            }
+        };
     }
 
     public abstract Element xmlExport(Element xmlmydrive);
