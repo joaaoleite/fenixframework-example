@@ -31,7 +31,6 @@ public class ChangeDirectoryService extends MyDriveService{
         Login login = Login.getLoginByToken(token);
 
         String[] parts = path.split("/");
-
         Dir actual;
         int i;
 
@@ -50,6 +49,7 @@ public class ChangeDirectoryService extends MyDriveService{
         }
 
         if(actual.exists(parts[i++])){
+
         	if (actual.getFileByName(parts[i]).isDir()){
         		    Dir workingDir = actual.getDir(parts[i]);
 
