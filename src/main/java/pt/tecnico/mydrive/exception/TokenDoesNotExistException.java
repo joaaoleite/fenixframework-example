@@ -7,20 +7,20 @@ public class TokenDoesNotExistException extends MyDriveException {
     private static final long serialVersionUID = 1L;
 
 
-	private final String _name;
+	private final long token;
 
 	/**
 	 * @param name
 	 */
-	public TokenDoesNotExistException(String name) {
+	public TokenDoesNotExistException(long token) {
 		super();
-		_name = name;
+		this.token = token;
 	}
 
 	
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The token " + _name + " does not exist.";
+		return "The token " + token + " does not exist.";
 	}
 }

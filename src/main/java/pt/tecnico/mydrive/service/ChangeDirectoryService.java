@@ -51,7 +51,7 @@ public class ChangeDirectoryService extends MyDriveService{
 
         if(actual.exists(parts[i++])){
         	if (actual.getFileByName(parts[i]).isDir()){
-        		workingDir = actual.getDir(parts[i]);
+        		    Dir workingDir = actual.getDir(parts[i]);
 
                 if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
                 && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')

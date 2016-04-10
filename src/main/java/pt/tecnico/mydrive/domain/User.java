@@ -3,6 +3,7 @@ package pt.tecnico.mydrive.domain;
 import java.io.UnsupportedEncodingException;
 
 import org.jdom2.Element;
+import org.jdom2.DataConversionException;
 
 import pt.tecnico.mydrive.exception.*;
 
@@ -74,7 +75,7 @@ public class User extends User_Base {
             if (userElemet.getChildText("mask") != ""){
                 setUmask(new String(userElemet.getChildText("mask")));
             }
-        }catch(UnsupportedEncodingException | DataConversionException e){
+        }catch(DataConversionException e){
             e.printStackTrace();
             throw new ImportDocException();
         }

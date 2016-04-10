@@ -35,7 +35,7 @@ public class CreateFileService extends MyDriveService{
     protected final void dispatch() throws MyDriveException, InsufficientPermissionsException{
         
         Login login = Login.getLoginByToken(token);
-        workingDir = login.getWorkingDir();
+        Dir workingDir = login.getWorkingDir();
 
         File newFile;
 

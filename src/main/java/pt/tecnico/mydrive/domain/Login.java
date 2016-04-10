@@ -2,12 +2,16 @@ package pt.tecnico.mydrive.domain;
 import java.math.BigInteger;
 import java.util.Random;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import pt.tecnico.mydrive.exception.*;
 
 public class Login extends Login_Base{
-    private final String pipo;
+
+    static final Logger log = LogManager.getRootLogger();
+
     private Login( String username) {
-        pipo="onde é k tá o pinto";
         setDate( System.currentTimeMillis());
         setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
