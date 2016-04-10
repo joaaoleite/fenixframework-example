@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import pt.ist.fenixframework.FenixFramework;
 
@@ -126,10 +127,21 @@ public class MyDrive extends MyDrive_Base {
         }
         return null;
     }
+    @Override
+    public Set<Login> getLoginSet(){
+        return null;
+    }
 
-    public Login getLoginByToken(long token){
-        for(Login u: getLoginSet()){
-            if(u.getToken()==token){
+    @Override
+    public void addLogin(Login login){}
+
+    protected void login(Login login){
+        super.addLogin(login);
+    }
+
+    protected Login getLoginByToken(long token){
+        for(Login u: super.getLoginSet()){
+            if(u.token()==token){
                 return u;
             }
         }
