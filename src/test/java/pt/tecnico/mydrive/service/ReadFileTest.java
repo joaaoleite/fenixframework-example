@@ -14,10 +14,10 @@ public class ReadFileTest extends AbstractServiceTest{
         
         Dir rootdir =mydrive.getRootDir();
             
-        PlainFile plain = rootdir.getDir("home").getDir("toni").createPlainFile(antonio,"text.txt","rwxd----"); 
+        PlainFile plain = rootdir.getDir("home").getDir("toni").createPlainFile(antonio,"text.txt"); 
         plain.write("texto de teste");
          
-        rootdir.getDir("home").getDir("toni").createDir(antonio,"teste","rwxd----");     
+        rootdir.getDir("home").getDir("toni").createDir(antonio,"teste");     
    } 
     @Test
     public void successReadFile(){
