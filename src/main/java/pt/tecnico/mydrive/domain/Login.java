@@ -19,6 +19,7 @@ public class Login extends Login_Base{
         super.setUser(mydrive.getUserByUsername(username));
    }
     public void init(){
+
         MyDrive mydrive = MyDrive.getInstance();
         mydrive.login(this);
     }
@@ -75,8 +76,16 @@ public class Login extends Login_Base{
             return login;
         }
         log.warn("Expired Token");
-        login.remove();
+         
         throw new ExpiredTokenException(date);
+    }
+
+    protected void verify(){
+        long date = super.getDate();
+        long currentTime = System.currentTimeMillis();
+        if(currentTime>=(date+(2*3600000))){
+            remove();
+        }
     }
 
     private void remove(){
