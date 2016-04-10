@@ -22,6 +22,20 @@ public class Login extends Login_Base{
         MyDrive mydrive = MyDrive.getInstance();
         mydrive.addLogin(this);
     }
+    
+    @Override
+    private void setToken(long token){
+        super.setToken(token);
+    }
+    @Override
+    protected long  geToken(){
+        return super.getToken();
+    }
+    
+    @Override
+    private void setDate(long date){
+        super.setDate(date);
+    }
 
 
     public static Login signIn(String username, String password){

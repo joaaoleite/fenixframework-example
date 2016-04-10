@@ -126,8 +126,17 @@ public class MyDrive extends MyDrive_Base {
         }
         return null;
     }
+    @Override
+    private Set<Login>  getLoginSet(){
+        return super.getLoginSet();
+    }
 
-    public Login getLoginByToken(long token){
+    @Override
+    protected void  addLogin(Login login){
+        return super.addLogin(login);
+    }
+
+    protected Login getLoginByToken(long token){
         for(Login u: getLoginSet()){
             if(u.getToken()==token){
                 return u;
