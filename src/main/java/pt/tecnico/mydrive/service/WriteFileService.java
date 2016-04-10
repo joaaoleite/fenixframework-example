@@ -8,21 +8,25 @@ import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
 public class WriteFileService extends MyDriveService{
+
     private final long token;
     private final String filename;
     private final String text;
-    public WriteFileService(long session, String filename, String content){
-        this.token = session;
+
+    public WriteFileService(long token, String filename, String text){
+        this.token = token;
         this.filename = filename;
-        this.text = content;
+        this.text = text;
     }
+
     protected final void dispatch() throws LoginFailedException{
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
         PlainFile file = ((PlainFile) workingDir.getFileByName(filename));
-        if (file==null){
+
+        if (file==null)
             throw new FileDoesNotExistException(filename);
-        }
+
         file.write(text);
         
     }
