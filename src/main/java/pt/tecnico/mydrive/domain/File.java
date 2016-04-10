@@ -10,7 +10,7 @@ import org.joda.time.DateTime;
 
 import pt.tecnico.mydrive.exception.*;
 
-public abstract class File extends File_Base implements Comparator<File>{
+public abstract class File extends File_Base implements Comparable<File>{
 
     public File(){
         super();
@@ -46,6 +46,10 @@ public abstract class File extends File_Base implements Comparator<File>{
         DateTime last_mod = new DateTime();
         setLastModification(last_mod);
         setMask(mask);
+    }
+    
+    protected int compareTo(File f){
+        return getName().compareTo(f.getName()); 
     }
 
     private boolean checkFilename(String name) {

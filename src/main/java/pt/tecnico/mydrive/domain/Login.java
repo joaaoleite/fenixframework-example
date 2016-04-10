@@ -12,30 +12,34 @@ public class Login extends Login_Base{
     static final Logger log = LogManager.getRootLogger();
 
     private Login( String username) {
-        setDate( System.currentTimeMillis());
-        setToken( new BigInteger(64,new Random()).longValue());
+        super.setDate( System.currentTimeMillis());
+        super.setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
         setWorkingDir(mydrive.getRootDir().getDir("home").getDir(username));
-        setUser(mydrive.getUserByUsername(username));
+        super.setUser(mydrive.getUserByUsername(username));
    }
     public void init(){
         MyDrive mydrive = MyDrive.getInstance();
-        mydrive.addLogin(this);
+        mydrive.login(this);
     }
     
     @Override
-    private void setToken(long token){
-        super.setToken(token);
-    }
+    public void setToken(Long t){}
+
     @Override
-    protected long  geToken(){
+    public void setUser(User u){}
+
+    @Override
+    public Long getToken(){
+        return null;
+    }
+
+    protected Long token(){
         return super.getToken();
     }
     
     @Override
-    private void setDate(long date){
-        super.setDate(date);
-    }
+    public void setDate(Long date){}
 
 
     public static Login signIn(String username, String password){
@@ -53,6 +57,9 @@ public class Login extends Login_Base{
     
         
     }
+    private void refresh(){
+        super.setDate(System.currentTimeMillis());
+    }
 
     public static Login  getLoginByToken(long token){
         MyDrive mydrive = MyDrive.getInstance();
@@ -64,7 +71,7 @@ public class Login extends Login_Base{
         long date = login.getDate();
         long currentTime = System.currentTimeMillis();
         if(currentTime<(date+(2*3600000))){
-            login.setDate(System.currentTimeMillis());
+            login.refresh();
             return login;
         }
         log.warn("Expired Token");
