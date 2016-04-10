@@ -1,6 +1,7 @@
 package pt.tecnico.mydrive.domain;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 
 import org.jdom2.DataConversionException;
@@ -9,7 +10,7 @@ import org.joda.time.DateTime;
 
 import pt.tecnico.mydrive.exception.*;
 
-public abstract class File extends File_Base implements Comparable<File>{
+public abstract class File extends File_Base implements Comparator<File>{
 
     public File(){
         super();
@@ -60,7 +61,7 @@ public abstract class File extends File_Base implements Comparable<File>{
     }
     
     public String print(){
-        return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n");
+        return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n";
     }
     
     public String getPath(){
@@ -120,21 +121,6 @@ public abstract class File extends File_Base implements Comparable<File>{
         actual.addFile(this);
         setOwner(owner);
         setId(id);
-    }
-
-    @Override
-    protected int compareTo(File f) {
-        return Comparators.NAME.compare(this, f);
-    }
-
-    public static class Comparators{
-
-        public static Comparator<File> NAME = new Comparator<File>() {
-            @Override
-            public int compare(File f1, File f2) {
-                return f1.getName().compareTo(f2.getName());
-            }
-        };
     }
 
     public abstract Element xmlExport(Element xmlmydrive);

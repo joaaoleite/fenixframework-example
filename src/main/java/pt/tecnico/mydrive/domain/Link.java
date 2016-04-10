@@ -60,7 +60,7 @@ public class Link extends Link_Base {
 
     @Override
     public String print(){
-        return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+" -> "+getContent()+"\n");
+        return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+" -> "+getContent()+"\n";
 
     }
 

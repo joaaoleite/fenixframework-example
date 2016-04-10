@@ -2,6 +2,9 @@ package pt.tecnico.mydrive.domain;
 
 import org.jdom2.Element;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,15 +61,20 @@ public class Dir extends Dir_Base {
     public String listDir(){
         String output = "";
 
-        List<File> list = new ArrayList<File>(getFileSet());
-        Collections.sort(list, File.Comparators.NAME);
+        ArrayList<File> list = new ArrayList<File>(getFileSet());
+        Collections.sort(list, new Comparator<File>(){
+            public int compare(File f1, File f2){
+                return f1.getName().compareTo(f2.getName());
+            }
+        }
+        );
 
-        for(file : list){
-            output += file.print();    
+        for(File file : list){
+            output = output + file.print();    
         }
 
         output = getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+"."+"\n"
-        +getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+".."+"\n")
+        +getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+".."+"\n"
         +output;
 
         return output;

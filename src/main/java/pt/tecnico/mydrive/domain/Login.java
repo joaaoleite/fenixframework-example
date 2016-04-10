@@ -4,10 +4,9 @@ import java.util.Random;
 
 import pt.tecnico.mydrive.exception.*;
 
-public class Login{
+public class Login extends Login_Base{
     private final String pipo;
     private Login( String username) {
-        pipo="onde e k ta o pinto?";
         setDate( System.currentTimeMillis());
         setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
@@ -40,7 +39,7 @@ public class Login{
         MyDrive mydrive = MyDrive.getInstance();
         Login login=  mydrive.getLoginByToken(token);
         if (login==null){
-            throw new TokenDoesNotExist(token);
+            //throw new TokenDoesNotExist(token);
         }
         long date = login.getDate();
         long currentTime = System.currentTimeMillis();
