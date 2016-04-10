@@ -14,6 +14,8 @@ import pt.ist.fenixframework.FenixFramework;
 import pt.ist.fenixframework.core.WriteOnReadError;
 import pt.tecnico.mydrive.Main;
 
+import pt.tecnico.mydrive.exception.*;
+
 public abstract class AbstractServiceTest {
     protected static final Logger log = LogManager.getRootLogger();
 
@@ -42,10 +44,10 @@ public abstract class AbstractServiceTest {
         }
     }
 
-    protected long login(String username, String password){
-        LoginService service = new LoginService();
-        Boolean isLoggedIn = service.login(username, password);
-        if(isLoggedIn) return service.getToken();
+    protected long login(String username, String password) throws InvalidPasswordException{
+        LoginService service = new LoginService(username,password);
+        service.execute();
+        return service.result();
     }
 
     protected abstract void populate(); // each test adds its own data
