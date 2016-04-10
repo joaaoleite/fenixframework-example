@@ -68,8 +68,8 @@ public class DeleteFileTest extends AbstractServiceTest{
     @Test(expected = InsufficientPermissionsException.class)
     public void DeleteFileWithoutPermissions() {
         final String filename = "laura.txt";  
-        final long token = login("laurinha", "laurinha");
-        final String path = "/home/ze/";
+        final long token = login("joaninha", "joaninha");
+        final String path = "/home/laura";
 
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
