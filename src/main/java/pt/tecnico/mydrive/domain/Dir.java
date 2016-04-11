@@ -108,7 +108,9 @@ public class Dir extends Dir_Base {
     public PlainFile createPlainFile(User owner, String name) throws FileAlreadyExistsException, PathTooLongException{
         if(exists(name) == false){
             if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
-            return new PlainFile(this, owner, name);
+            PlainFile file = new PlainFile(this, owner, name);
+            file.write("");
+            return file;
         }    
         else
             throw new FileAlreadyExistsException(name);
