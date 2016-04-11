@@ -13,8 +13,8 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         mydrive.createUser("Halibio", "halib", "uht","rwxd----");
         mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti","rwxd----");
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
-        mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "photos");
         mydrive.getRootDir().getDir("home").getDir("halib").createPlainFile(mydrive.getUserByUsername("halib"), "loans");
+        mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "photos");
    }
     
     @Test
@@ -50,14 +50,14 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         assertEquals("Wrong directory list 3", "rwxd----", line3[1]);
         assertEquals("Wrong directory list 3", "0", line3[2]);
         assertEquals("Wrong directory list 3", "halib", line3[3]);
-        assertEquals("Wrong directory list 3", "7", line3[4]);
+        assertEquals("Wrong directory list 3", "6", line3[4]);
         assertEquals("Wrong directory list 3", "loans", line3[6]);
 
         assertEquals("Wrong directory list 4", "Dir", line4[0]);
         assertEquals("Wrong directory list 4", "rwxd----", line4[1]);
         assertEquals("Wrong directory list 4", "2", line4[2]);
         assertEquals("Wrong directory list 4", "halib", line4[3]);
-        assertEquals("Wrong directory list 4", "6", line4[4]); 
+        assertEquals("Wrong directory list 4", "7", line4[4]); 
         assertEquals("Wrong directory list 4", "photos", line4[6]);
 
         assertEquals("Wrong directory list 5", "Dir", line5[0]);
