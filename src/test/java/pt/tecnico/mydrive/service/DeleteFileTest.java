@@ -12,6 +12,7 @@ public class DeleteFileTest extends AbstractServiceTest{
         MyDrive mydrive = MyDrive.getInstance();        
         User laura = mydrive.createUser("laura", "laurinha","laurinha", "rwxd----");
         User joana = mydrive.createUser("joana", "joaninha","joaninha","rwxd----");
+        User superuser = mydrive.getUserByUsername("root");
         
         Dir rootdir = mydrive.getRootDir();
             
@@ -19,15 +20,17 @@ public class DeleteFileTest extends AbstractServiceTest{
         Link link = rootdir.getDir("home").getDir("laurinha").createLink(laura,"link","/");
         App app = rootdir.getDir("home").getDir("laurinha").createApp(laura,"app");
         Dir dir = rootdir.getDir("home").getDir("laurinha").createDir(laura,"Dir");
+        
+        rootdir.getDir("home").createPlainFile(superuser,"super.txt");
     }   
 
     @Test
-	public void successDeletePlainFile() {
-    	final String filename = "laura.txt";  
+	  public void successDeletePlainFile() {
+    	  final String filename = "laura.txt";  
         final long token = login("laurinha", "laurinha");
 
-    	DeleteFileService service = new DeleteFileService(token,filename);
-    	service.execute();
+    	  DeleteFileService service = new DeleteFileService(token,filename);
+    	  service.execute();
 
         assertNull("File was not deleted", MyDriveService.getMyDrive().getRootDir().getDir("home").getFileByName(filename));
     }
@@ -67,9 +70,9 @@ public class DeleteFileTest extends AbstractServiceTest{
 
     @Test(expected = InsufficientPermissionsException.class)
     public void DeleteFileWithoutPermissions() {
-        final String filename = "laura.txt";  
+        final String filename = "super.txt";  
         final long token = login("joaninha", "joaninha");
-        final String path = "/home/laura";
+        final String path = "/home";
 
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();

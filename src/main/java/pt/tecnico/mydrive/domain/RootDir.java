@@ -41,7 +41,8 @@ public class RootDir extends RootDir_Base {
     public Element xmlExport(Element xmlmydrive) {
         
         for(File f: getFileSet()){
-            xmlmydrive = f.xmlExport(xmlmydrive);
+            if(f.getName().equals("home"))
+                xmlmydrive = f.xmlExport(xmlmydrive);
         }
         return xmlmydrive;
     }
