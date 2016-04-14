@@ -19,17 +19,25 @@ public class DeleteFileService extends MyDriveService {
 
     @Override
     public final void dispatch() throws MyDriveException, ExpiredTokenException, FileDoesNotExistException {
+        Dir workingDir = Login.getLoginByToken(token).getWorkingDir();
+    	File f = workingDir.getFileByName(fileName);
 
-    File f = Login.getLoginByToken(token).getWorkingDir().getFileByName(fileName);
-		if (f == null){
-			throw new FileDoesNotExistException(fileName);
-		}
+        if(!(f.getOwner().equals(login.getUser()) && f.getMask().charAt(1) == 'w')
+            && !(!f.getOwner().equals(login.getUser()) && f.getMask().charAt(5) == 'w')
+            && !(login.getUser().getUsername().equals("root")))
+            throw new InsufficientPermissionsException(filename);
+
 		else{
-			if (f.isDir() == true){
-				f.removeR();
+			if (f == null){
+				throw new FileDoesNotExistException(fileName);
 			}
 			else{
-				f.remove();
+				if (f.isDir() == true){
+					f.removeR();
+				}
+				else{
+					f.remove();
+				}
 			}
 		}
 	}
