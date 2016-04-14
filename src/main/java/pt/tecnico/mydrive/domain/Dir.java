@@ -92,9 +92,13 @@ public class Dir extends Dir_Base {
     }
 
     public App createApp(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
-        App app = createApp(owner, name);
-        app.setContent(content);
-        return app;
+        if(exists(name) == false){
+            App app = createApp(owner, name);
+            app.setContent(content);
+            return app;
+        }    
+        else
+            throw new FileAlreadyExistsException(name);
     }
 
     public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
@@ -117,9 +121,13 @@ public class Dir extends Dir_Base {
     }
 
     public PlainFile createPlainFile(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
-        PlainFile newPlainFile = createPlainFile(owner, name);
-        newPlainFile.write(content);
-        return newPlainFile;    
+        if(exists(name) == false){
+            PlainFile newPlainFile = createPlainFile(owner, name);
+            newPlainFile.write(content);
+            return newPlainFile; 
+        }    
+        else
+            throw new FileAlreadyExistsException(name);   
     }
     
     @Override
