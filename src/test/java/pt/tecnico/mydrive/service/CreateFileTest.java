@@ -26,14 +26,14 @@ public class CreateFileTest extends AbstractServiceTest{
     public void successCreateLinkFile(){
         final long token = login("luisinho", "luisinho");
         final String type = "link";
-        final String filename = "link";
+        final String filename = "link2";
         final String content = "";
 
         CreateFileService service = new CreateFileService(token, filename, type , content);
         service.execute();
         
         assertNotNull("LinkFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in filename?", "link", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
+        assertEquals("Match in filename?", "link2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
         assertEquals("Match in type?", "Link", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(type).getClass().getName());
         assertEquals("Match in Content", "/home/zezinho", ((Link)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luis").getFileByName(filename))).getContent());
 
@@ -43,15 +43,15 @@ public class CreateFileTest extends AbstractServiceTest{
     public void successCreateAppFile(){
         final long token = login("luisinho", "luisinho");
         final String type = "App"; 
-        final String filename = "app";
+        final String filename = "app2";
         final String content = "";
         
         CreateFileService service = new CreateFileService(token, filename, type, content);
         service.execute();
         
-        assertNotNull("AppFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName("app"));
-        assertEquals("Match in filename?", "app", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName("app"));
-        assertEquals("Match in type?", "App", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName("app").getClass().getName());
+        assertNotNull("AppFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
+        assertEquals("Match in filename?", "app2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
+        assertEquals("Match in type?", "App", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
         assertEquals("Match in Content", "", ((App)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
 
     }
@@ -60,13 +60,13 @@ public class CreateFileTest extends AbstractServiceTest{
     public void successCreateDirFile(){
         final long token = login("luisinho", "luisinho");
         final String type = "dir"; 
-        final String filename = "newDir";
+        final String filename = "newDir2";
         
         CreateFileService service = new CreateFileService(token, filename, type);
         service.execute();
         
         assertNotNull("DirFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename));
-        assertEquals("Match in filename?", "NewDir", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename));
+        assertEquals("Match in filename?", "NewDir2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename));
         assertEquals("Match in type?", "Dir", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename).getClass().getName());
     }
 
@@ -74,14 +74,14 @@ public class CreateFileTest extends AbstractServiceTest{
     public void successCreatePlainFile(){
         final long token = login("luisinho", "luisinho");
         final String type = "plain"; 
-        final String filename = "new.txt";
+        final String filename = "new2.txt";
         final String content = "Projecto de ES";
         
         CreateFileService service = new CreateFileService(token, filename, type, content);
         service.execute();
         
         assertNotNull("PlainFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in filename?", "new.txt", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
+        assertEquals("Match in filename?", "new2.txt", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
         assertEquals("Match in type?", "plain", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
         assertEquals("Match in content?" , "Projecto de ES" , ((PlainFile)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luis").getFileByName(filename))).getContent());
     }
@@ -99,7 +99,7 @@ public class CreateFileTest extends AbstractServiceTest{
     public void DirWithoutContent(){
         final long token = login("luisinho", "luisinho");
         final String type = "Dir"; 
-        final String filename = "NewDir";
+        final String filename = "NewDir2";
         final String content = "Directory with content";
 
         CreateFileService service = new CreateFileService(token, filename, type, content);
@@ -110,26 +110,9 @@ public class CreateFileTest extends AbstractServiceTest{
     @Test(expected = TokenDoesNotExistException.class)
     public void tokenExpired(){
         final long token = 234257263;
-        final String filename = "link";
+        final String filename = "link2";
 
         CreateFileService service = new CreateFileService(token, filename, "PlainFile");
         service.execute();
-
-    }
-
-    @Test(expected = InsufficientPermissionsException.class)
-    public void FileInAnotherUserDir(){
-        final long token = login("luisinho", "luisinho");
-        final String path = "/home/ze";
-        final String type = "Dir"; 
-        final String filename = "NewDir";
-        final String content = "Directory with content";
-
-        ChangeDirectoryService service = new ChangeDirectoryService(token, path);
-        service.execute();
-
-        CreateFileService service2 = new CreateFileService(token, filename, type, content);
-        service2.execute();
-
     } 
 }
