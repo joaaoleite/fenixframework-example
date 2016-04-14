@@ -25,17 +25,17 @@ public class CreateFileTest extends AbstractServiceTest{
     @Test
     public void successCreateLinkFile(){
         final long token = login("luisinho", "luisinho");
-        final String type = "link";
+        final String type = "Link";
         final String filename = "link2";
-        final String content = "";
+        final String content = "/";
 
         CreateFileService service = new CreateFileService(token, filename, type , content);
         service.execute();
         
         assertNotNull("LinkFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in filename?", "link2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in type?", "Link", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(type).getClass().getName());
-        assertEquals("Match in Content", "/home/zezinho", ((Link)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luis").getFileByName(filename))).getContent());
+        assertEquals("Match in filename?", "link2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getName());
+        assertEquals("Match in type?", "pt.tecnico.mydrive.domain.Link", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(type).getClass().getName());
+        assertEquals("Match in Content", "/home/zezinho", ((Link)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
 
     }
 
@@ -50,8 +50,8 @@ public class CreateFileTest extends AbstractServiceTest{
         service.execute();
         
         assertNotNull("AppFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in filename?", "app2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in type?", "App", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
+        assertEquals("Match in filename?", "app2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getName());
+        assertEquals("Match in type?", "pt.tecnico.mydrive.domain.App", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
         assertEquals("Match in Content", "", ((App)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
 
     }
@@ -59,21 +59,21 @@ public class CreateFileTest extends AbstractServiceTest{
     @Test
     public void successCreateDirFile(){
         final long token = login("luisinho", "luisinho");
-        final String type = "dir"; 
+        final String type = "Dir"; 
         final String filename = "newDir2";
         
         CreateFileService service = new CreateFileService(token, filename, type);
         service.execute();
         
         assertNotNull("DirFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename));
-        assertEquals("Match in filename?", "NewDir2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename));
-        assertEquals("Match in type?", "Dir", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename).getClass().getName());
+        assertEquals("Match in filename?", "newDir2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename).getName());
+        assertEquals("Match in type?","pt.tecnico.mydrive.domain.Dir" , MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getDir(filename).getClass().getName());
     }
 
     @Test
     public void successCreatePlainFile(){
         final long token = login("luisinho", "luisinho");
-        final String type = "plain"; 
+        final String type = "Plain";
         final String filename = "new2.txt";
         final String content = "Projecto de ES";
         
@@ -81,9 +81,9 @@ public class CreateFileTest extends AbstractServiceTest{
         service.execute();
         
         assertNotNull("PlainFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in filename?", "new2.txt", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
-        assertEquals("Match in type?", "plain", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
-        assertEquals("Match in content?" , "Projecto de ES" , ((PlainFile)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luis").getFileByName(filename))).getContent());
+        assertEquals("Match in filename?", "new2.txt", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getName());
+        assertEquals("Match in type?", "pt.tecnico.mydrive.domain.PlainFile", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
+        assertEquals("Match in content?" , "Projecto de ES" , ((PlainFile)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
     }
 
     @Test(expected = FileAlreadyExistsException.class)

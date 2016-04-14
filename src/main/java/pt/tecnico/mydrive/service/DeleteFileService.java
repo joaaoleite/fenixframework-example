@@ -27,7 +27,7 @@ public class DeleteFileService extends MyDriveService {
         if(!(f.getOwner().equals(login.getUser()) && f.getMask().charAt(1) == 'w')
             && !(!f.getOwner().equals(login.getUser()) && f.getMask().charAt(5) == 'w')
             && !(login.getUser().getUsername().equals("root")))
-            throw new InsufficientPermissionsException(filename);
+            throw new InsufficientPermissionsException(fileName);
 
 		else{
 			if (f == null){
