@@ -87,11 +87,56 @@ public class CreateFileTest extends AbstractServiceTest{
     }
 
     @Test(expected = FileAlreadyExistsException.class)
-    public void cantFindFile(){
+    public void createPlainFileAlreadyExists(){
         final long token = login("luisinho", "luisinho");
         final String filename = "new.txt";
         
         CreateFileService service = new CreateFileService(token, filename, "Plain");
+        service.execute();
+    }
+
+    @Test(expected = InvalidFileTypeException.class)
+    public void createFileWithInvalidType(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "other";
+        
+        CreateFileService service = new CreateFileService(token, filename, "Invalid");
+        service.execute();
+    }
+
+    @Test(expected = LinkCantBeEmptyException.class)
+    public void createAppWithNoContent(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "app2";
+        
+        CreateFileService service = new CreateFileService(token, filename, "App",null);
+        service.execute();
+    }
+
+    @Test(expected = FileAlreadyExistsException.class)
+    public void createDirAlreadyExists(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "NewDir";
+        
+        CreateFileService service = new CreateFileService(token, filename, "Dir");
+        service.execute();
+    }
+
+    @Test(expected = FileAlreadyExistsException.class)
+    public void createAppAlreadyExists(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "app";
+        
+        CreateFileService service = new CreateFileService(token, filename, "App");
+        service.execute();
+    }
+
+    @Test(expected = FileAlreadyExistsException.class)
+    public void cantFindFile(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "NewDir";
+        
+        CreateFileService service = new CreateFileService(token, filename, "Dir");
         service.execute();
     }
 
