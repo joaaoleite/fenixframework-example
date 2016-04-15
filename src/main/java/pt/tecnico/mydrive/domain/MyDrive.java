@@ -35,8 +35,7 @@ public class MyDrive extends MyDrive_Base {
     }
 
     private MyDrive() {
-        setRoot(FenixFramework.getDomainRoot());
-        
+        setRoot(FenixFramework.getDomainRoot());      
     }
 
     protected int generateId(){
@@ -61,9 +60,9 @@ public class MyDrive extends MyDrive_Base {
 
     public void cleanup() {
         for(User u: getUserSet()){
-            u.remove();
+            if(!u.getUsername().equals("root"))
+                u.remove();
         }
-
         getRootDir().cleanup();
     }
 
