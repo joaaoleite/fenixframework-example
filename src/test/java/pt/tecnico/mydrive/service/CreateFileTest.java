@@ -95,6 +95,15 @@ public class CreateFileTest extends AbstractServiceTest{
         service.execute();
     }
 
+    @Test(expected = FilenameInvalidException.class)
+    public void createFileWithInvalidName(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "/test/";
+        
+        CreateFileService service = new CreateFileService(token, filename, "Plain");
+        service.execute();
+    }
+
     @Test(expected = InvalidFileTypeException.class)
     public void createFileWithInvalidType(){
         final long token = login("luisinho", "luisinho");
