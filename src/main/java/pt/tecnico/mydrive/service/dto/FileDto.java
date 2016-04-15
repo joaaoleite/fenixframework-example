@@ -1,4 +1,6 @@
-@package pt.tecnico.phonebook.service.dto;
+package pt.tecnico.phonebook.service.dto;
+
+import org.joda.time.DateTime;
 
 
 public class FileDto implements Comparable<FileDto> {

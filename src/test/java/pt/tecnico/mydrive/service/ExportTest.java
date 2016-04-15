@@ -36,11 +36,6 @@ public class ExportTest extends AbstractServiceTest {
 
         Element e = doc.getRootElement();
 
-        System.out.println("\n\nExported tests: ");
-        for(Element d: e.getChildren("dir")){
-            System.out.println("Dir: "+d.getChildText("name")+ " | "+d.getChildText("path"));
-        }
-
         assertEquals("Exported 2 Users", 2, e.getChildren("user").size());
         assertEquals("Exported 4 Dir", 4, e.getChildren("dir").size());
         assertEquals("Exported 3 PlainFile", 3, e.getChildren("plain").size());

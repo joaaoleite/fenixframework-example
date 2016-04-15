@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-
-import pt.tecnico.mydrive.domain.*;
-
 import org.jdom2.Document;
 import org.jdom2.input.SAXBuilder;
 
@@ -17,6 +14,7 @@ import pt.tecnico.mydrive.exception.*;
 import pt.tecnico.mydrive.domain.*;
 
 public class ImportTest extends AbstractServiceTest {
+    
     private final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
         + "<myDrive>"   
         + " <user username=\"jtb\">"
@@ -70,15 +68,17 @@ public class ImportTest extends AbstractServiceTest {
 
     @Test
     public void success() throws Exception {
-		    Document doc = new SAXBuilder().build(new StringReader(xml));
+		
+        Document doc = new SAXBuilder().build(new StringReader(xml));
         ImportMyDriveService service = new ImportMyDriveService(doc);
         service.execute();
 
         // check imported data
         MyDrive mydrive = MyDrive.getInstance();
+        
         assertEquals("created 2 Users", 3, mydrive.getUserSet().size());
         assertTrue("created jtb", mydrive.hasUser("jtb"));
-		    assertTrue("created mja", mydrive.hasUser("mja"));
+		assertTrue("created mja", mydrive.hasUser("mja"));
         assertEquals("Dir is empty", 0, mydrive.getRootDir().getDir("home").getDir("mja").getFileSet().size());
         assertEquals("Check mask created correctly", "rwxd----", mydrive.getUserByUsername("mja").getUmask());
         assertEquals("Check home folder created correctly", "mja" , mydrive.getRootDir().getDir("home").getDir("mja").getName());
