@@ -22,6 +22,7 @@ public class ReadFileService extends MyDriveService{
     }
 
     protected final void dispatch() throws LoginFailedException, FileDoesNotExistException, FileIsADirException{
+
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
 
