@@ -29,6 +29,17 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     }
 
     @Test
+    public void changeToThisFolder(){
+        final long token = login("halib", "uht");
+        final String path = ".";
+        ChangeDirectoryService service = new ChangeDirectoryService(token, path);
+        service.execute();
+        String newPath = service.result(); 
+        
+        assertEquals("Wrong current directory", "/home/halib", newPath);
+    }
+
+    @Test
     public void successSuperUserToOtherDirAbs(){
         final long token = login("root", "***");
         final String path = "/home/halib/test";

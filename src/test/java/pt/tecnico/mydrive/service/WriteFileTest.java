@@ -18,6 +18,9 @@ public abstract class WriteFileTest extends AbstractServiceTest {
         mydrive.getRootDir().getDir("home").getDir("marshall").createDir(mydrive.getUserByUsername("marshall"), "test");
         mydrive.getRootDir().getDir("home").getDir("marshall").createPlainFile(mydrive.getUserByUsername("marshall"), "testplain", "abcdefghijklmnopqrstuvwxyz");
         mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createLink(mydrive.getUserByUsername("marshall"), "testlink","/home/marshall/testplain");
+        
+        rootdir.getDir("home").getDir("marshall").createLink(antonio,"link","/home/marshall/testplain"); 
+
         /*mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createApp(!!!);*/
     } 
 
@@ -25,6 +28,21 @@ public abstract class WriteFileTest extends AbstractServiceTest {
     public void successPlain() {
         final long token = login("marshall", "missy");
         final String namefile = "testplain";
+        final String content = "teste123";
+
+        WriteFileService service = new WriteFileService(token, namefile, content);
+        service.execute();
+
+        String result = ((PlainFile)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testplain"))).read();
+
+        assertNotNull("Content is null", result);
+        assertEquals("Write not successfull", "teste123",result);
+    }
+
+    @Test
+    public void writeLinkToPlainFile() {
+        final long token = login("marshall", "missy");
+        final String namefile = "link";
         final String content = "teste123";
 
         WriteFileService service = new WriteFileService(token, namefile, content);

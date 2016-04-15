@@ -22,6 +22,7 @@ public class Login extends Login_Base{
 
         MyDrive mydrive = MyDrive.getInstance();
         mydrive.login(this);
+        addVariable(new EnvironmentVariable("name","value"));
     }
     
     @Override

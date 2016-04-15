@@ -52,7 +52,6 @@ public class Main {
         for (User u: mydrive.getUserSet()) {
             u.print();
         }
-      
     }
 
     @Atomic
