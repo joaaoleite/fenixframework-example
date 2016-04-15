@@ -15,6 +15,9 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
         mydrive.getRootDir().getDir("home").getDir("halib").createPlainFile(mydrive.getUserByUsername("halib"), "loans");
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "photos");
+
+        mydrive.getRootDir().createDir(mydrive.getSuperUser(),"test");
+        mydrive.getRootDir().getDir("test").createPlainFile(mydrive.getSuperUser(), "doc.txt");
    }
     
     @Test
@@ -100,8 +103,27 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     @Test(expected = InsufficientPermissionsException.class)
     public void invalidUserOnOtherUserDir(){
         final long token = login("zetrigo", "tetetiti");
+        
+        MyDrive.getInstance().getRootDir().getDir("home").getDir("halib").setMask("rwxdr-x-");
+
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/halib");
         cd.execute();
+        
+        MyDrive.getInstance().getRootDir().getDir("home").getDir("halib").setMask("rwxd----");
+
+        ListDirectoryService service = new ListDirectoryService(token);
+        service.execute();
+    }
+
+    @Test(expected = InsufficientPermissionsException.class)
+    public void invalidListOnPrivateFolder(){
+        final long token = login("zetrigo", "tetetiti");
+
+        ChangeDirectoryService cd = new ChangeDirectoryService(token, "/test");
+        cd.execute();
+        
+        MyDrive.getInstance().getRootDir().getDir("test").setMask("rwxd----");
+
         ListDirectoryService service = new ListDirectoryService(token);
         service.execute();
     }

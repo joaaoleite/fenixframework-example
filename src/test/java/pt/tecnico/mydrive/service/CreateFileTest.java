@@ -86,6 +86,27 @@ public class CreateFileTest extends AbstractServiceTest{
         assertEquals("Match in content?" , "Projecto de ES" , ((PlainFile)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
     }
 
+    @Test(expected = InvalidFileTypeException.class)
+    public void createInvalidFileType(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "new54.txt";
+        
+        CreateFileService service = new CreateFileService(token, filename, "MATLAB");
+        service.execute();
+    }
+
+    @Test(expected = InsufficientPermissionsException.class)
+    public void createFileInsufficientPermissions(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "new89.txt";
+
+        ChangeDirectoryService cd = new ChangeDirectoryService(token, "/");
+        cd.execute();
+
+        CreateFileService service = new CreateFileService(token, filename, "Plain");
+        service.execute();
+    }
+
     @Test(expected = FileAlreadyExistsException.class)
     public void createPlainFileAlreadyExists(){
         final long token = login("luisinho", "luisinho");

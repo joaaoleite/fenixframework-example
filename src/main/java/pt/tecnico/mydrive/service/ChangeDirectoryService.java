@@ -34,29 +34,36 @@ public class ChangeDirectoryService extends MyDriveService{
         Dir actual;
         int i;
 
-        if(path.charAt(0) == '/'){
-
-            actual = md.getRootDir();
-            i = 1;
+        if(path.equals("/")){
+            login.setWorkingDir(md.getRootDir());
+            res="/";
         }
         else{
-            actual = login.getWorkingDir();
-            i = 0;
-        }
 
-        for(; i<parts.length-1; i++){
-            actual = actual.getDir(parts[i]);
-        }
+            if(path.charAt(0) == '/'){
 
-		Dir workingDir = actual.getDir(parts[i]);
-        
-        if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
-        && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
-        && !(login.getUser().getUsername().equals("root"))){
-            throw new InsufficientPermissionsException(workingDir.getName());
+                actual = md.getRootDir();
+                i = 1;
+            }
+            else{
+                actual = login.getWorkingDir();
+                i = 0;
+            }
+
+            for(; i<parts.length-1; i++){
+                actual = actual.getDir(parts[i]);
+            }
+
+            Dir workingDir = actual.getDir(parts[i]);
+            
+            if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
+            && !(!workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(4) == 'r')
+            && !(login.getUser().getUsername().equals("root"))){
+                throw new InsufficientPermissionsException(workingDir.getName());
+            }
+            
+            login.setWorkingDir(workingDir);
+            res = workingDir.getFullPath();
         }
-        
-		login.setWorkingDir(workingDir);
-        res = workingDir.getFullPath();
     }
 }

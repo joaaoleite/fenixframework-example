@@ -64,7 +64,7 @@ public class Login extends Login_Base{
         }
         long date = login.getDate();
         long currentTime = System.currentTimeMillis();
-        if(currentTime<(date+(2*3600000))){
+        if(currentTime<(date+(2*3600*1000))){
             login.refresh();
             return login;
         }

@@ -37,6 +37,8 @@ public class CreateFileService extends MyDriveService{
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
 
+        System.out.println("\n\n\n\n WorkingDir: "+workingDir.getPath()+"\n\n\n");
+
         File newFile;
 
         if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(1) == 'w')
