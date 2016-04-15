@@ -17,10 +17,36 @@ public class ReadFileTest extends AbstractServiceTest{
         PlainFile plain = rootdir.getDir("home").getDir("toni").createPlainFile(antonio,"text.txt"); 
         plain.write("texto de teste");
 
+        rootdir.getDir("home").getDir("toni").createLink(antonio,"link","/home/toni/test.txt"); 
+
         rootdir.getDir("home").getDir("toni").createDir(antonio,"teste");     
    } 
     @Test
     public void successReadFile(){
+        final long token = login("toni", "toni");
+        final String filename = "link";
+        
+        ReadFileService service = new ReadFileService(token, filename);
+        service.execute();
+        String content = service.result();
+        assertNotNull("File doesn't exist", content);
+        assertEquals("Wrong match", "texto de teste", content);
+    }
+
+    @Test
+    public void readLinkToPlainFile(){
+        final long token = login("toni", "toni");
+        final String filename = "link";
+        
+        ReadFileService service = new ReadFileService(token, filename);
+        service.execute();
+        String content = service.result();
+        assertNotNull("File doesn't exist", content);
+        assertEquals("Wrong match", "texto de teste", content);
+    }
+
+    @Test
+    public void successReadFileFromLink(){
         final long token = login("toni", "toni");
         final String filename = "text.txt";
         
@@ -30,7 +56,6 @@ public class ReadFileTest extends AbstractServiceTest{
         assertNotNull("File doesn't exist", content);
         assertEquals("Wrong match", "texto de teste", content);
     }
-
 
     @Test(expected = FileDoesNotExistException.class)
     public void cantFindFile(){
