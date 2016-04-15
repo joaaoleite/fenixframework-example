@@ -168,5 +168,14 @@ public class CreateFileTest extends AbstractServiceTest{
 
         CreateFileService service = new CreateFileService(token, filename, "Plain");
         service.execute();
-    } 
+    }
+
+    @Test(expected = PathToLongException.class)
+    public void pathTooLongException(){
+        final long token = login("luisinho", "luisinho");
+        final String filename = "ttestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetesteestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetesteteste.txt";
+        
+        CreateFileService service = new CreateFileService(token, filename, "Plain");
+        service.execute();
+    }
 }
