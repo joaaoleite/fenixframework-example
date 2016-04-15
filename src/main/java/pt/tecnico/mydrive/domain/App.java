@@ -18,20 +18,22 @@ public class App extends App_Base {
         init(parent, owner, name);
     }
     
-    protected Object execute(String[] args){
+    protected Object execute(){
         String[] str = getContent().split(" ");
-        String[] exec = str[0].split(".");
-        str = Arrays.copyOfRange(str, 1, str.length);
+        String pkg = str[0].substring(0,str[0].lastIndexOf(".")-1);
+        String clsName = str[0].substring(str[0].lastIndexOf(".")+1,str[0].length()-1);
+        String mtd = str[0].substring(str[0].lastIndexOf(".")+1,str[0].length()-1);
+        String[] args = Arrays.copyOfRange(str, 1, str.length);
         try{
-            Class cls = Class.forName(exec[0] + exec[1]);
+            Class cls = Class.forName(pkg + "." + clsName);
             Object obj = cls.newInstance();
             Method method; 
-            if(exec.length == 3)
-                method = cls.getDeclaredMethod(exec[2], String[].class);
+            if(args.length>0)
+                method = cls.getDeclaredMethod(mtd, String[].class);
             else
                 method = cls.getDeclaredMethod("main", String[].class);
         
-            obj = method.invoke(obj, str);
+            obj = method.invoke(obj, args);
             return obj;
         }catch(Exception e){
             e.printStackTrace();    

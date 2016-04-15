@@ -122,7 +122,7 @@ public class MyDrive extends MyDrive_Base {
 
     public User getUserByUsername(String username){
         for(User u: getUserSet()){
-            if(u.getUsername()==username){
+            if(u.getUsername().equals(username)){
                 return u;
             }
         }
@@ -178,6 +178,7 @@ public class MyDrive extends MyDrive_Base {
             throw new UserAlreadyExistsException(username);
         }
         User user = new User(this,username,password,mask);
+        user.setName(name);
         Dir tmpdir=getRootDir().getDir("home").createDir(user,username);
         user.setHomedir(tmpdir);
         addUser(user);

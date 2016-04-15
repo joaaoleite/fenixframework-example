@@ -101,7 +101,10 @@ public class Dir extends Dir_Base {
             throw new FileAlreadyExistsException(name);
     }
 
-    public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException{
+    public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException, LinkCantBeEmptyException{
+        if(content==null){
+            throw new LinkCantBeEmptyException(name);
+        }
         if(exists(name) == false){
             if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
             return new Link(this, owner, name, content);
@@ -167,9 +170,14 @@ public class Dir extends Dir_Base {
     }
 
     public Element xmlExport(Element xmlmydrive) {
-        Element dir = new Element("dir");
-        dir = super.xmlExportAttributes(dir);
-        xmlmydrive.addContent(dir);
+        if(!(getName().equals("home") && getPath().equals("/")) &&
+           !(getName().equals("root") && getPath().equals("/home"))){
+
+            Element dir = new Element("dir");
+            dir = super.xmlExportAttributes(dir);
+            xmlmydrive.addContent(dir);
+        }
+
         for(File f: getFileSet()){
             xmlmydrive = f.xmlExport(xmlmydrive);
         }

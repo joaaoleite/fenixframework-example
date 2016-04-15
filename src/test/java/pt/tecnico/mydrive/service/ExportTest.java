@@ -27,6 +27,15 @@ public class ExportTest extends AbstractServiceTest {
         mydrive.getRootDir().getDir("home").getDir("zezinho").createApp(ze,"app");
         mydrive.getRootDir().getDir("home").getDir("zezinho").createDir(ze,"foldertest");
 
+
+        System.out.println("\n\nList: / \n");
+        for(File f: mydrive.getRootDir().getFileSet()){
+            System.out.println("File: "+f.getName());
+        }
+        System.out.println("\n\nList: / \n");
+        for(File f: mydrive.getRootDir().getDir("home").getFileSet()){
+            System.out.println("File: "+f.getName());
+        }
     }
 
     @Test
@@ -36,15 +45,15 @@ public class ExportTest extends AbstractServiceTest {
         Document doc = service.result();
 
         Element e = doc.getRootElement();
-        System.out.print("\n\n\n\n\n\n\n\nmerda");
-        for(Element z : e.getChildren("dir")){
-            System.out.println(z.getChildText("name"));
+
+        System.out.println("\n\nExported tests: ");
+        for(Element d: e.getChildren("dir")){
+            System.out.println("Dir: "+d.getChildText("name")+ " | "+d.getChildText("path"));
         }
-        System.out.print("\n\n\n\n\n\n\n\ncaralho");
 
         assertEquals("Exported 2 Users", 2, e.getChildren("user").size());
         assertEquals("Exported 4 Dir", 4, e.getChildren("dir").size());
-        assertEquals("Exported 2 PlainFile", 2, e.getChildren("plain").size());
+        assertEquals("Exported 3 PlainFile", 3, e.getChildren("plain").size());
         assertEquals("Exported 1 Link", 1, e.getChildren("link").size());
         assertEquals("Exported 1 App", 1, e.getChildren("app").size());
         //User
@@ -70,7 +79,7 @@ public class ExportTest extends AbstractServiceTest {
         boolean dirTest = false;
         for(Element d: e.getChildren("dir")){
 
-            if(d.getChildText("path")=="/home/antonio"){
+            if(d.getChildText("path").equals("/home/antonio")){
                 dirTest=true;
                 assertEquals("Dir owner", "antonio", d.getChildText("owner"));
                 assertEquals("Dir perm", "rwdx----", d.getChildText("perm"));
@@ -82,28 +91,28 @@ public class ExportTest extends AbstractServiceTest {
         boolean plainTest = false;
         for(Element d: e.getChildren("plain")){
 
-            if(d.getChildText("path")=="/home/antonio/folder/plain.txt"){
+            if(d.getChildText("path").equals("/home/antonio/folder")){
                 plainTest=true;
                 assertEquals("Invalid file owner", "antonio", d.getChildText("owner"));
                 assertEquals("Dir perm", "rwdx----", d.getChildText("perm"));
             }
-            if(d.getChildText("path")=="/home/zezinho/test.txt"){
+            if(d.getChildText("path").equals("/home/zezinho")){
                 plainTest=true;
                 assertEquals("Invalid file owner", "zezinho", d.getChildText("owner"));
                 assertEquals("Dir perm", "rwdx----", d.getChildText("perm"));
-                assertEquals("Invalid file contents", "content", d.getChildText("content"));
+                assertEquals("Invalid file contents", "content", d.getChildText("contents"));
             }
         }
         if(!plainTest)
             fail("Invalid PlainFile path");
 
         boolean linkTest = false;
-        for(Element d: e.getChildren("plain")){
+        for(Element d: e.getChildren("link")){
 
-            if(d.getChildText("path")=="/home/zezinho/link"){
+            if(d.getChildText("path").equals("/home/zezinho")){
                 linkTest=true;
                 assertEquals("Invalid file owner", "zezinho", d.getChildText("owner"));
-                assertEquals("Link perm", "rwdx----", d.getChildText("mask"));
+                assertEquals("Link perm", "rwdx----", d.getChildText("perm"));
                 assertEquals("Link value", "/home/zezinho", d.getChildText("value"));
             }
         }
@@ -111,11 +120,11 @@ public class ExportTest extends AbstractServiceTest {
             fail("Invalid Link path");
 
         boolean appTest = false;
-        for(Element d: e.getChildren("plain")){
+        for(Element d: e.getChildren("app")){
 
-            if(d.getChildText("path")=="/home/zezinho/link"){
+            if(d.getChildText("path").equals("/home/zezinho")){
                 appTest=true;
-                assertEquals("App perm", "rwdx----", d.getChildText("mask"));
+                assertEquals("App perm", "rwdx----", d.getChildText("perm"));
             }
         }
         if(!appTest)

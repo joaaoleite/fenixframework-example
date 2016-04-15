@@ -103,7 +103,8 @@ public abstract class File extends File_Base{
     public void xmlImport(Element element) throws DataConversionException {
         String name = element.getChildText("name");
         String path = element.getChildText("path");
-        User owner = getMydrive().getUserByUsername(new String(element.getAttribute("owner").getValue()));
+        MyDrive md = MyDrive.getInstance();
+        User owner = md.getUserByUsername(new String(element.getChildText("owner")));
         if (element.getChildText("perm") != ""){
             setMask(element.getChildText("perm"));
         }else{
@@ -113,12 +114,13 @@ public abstract class File extends File_Base{
         int id = element.getAttribute("id").getIntValue();
         
         setName(name);
+        setMydrive(md);
 
         String[] parts = path.split("/");
 
-        Dir actual = getMydrive().getRootDir();
+        Dir actual = md.getRootDir();
 
-        for(int i = 1; i < parts.length - 1; i++){
+        for(int i = 1; i < parts.length; i++){
             if(actual.exists(parts[i])){
                 actual = actual.getDir(parts[i]);
             }

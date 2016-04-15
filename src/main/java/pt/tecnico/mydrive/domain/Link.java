@@ -55,10 +55,6 @@ public class Link extends Link_Base {
     }
 
     @Override
-    protected void execute(){
-    }
-
-    @Override
     public String print(){
         return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+" -> "+getContent()+"\n";
 

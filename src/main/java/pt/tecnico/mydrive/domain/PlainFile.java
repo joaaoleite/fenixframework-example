@@ -24,9 +24,6 @@ public class PlainFile extends PlainFile_Base {
         setContent(content);
     }
 
-    protected void execute(){
-    }
-    
     @Override
     protected int getSize(){
         return getContent().length();
@@ -35,7 +32,7 @@ public class PlainFile extends PlainFile_Base {
     @Override
     public void xmlImport(Element fileElement) throws ImportDocException, DataConversionException{
         if(getContent()==null)
-            setContent(new String(fileElement.getChildText("content")));
+            setContent(new String(fileElement.getChildText("contents")));
         super.xmlImport(fileElement);
     }
     

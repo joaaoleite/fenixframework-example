@@ -34,8 +34,8 @@ public class CreateFileTest extends AbstractServiceTest{
         
         assertNotNull("LinkFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
         assertEquals("Match in filename?", "link2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getName());
-        assertEquals("Match in type?", "pt.tecnico.mydrive.domain.Link", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(type).getClass().getName());
-        assertEquals("Match in Content", "/home/zezinho", ((Link)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
+        assertEquals("Match in type?", "pt.tecnico.mydrive.domain.Link", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
+        assertEquals("Match in Content", "/", ((Link)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
 
     }
 
@@ -52,7 +52,7 @@ public class CreateFileTest extends AbstractServiceTest{
         assertNotNull("AppFile not created", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename));
         assertEquals("Match in filename?", "app2", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getName());
         assertEquals("Match in type?", "pt.tecnico.mydrive.domain.App", MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename).getClass().getName());
-        assertEquals("Match in Content", "", ((App)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).getContent());
+        assertEquals("Match in Content", "", ((App)(MyDriveService.getMyDrive().getRootDir().getDir("home").getDir("luisinho").getFileByName(filename))).read());
 
     }
 
@@ -91,7 +91,7 @@ public class CreateFileTest extends AbstractServiceTest{
         final long token = login("luisinho", "luisinho");
         final String filename = "new.txt";
         
-        CreateFileService service = new CreateFileService(token, filename, "PlainFile");
+        CreateFileService service = new CreateFileService(token, filename, "Plain");
         service.execute();
     }
 
@@ -112,7 +112,7 @@ public class CreateFileTest extends AbstractServiceTest{
         final long token = 234257263;
         final String filename = "link2";
 
-        CreateFileService service = new CreateFileService(token, filename, "PlainFile");
+        CreateFileService service = new CreateFileService(token, filename, "Plain");
         service.execute();
     } 
 }

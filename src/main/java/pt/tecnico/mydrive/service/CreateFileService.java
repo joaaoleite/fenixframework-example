@@ -32,7 +32,7 @@ public class CreateFileService extends MyDriveService{
         this.content = null;
     }    
     
-    protected final void dispatch() throws MyDriveException, InsufficientPermissionsException{
+    protected final void dispatch() throws MyDriveException, InsufficientPermissionsException, FileAlreadyExistsException, FileIsADirException, LinkCantBeEmptyException{
         
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
@@ -46,6 +46,9 @@ public class CreateFileService extends MyDriveService{
 
         switch(type){
             case "Dir":
+                if(content!=null){
+                    throw new FileIsADirException(filename);
+                }
                 newFile = workingDir.createDir(login.getUser(), filename);
                 break;
             case "Plain":
@@ -63,6 +66,8 @@ public class CreateFileService extends MyDriveService{
                 else
                     newFile = workingDir.createApp(login.getUser(), filename, content);
                 break;
+            default:
+                throw new InvalidFileTypeException(type);
         }
     }
 }

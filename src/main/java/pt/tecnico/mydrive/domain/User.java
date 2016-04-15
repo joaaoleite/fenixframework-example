@@ -73,13 +73,17 @@ public class User extends User_Base {
             setUsername(new String(userElemet.getAttribute("username").getValue()));
             setName(new String(userElemet.getChildText("name")));
 
-            if (userElemet.getChildText("password") != ""){
+            if (userElemet.getChildText("password")!=null && userElemet.getChildText("password") != ""){
                 setPassword(new String(userElemet.getChildText("password")));
             }
             
-            if (userElemet.getChildText("mask") != ""){
+            if (userElemet.getChildText("mask")!=null && userElemet.getChildText("mask") != ""){
                 setUmask(new String(userElemet.getChildText("mask")));
+            }else{
+                setUmask("rwxd----");
             }
+            getMydrive().getRootDir().getDir("home").createDir(this,getUsername());
+
         }catch(Exception e){
             e.printStackTrace();
             throw new ImportDocException();
@@ -97,7 +101,7 @@ public class User extends User_Base {
         user.addContent(new Element("password").setText(getPassword()));
         user.addContent(new Element("name").setText(getName()));
         user.addContent(new Element("home").setText("/home/"+getUsername()));
-        user.addContent(new Element("umask").setText(getUmask()));
+        user.addContent(new Element("mask").setText(getUmask()));
         xmlmydrive.addContent(user);
         return xmlmydrive;
     } 
