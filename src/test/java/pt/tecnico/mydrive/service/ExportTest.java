@@ -26,16 +26,6 @@ public class ExportTest extends AbstractServiceTest {
         mydrive.getRootDir().getDir("home").getDir("zezinho").createLink(ze,"link","/home/zezinho");
         mydrive.getRootDir().getDir("home").getDir("zezinho").createApp(ze,"app");
         mydrive.getRootDir().getDir("home").getDir("zezinho").createDir(ze,"foldertest");
-
-
-        System.out.println("\n\nList: / \n");
-        for(File f: mydrive.getRootDir().getFileSet()){
-            System.out.println("File: "+f.getName());
-        }
-        System.out.println("\n\nList: / \n");
-        for(File f: mydrive.getRootDir().getDir("home").getFileSet()){
-            System.out.println("File: "+f.getName());
-        }
     }
 
     @Test
