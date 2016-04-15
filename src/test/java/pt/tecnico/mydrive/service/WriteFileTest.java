@@ -21,7 +21,6 @@ public class WriteFileTest extends AbstractServiceTest {
         
         mydrive.getRootDir().getDir("home").getDir("marshall").createLink(marshall,"link","/home/marshall/testplain"); 
 
-        /*mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createApp(!!!);*/
     } 
 
     @Test
