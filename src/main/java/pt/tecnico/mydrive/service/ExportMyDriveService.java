@@ -4,14 +4,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import pt.ist.fenixframework.Atomic;
-import pt.tecnico.mydrive.domain.*;
-import pt.tecnico.mydrive.exception.*;
+import pt.tecnico.mydrive.domain.MyDrive;
+import pt.tecnico.mydrive.exception.ExportDocException;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.XMLOutputter;
 
+
 public class ExportMyDriveService extends MyDriveService{
+    
     private Document doc;
     
     public ExportMyDriveService(){}
@@ -24,4 +26,5 @@ public class ExportMyDriveService extends MyDriveService{
     public final Document result() {
         return doc;
     }
+
 }
