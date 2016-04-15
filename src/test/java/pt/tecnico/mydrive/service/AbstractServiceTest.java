@@ -44,7 +44,7 @@ public abstract class AbstractServiceTest {
         }
     }
 
-    protected long login(String username, String password) throws InvalidPasswordException{
+    protected long login(String username, String password) throws LoginFailedException{
         LoginService service = new LoginService(username,password);
         service.execute();
         return service.result();

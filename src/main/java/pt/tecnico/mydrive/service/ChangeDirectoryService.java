@@ -26,7 +26,7 @@ public class ChangeDirectoryService extends MyDriveService{
         return res;
     }
 
-    protected final void dispatch() throws FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
+    protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
         
         Login login = Login.getLoginByToken(token);
 

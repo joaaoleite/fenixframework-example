@@ -102,7 +102,7 @@ public class Dir extends Dir_Base {
     }
 
     public Link createLink(User owner, String name, String content) throws FileAlreadyExistsException, PathTooLongException, LinkCantBeEmptyException{
-        if(content==null){
+        if(content==null || content.equals("")){
             throw new LinkCantBeEmptyException(name);
         }
         if(exists(name) == false){
@@ -132,20 +132,13 @@ public class Dir extends Dir_Base {
         else
             throw new FileAlreadyExistsException(name);   
     }
-    
+
     @Override
-    public void remove() throws DirectoryIsNotEmptyException{
-        if(!getFileSet().isEmpty()){
-            throw new DirectoryIsNotEmptyException(getName());
+    public void remove(){
+        for(File f: getFileSet()){
+            f.remove();
         }
         super.remove();
-    }
-
-    public void removeR() throws DirectoryIsNotEmptyException{
-        for(File f: getFileSet()){
-            f.removeR();
-        }
-        remove();
     }
     @Override
     protected int getSize(){
@@ -155,18 +148,6 @@ public class Dir extends Dir_Base {
     @Override
     public boolean isDir(){
         return true;    
-    }
-    
-    public Set<File> getChildren(Set<File> list){
-        for(File f: getFileSet()){
-            list = f.getChildren(list);
-            list.add(f);
-        }
-        return list;
-    }
-
-    public Set<File> getChildren(){
-        return getChildren(new HashSet<File>());
     }
 
     public Element xmlExport(Element xmlmydrive) {

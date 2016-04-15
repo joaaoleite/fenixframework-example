@@ -53,14 +53,6 @@ public abstract class File extends File_Base{
     private boolean checkFilename(String name) {
         return !(name.contains("/") || name.contains("\0") || name.equals("..") || name.equals("."));
     }
-
-    public void removeR(){
-        remove();
-    }
-
-    public Set<File> getChildren(Set<File> list){
-        return list;
-    }
     
     public String print(){
         return getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+getName()+"\n";

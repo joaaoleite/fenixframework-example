@@ -32,7 +32,7 @@ public class CreateFileService extends MyDriveService{
         this.content = null;
     }    
     
-    protected final void dispatch() throws MyDriveException, InsufficientPermissionsException, FileAlreadyExistsException, FileIsADirException, LinkCantBeEmptyException{
+    protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, MyDriveException, InsufficientPermissionsException, FileAlreadyExistsException, FileIsADirException, LinkCantBeEmptyException{
         
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();

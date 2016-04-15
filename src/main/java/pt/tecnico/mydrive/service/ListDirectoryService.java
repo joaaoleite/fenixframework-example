@@ -26,7 +26,7 @@ public class ListDirectoryService extends MyDriveService{
         return res; 
     }
 
-    protected final void  dispatch() throws InsufficientPermissionsException{
+    protected final void  dispatch() throws InsufficientPermissionsException,TokenDoesNotExistException, ExpiredTokenException{
 
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();

@@ -54,7 +54,7 @@ public class Login extends Login_Base{
         super.setDate(System.currentTimeMillis());
     }
 
-    public static Login  getLoginByToken(long token){
+    public static Login  getLoginByToken(long token) throws TokenDoesNotExistException, ExpiredTokenException{
         MyDrive mydrive = MyDrive.getInstance();
         Login login=  mydrive.getLoginByToken(token);
         if (login==null){

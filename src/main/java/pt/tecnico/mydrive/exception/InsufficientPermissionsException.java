@@ -21,6 +21,6 @@ public class InsufficientPermissionsException extends MyDriveException {
 	@Override
 	@SuppressWarnings("nls")
 	public String getMessage() {
-		return "The User:" + _name + " does not have permissions.";
+		return "You dont have permission to access " + _name + ".";
 	}
 }

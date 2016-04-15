@@ -60,11 +60,11 @@ public class MyDrive extends MyDrive_Base {
     }
 
     public void cleanup() {
-        /*for(User u: getUserSet()){
+        for(User u: getUserSet()){
             u.remove();
         }
 
-        getRootDir().removeR();*/
+        getRootDir().cleanup();
     }
 
     public void xmlImport(Element element) throws ImportDocException{

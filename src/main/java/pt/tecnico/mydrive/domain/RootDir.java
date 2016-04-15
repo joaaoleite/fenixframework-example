@@ -2,7 +2,7 @@ package pt.tecnico.mydrive.domain;
 
 import org.jdom2.Element;
 
-import pt.tecnico.mydrive.exception.FilenameInvalidException;
+import pt.tecnico.mydrive.exception.*;
 
 public class RootDir extends RootDir_Base {
     
@@ -15,8 +15,8 @@ public class RootDir extends RootDir_Base {
     }
 
     @Override
-    public void remove(){
-        // throw new RootDirCannotBeRemovedException();
+    public void remove() throws RootDirCannotBeRemovedException{
+        throw new RootDirCannotBeRemovedException();
     }
 
     @Override
@@ -29,11 +29,10 @@ public class RootDir extends RootDir_Base {
         super.setOwner(user);
     }
 
-    @Override
-    public void removeR(){
+    public void cleanup(){
         for(File f: getFileSet()){
             if(!f.getName().equals("home"))
-                f.removeR();
+                f.remove();
         }
     }
 
@@ -41,8 +40,7 @@ public class RootDir extends RootDir_Base {
     public Element xmlExport(Element xmlmydrive) {
         
         for(File f: getFileSet()){
-            if(f.getName().equals("home"))
-                xmlmydrive = f.xmlExport(xmlmydrive);
+            xmlmydrive = f.xmlExport(xmlmydrive);
         }
         return xmlmydrive;
     }
