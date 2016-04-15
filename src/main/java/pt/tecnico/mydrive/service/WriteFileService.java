@@ -19,15 +19,30 @@ public class WriteFileService extends MyDriveService{
         this.text = text;
     }
 
-    protected final void dispatch() throws LoginFailedException{
+    protected final void dispatch() throws LoginFailedException, FileIsADirException{
         Login login = Login.getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
-        PlainFile file = ((PlainFile) workingDir.getFileByName(filename));
+        
+        if(filename==null){
+            throw new FilenameInvalidException("");
+        }
 
-        if (file==null)
+        File tmp = workingDir.getFileByName(filename);
+
+        if (tmp==null)
             throw new FileDoesNotExistException(filename);
 
-        file.write(text);
+        if(tmp.isDir()){
+            throw new FileIsADirException(tmp.getName());
+        }
+        PlainFile file = ((PlainFile) tmp);
+
+        
+        if(text==null){
+            file.write("");
+        }else{
+            file.write(text);
+        }
         
     }
 }

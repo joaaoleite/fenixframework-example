@@ -114,11 +114,11 @@ public class CreateFileTest extends AbstractServiceTest{
     }
 
     @Test(expected = LinkCantBeEmptyException.class)
-    public void createAppWithNoContent(){
+    public void createLinkWithNoContent(){
         final long token = login("luisinho", "luisinho");
-        final String filename = "app2";
+        final String filename = "link2";
         
-        CreateFileService service = new CreateFileService(token, filename, "App",null);
+        CreateFileService service = new CreateFileService(token, filename, "Link",null);
         service.execute();
     }
 
@@ -170,7 +170,7 @@ public class CreateFileTest extends AbstractServiceTest{
         service.execute();
     }
 
-    @Test(expected = PathToLongException.class)
+    @Test(expected = PathTooLongException.class)
     public void pathTooLongException(){
         final long token = login("luisinho", "luisinho");
         final String filename = "ttestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetesteestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetesteteste.txt";

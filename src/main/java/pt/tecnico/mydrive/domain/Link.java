@@ -36,7 +36,7 @@ public class Link extends Link_Base {
             actual = actual.getDir(path[i]);
         }
 
-        if(actual.exists(path[i++])){
+        if(actual.exists(path[i])){
             return actual.getFileByName(path[i]);
         }
 

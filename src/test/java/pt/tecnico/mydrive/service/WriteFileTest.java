@@ -6,20 +6,20 @@ import static org.junit.Assert.*;
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
-public abstract class WriteFileTest extends AbstractServiceTest {
+public class WriteFileTest extends AbstractServiceTest {
     
     private MyDrive mydrive;
     @Override
     protected void populate(){
         mydrive = MyDrive.getInstance();
 
-        mydrive.createUser("Titi", "marshall", "missy", "rwxd----");
+        User marshall = mydrive.createUser("Titi", "marshall", "missy", "rwxd----");
         mydrive.createUser("Tony", "selecta", "rufus", "rwxd----");
         mydrive.getRootDir().getDir("home").getDir("marshall").createDir(mydrive.getUserByUsername("marshall"), "test");
         mydrive.getRootDir().getDir("home").getDir("marshall").createPlainFile(mydrive.getUserByUsername("marshall"), "testplain", "abcdefghijklmnopqrstuvwxyz");
         mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createLink(mydrive.getUserByUsername("marshall"), "testlink","/home/marshall/testplain");
         
-        rootdir.getDir("home").getDir("marshall").createLink(antonio,"link","/home/marshall/testplain"); 
+        mydrive.getRootDir().getDir("home").getDir("marshall").createLink(marshall,"link","/home/marshall/testplain"); 
 
         /*mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createApp(!!!);*/
     } 
@@ -71,13 +71,13 @@ public abstract class WriteFileTest extends AbstractServiceTest {
      @Test
     public void successLink() {
         final long token = login("marshall", "missy");
-        final String namefile = "testlink";
+        final String namefile = "link";
         final String content = "teste123";
 
         WriteFileService service = new WriteFileService(token, namefile, content);
         service.execute();
 
-        String result = ((Link)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testlink"))).read();
+        String result = ((Link)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("link"))).read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "teste123",result);
@@ -86,12 +86,12 @@ public abstract class WriteFileTest extends AbstractServiceTest {
     @Test
     public void successLinkWithNullContent() {
         final long token = login("marshall", "missy");
-        final String namefile = "testlink";
+        final String namefile = "link";
 
         WriteFileService service = new WriteFileService(token, namefile, null);
         service.execute();
 
-        String result = ((Link)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testlink"))).read();
+        String result = ((Link)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("link"))).read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "",result);

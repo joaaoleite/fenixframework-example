@@ -17,7 +17,7 @@ public class ReadFileTest extends AbstractServiceTest{
         PlainFile plain = rootdir.getDir("home").getDir("toni").createPlainFile(antonio,"text.txt"); 
         plain.write("texto de teste");
 
-        rootdir.getDir("home").getDir("toni").createLink(antonio,"link","/home/toni/test.txt"); 
+        rootdir.getDir("home").getDir("toni").createLink(antonio,"link","/home/toni/text.txt"); 
 
         rootdir.getDir("home").getDir("toni").createDir(antonio,"teste");     
    } 
