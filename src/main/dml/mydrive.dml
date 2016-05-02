@@ -28,7 +28,7 @@ class Login{
     Long date;
 }
 
-class EnvironmentVariable{
+class Env{
     String name;
     String value;
 }
@@ -143,8 +143,8 @@ relation loginUser {
     }
 } 
 
-relation EnvironmentVariables{
-    EnvironmentVariable playsRole variable{
+relation LoginHasEnv{
+    Env playsRole env{
         multiplicity *;
     }
     Login playsRole login{
