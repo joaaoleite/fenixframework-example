@@ -21,6 +21,7 @@ class User{
 }
 
 class SuperUser extends User;
+class GuestUser extends User;
 
 class Login{
     Long token;
