@@ -22,7 +22,6 @@ public class Login extends Login_Base{
 
         MyDrive mydrive = MyDrive.getInstance();
         mydrive.login(this);
-        addVariable(new EnvironmentVariable("name","value"));
     }
     
     @Override
@@ -88,6 +87,17 @@ public class Login extends Login_Base{
         setUser(null);
         deleteDomainObject();
     }
+    
+    public void setEnv(String name, String value){
+        for(Env env : getEnvSet()){
+            if(env.getName().equals(name)){
+                env.setValue(value);
+                return;
+            }
+        }
+        super.addEnv(new Env(name,value));
+    }
+
 }
 
 
