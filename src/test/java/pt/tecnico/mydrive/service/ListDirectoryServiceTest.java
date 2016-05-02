@@ -127,4 +127,14 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         ListDirectoryService service = new ListDirectoryService(token);
         service.execute();
     }
+
+    @Test(expected = TokenDoesNotExistException.class)
+    public void tokenExpired(){
+        final long token = 1111111;
+        final String filename = "teste";
+        
+        ListDirectoryService service = new ListDirectoryService(token);
+        service.execute();
+
+    }
 }
