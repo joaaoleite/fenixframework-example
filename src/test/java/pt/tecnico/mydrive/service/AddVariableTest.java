@@ -40,6 +40,7 @@ public class AddVariableTest extends AbstractServiceTest{
         service.execute();
 
         AddVariableService service1 = new AddVariableService(token, name, value1);
+        service1.execute();
         List<EnvDto> list = service1.result();
 
         Env env = list.get(0);
@@ -59,7 +60,8 @@ public class AddVariableTest extends AbstractServiceTest{
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
 
-        AddVariableService service1 = new AddVariableService(token, name, value1);
+        AddVariableService service1 = new AddVariableService(token, name1, value1);
+        service1.execute();
         List<EnvDto> list = service1.result();
 
         Env env = list.get(0);
