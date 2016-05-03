@@ -19,7 +19,7 @@ public class AddVariableService extends MyDriveService{
     private ArrayList<EnvDto> res;
     private long token;
 
-    public AddVariableService(long token){
+    public AddVariableService(long token, String name, String value){
     	  super();
     	  this.name = null;
     	  this.value = null;

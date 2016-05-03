@@ -6,12 +6,13 @@ import static org.junit.Assert.*;
 import pt.tecnico.mydrive.exception.*;
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.service.dto.*;
+import java.util.ArrayList;
 
 public class AddVariableTest extends AbstractServiceTest{    
     protected void populate(){
         
         MyDrive mydrive = MyDrive.getInstance();        
-        User antonio = mydrive.createUser("antonio", "toni","toni","rwxd----");
+        mydrive.createUser("antonio", "toni","toni","rwxd----");
     }
 
     @Test
@@ -22,9 +23,9 @@ public class AddVariableTest extends AbstractServiceTest{
         
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
-        List<EnvDto> list = service.result();
+        ArrayList<EnvDto> list = service.result();
 
-        Env env = list.get(0);
+        EnvDto env = list.get(0);
         assertEquals("Correct name", "aaa", env.getName());
         assertEquals("Correct value", "bbb", env.getValue());
     }
@@ -32,52 +33,52 @@ public class AddVariableTest extends AbstractServiceTest{
     @Test
     public void sucessAddVariableOverrideAnotherName(){
         final long token = login("toni", "toni");
-        final String name = "aaa";
-        final String value = "bbb";
-        final String value1 = "ccc";
+        final String name = "JJ";
+        final String value = "Jorge";
+        final String value1 = "Jesus";
         
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
 
         AddVariableService service1 = new AddVariableService(token, name, value1);
         service1.execute();
-        List<EnvDto> list = service1.result();
+        ArrayList<EnvDto> list = service1.result();
 
-        Env env = list.get(0);
+        EnvDto env = list.get(0);
         assertEquals("Correct length", 1, list.length());
-        assertEquals("Correct name", "aaa", env.getName());
-        assertEquals("Correct value", "ccc", env.getValue());
+        assertEquals("Correct name", "JJ", env.getName());
+        assertEquals("Correct value", "Jesus", env.getValue());
     }
 
     @Test
     public void sucessAddMultipleVariables(){
         final long token = login("toni", "toni");
-        final String name = "aaa";
-        final String value = "bbb";
-        final String name1 = "newName"
-        final String value1 = "newValue";
+        final String name = "RV";
+        final String value = "Rui";
+        final String name1 = "RV1"
+        final String value1 = "Vitoria";
         
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
 
         AddVariableService service1 = new AddVariableService(token, name1, value1);
         service1.execute();
-        List<EnvDto> list = service1.result();
+        ArrayList<EnvDto> list = service1.result();
 
-        Env env = list.get(0);
-        Env env1 = list.get(1);
+        EnvDto env = list.get(0);
+        EnvDto env1 = list.get(1);
         assertEquals("Correct length", 2, list.length());
-        assertEquals("Correct name", "aaa", env.getName());
-        assertEquals("Correct value", "bbb", env.getValue());
-        assertEquals("Correct name", "newName", env1.getName());
-        assertEquals("Correct value", "newValue", env1.getValue());
+        assertEquals("Correct name", "RV", env.getName());
+        assertEquals("Correct value", "Rui", env.getValue());
+        assertEquals("Correct name", "RV1", env1.getName());
+        assertEquals("Correct value", "Vitoria", env1.getValue());
     }
 
     @Test(expected = InvalidEnvValuesException.class)
     public void cantFindFile(){
         final long token = login("toni", "toni");
         final String name = "";
-        final String value = "bbb";
+        final String value = "Leicester";
         
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
@@ -87,7 +88,7 @@ public class AddVariableTest extends AbstractServiceTest{
     public void cantFindFile(){
         final long token = login("toni", "toni");
         final String name = null;
-        final String value = "bbb";
+        final String value = "Vardy";
         
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
@@ -96,7 +97,7 @@ public class AddVariableTest extends AbstractServiceTest{
     @Test(expected = InvalidEnvValuesException.class)
     public void cantFindFile(){
         final long token = login("toni", "toni");
-        final String name = "aaa";
+        final String name = "Jamie";
         final String value = null;
         
         AddVariableService service = new AddVariableService(token, name, value);
