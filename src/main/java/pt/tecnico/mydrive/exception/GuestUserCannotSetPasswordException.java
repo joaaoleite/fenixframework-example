@@ -3,7 +3,7 @@ package pt.tecnico.mydrive.exception;
 
 
 
-public class GuestUserCannotSetException  extends MyDriveException {
+public class GuestUserCannotSetPasswordException  extends MyDriveException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -11,7 +11,7 @@ public class GuestUserCannotSetException  extends MyDriveException {
 	/**
 	 * @param username
 	 */
-	public GuestUserCannotSetException() {
+	public GuestUserCannotSetPasswordException() {
 		super();
 	}
 

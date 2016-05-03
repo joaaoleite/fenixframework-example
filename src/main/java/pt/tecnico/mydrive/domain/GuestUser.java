@@ -4,7 +4,7 @@ import org.jdom2.Element;
 
 import pt.tecnico.mydrive.exception.*;
 
-public class GuestUser extends GestUser_Base {
+public class GuestUser extends GuestUser_Base {
     public GuestUser(MyDrive myDrive) { 
         super();
         init(myDrive,"Guest", "Guest", "","rwxdr-x-"); 
@@ -15,7 +15,7 @@ public class GuestUser extends GestUser_Base {
         throw new GuestUserCannotBeRemovedException();
     } 
     @Override
-    public void setPassword(){
+    public void setPassword(String password){
         throw new GuestUserCannotSetPasswordException();
     }
 
