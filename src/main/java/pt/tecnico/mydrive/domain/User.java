@@ -49,6 +49,15 @@ public class User extends User_Base {
         setPassword(password);
         setUmask(umask);
     }
+
+    @Override
+    public void setPassword(String password){
+        if (password.length() < 8){
+            throw new InvalidPasswordException();
+        }
+        super.setPassword(password);
+    }
+
     public boolean checkUsername (String username) {
         if (username==null){
             return false;
