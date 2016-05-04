@@ -15,9 +15,21 @@ public class Link extends Link_Base {
     	init(parent, owner, name);
     	setContent(content);
     }
+    
+    private String resolve(long token, String path){
+        //Not implemented
+        System.out.println("Not Implemented");
+        return "";
+    }
 
-    private File findFile() throws FileIsAPlainFileException, FileDoesNotExistException{
-        String[] path = getContent().split("/");
+    public File findFile(long token) throws FileIsAPlainFileException, FileDoesNotExistException{
+        String content = getContent();
+        
+        if(content.contains("$")){
+            content = resolve(token, content);
+        }
+        
+        String[] path = content.split("/");
 
         Dir actual;
         int i;
@@ -43,15 +55,13 @@ public class Link extends Link_Base {
         throw new FileDoesNotExistException(path[i]);
     }
     
-    @Override
-    public String read() throws FileIsADirException{
+    public String read(long token) throws FileIsADirException{
         if(isDir()) throw new FileIsADirException(getName());
-    	  return ((PlainFile)findFile()).read();
+    	  return ((PlainFile)findFile(token)).read();
     }    
     
-    @Override
-    public void write(String content){
-        ((PlainFile)findFile()).write(content);
+    public void write(String content, long token){
+        ((PlainFile)findFile(token)).write(content);
     }
 
     @Override
