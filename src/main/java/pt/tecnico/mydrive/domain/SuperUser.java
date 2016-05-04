@@ -8,7 +8,16 @@ public class SuperUser extends SuperUser_Base {
     public SuperUser(MyDrive myDrive) { 
         super();
         init(myDrive,"root", "SuperUser", "***","rwxdr-x-"); 
-    } 
+    }
+
+    @Override
+    public void setPassword(String password){
+        if !(password.equals("***")){
+            throw new InvalidPasswordException();
+        }
+        super.setPassword(password);
+    }
+
     @Override
     public void remove(){
         throw new SuperUserCannotBeRemovedException();
