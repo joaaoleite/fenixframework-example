@@ -10,7 +10,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         
-        mydrive.createUser("Halibio", "halib", "uht", "rwxd----");
+        mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
         mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti", "rwxd----");
         mydrive.getRootDir().getDir("home").getDir("zetrigo").createPlainFile(mydrive.getUserByUsername("zetrigo"), "loans");
@@ -18,7 +18,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
     
     @Test
     public void successUserToHisDirRel(){
-        final long token = login("halib", "uht");
+        final long token = login("halib", "uhtuhtuht");
         final String path = "test";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
@@ -30,7 +30,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
 
     @Test
     public void changeToThisFolder(){
-        final long token = login("halib", "uht");
+        final long token = login("halib", "uhtuhtuht");
         final String path = ".";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
@@ -65,7 +65,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
 
     @Test(expected = InsufficientPermissionsException.class)
     public void invalidUserToOtherDirAbs(){
-        final long token = login("halib", "uht");
+        final long token = login("halib", "uhtuhtuht");
         final String path = "/home/zetrigo";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();
@@ -73,7 +73,7 @@ public class ChangeDirectoryTest extends AbstractServiceTest{
 
     @Test(expected = FileDoesNotExistException.class)
     public void invalidPathRel(){
-        final long token = login("halib", "uht");
+        final long token = login("halib", "uhtuhtuht");
         final String path = "photos";
         ChangeDirectoryService service = new ChangeDirectoryService(token, path);
         service.execute();

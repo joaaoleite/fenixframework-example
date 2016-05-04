@@ -10,7 +10,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();
         
-        mydrive.createUser("Halibio", "halib", "uht","rwxd----");
+        mydrive.createUser("Halibio", "halib", "uhtuhtuht","rwxd----");
         mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti","rwxd----");
         mydrive.getRootDir().getDir("home").getDir("halib").createDir(mydrive.getUserByUsername("halib"), "test");
         mydrive.getRootDir().getDir("home").getDir("halib").createPlainFile(mydrive.getUserByUsername("halib"), "loans");
@@ -22,7 +22,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     
     @Test
     public void successUserOnHisDir(){
-        final long token = login("halib", "uht");
+        final long token = login("halib", "uhtuhtuht");
         ListDirectoryService service = new ListDirectoryService(token);
         service.execute();
         String[] list = service.result().split("\\r?\\n");
@@ -73,7 +73,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
     
     @Test
     public void successUserOnSuperUserDir(){
-        final long token = login("halib", "uht");
+        final long token = login("halib", "uhtuhtuht");
         ChangeDirectoryService cd = new ChangeDirectoryService(token, "/home/root");
         cd.execute();
         ListDirectoryService service = new ListDirectoryService(token);
