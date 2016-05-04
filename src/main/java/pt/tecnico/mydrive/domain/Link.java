@@ -22,7 +22,7 @@ public class Link extends Link_Base {
         return "";
     }
 
-    private File findFile(long token) throws FileIsAPlainFileException, FileDoesNotExistException{
+    public File findFile(long token) throws FileIsAPlainFileException, FileDoesNotExistException{
         String content = getContent();
         
         if(content.contains("$")){
