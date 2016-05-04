@@ -10,7 +10,7 @@ public class ReadFileTest extends AbstractServiceTest{
     protected void populate(){
         
         MyDrive mydrive = MyDrive.getInstance();        
-        User antonio = mydrive.createUser("antonio", "toni","toni","rwxd----");
+        User antonio = mydrive.createUser("antonio", "toni","123456789","rwxd----");
         
         Dir rootdir =mydrive.getRootDir();
             
@@ -23,8 +23,8 @@ public class ReadFileTest extends AbstractServiceTest{
    } 
     @Test
     public void successReadFile(){
-        final long token = login("toni", "toni");
-        final String filename = "link";
+        final long token = login("toni", "123456789");
+        final String filename = "text.txt";
         
         ReadFileService service = new ReadFileService(token, filename);
         service.execute();
@@ -35,19 +35,19 @@ public class ReadFileTest extends AbstractServiceTest{
 
     @Test
     public void readLinkToPlainFile(){
-        final long token = login("toni", "toni");
+        final long token = login("toni", "123456789");
         final String filename = "link";
         
         ReadFileService service = new ReadFileService(token, filename);
         service.execute();
         String content = service.result();
         assertNotNull("File doesn't exist", content);
-        assertEquals("Wrong match", "texto de teste", content);
+        assertEquals("Wrong match", "/home/toni/text.txt", content);
     }
 
     @Test
     public void successReadFileFromLink(){
-        final long token = login("toni", "toni");
+        final long token = login("toni", "123456789");
         final String filename = "text.txt";
         
         ReadFileService service = new ReadFileService(token, filename);
@@ -59,7 +59,7 @@ public class ReadFileTest extends AbstractServiceTest{
 
     @Test(expected = FileDoesNotExistException.class)
     public void cantFindFile(){
-        final long token = login("toni", "toni");
+        final long token = login("toni", "123456789");
         final String filename = "tex.txt";
         
         ReadFileService service = new ReadFileService(token, filename);
@@ -67,7 +67,7 @@ public class ReadFileTest extends AbstractServiceTest{
     }
     @Test(expected = FileIsADirException.class)
     public void isDir(){
-        final long token = login("toni", "toni");
+        final long token = login("toni", "123456789");
         final String filename = "teste";
         ReadFileService service = new ReadFileService(token, filename);
         service.execute();

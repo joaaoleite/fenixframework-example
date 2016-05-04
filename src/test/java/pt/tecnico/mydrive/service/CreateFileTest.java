@@ -11,7 +11,7 @@ public class CreateFileTest extends AbstractServiceTest{
     protected void populate(){
         MyDrive mydrive = MyDrive.getInstance();        
         User luis = mydrive.createUser("luis", "luisinho","luisinho","rwxd----");
-        User ze = mydrive.createUser("ze", "zezinho","zezinho","rwxd----");
+        User ze = mydrive.createUser("ze", "zezinho","zezinho12","rwxd----");
         
         Dir rootdir = mydrive.getRootDir();
         

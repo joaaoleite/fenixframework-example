@@ -20,9 +20,11 @@ public class AddVariableService extends MyDriveService{
     private long token;
 
     public AddVariableService(long token, String name, String value){
-    	  super();
-    	  this.name = null;
-    	  this.value = null;
+    	super();
+        this.token = token;
+    	this.name = name;
+    	this.value = value;
+
     }
     
     public final ArrayList<EnvDto> result(){

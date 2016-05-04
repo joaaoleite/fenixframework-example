@@ -17,7 +17,7 @@ public class ExportTest extends AbstractServiceTest {
     protected void populate() {
         MyDrive mydrive = MyDrive.getInstance();
 
-        User toni = mydrive.createUser("Toni","antonio","antonio","rwdx----");
+        User toni = mydrive.createUser("Toni","antonio","toinotoino","rwdx----");
         User ze = mydrive.createUser("Ze","zezinho","password","rwdx----");
 
         mydrive.getRootDir().getDir("home").getDir("antonio").createPlainFile(toni,"toni.txt");
@@ -45,7 +45,7 @@ public class ExportTest extends AbstractServiceTest {
         for(Element u: e.getChildren("user")){
             
             if(u.getAttribute("username").getValue()=="antonio"){
-                assertEquals("User Password", "antonio", u.getChildText("password"));
+                assertEquals("User Password", "toinotoino", u.getChildText("password"));
                 assertEquals("User name", "Toni", u.getChildText("name"));
                 assertEquals("User homefolder", "/home/antonio", u.getChildText("home"));
                 assertEquals("User mask", "rwdx----", u.getChildText("mask"));
