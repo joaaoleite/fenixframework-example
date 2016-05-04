@@ -18,6 +18,8 @@ public class Link extends Link_Base {
     
     private String resolve(long token, String path){
         //Not implemented
+        System.out.println("Not Implemented");
+        return "";
     }
 
     private File findFile(long token) throws FileIsAPlainFileException, FileDoesNotExistException{
@@ -53,13 +55,11 @@ public class Link extends Link_Base {
         throw new FileDoesNotExistException(path[i]);
     }
     
-    @Override
     public String read(long token) throws FileIsADirException{
         if(isDir()) throw new FileIsADirException(getName());
     	  return ((PlainFile)findFile(token)).read();
     }    
     
-    @Override
     public void write(String content, long token){
         ((PlainFile)findFile(token)).write(content);
     }
