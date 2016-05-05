@@ -18,14 +18,16 @@ public class App extends App_Base {
         init(parent, owner, name);
     }
     
-    protected Object execute(){
+    protected Object execute(String[] input){
         String[] str = getContent().split(" ");
-        String pkg = str[0].substring(0,str[0].lastIndexOf(".")-1);
-        String clsName = str[0].substring(str[0].lastIndexOf(".")+1,str[0].length()-1);
+        String pkgAndCls = str[0].substring(0, str[0].lastIndexOf(".")-1);
         String mtd = str[0].substring(str[0].lastIndexOf(".")+1,str[0].length()-1);
-        String[] args = Arrays.copyOfRange(str, 1, str.length);
+        String[] args = Arrays.copyOfRange(str, 1, str.length - 1);
+
+        if(input != null) args = input;
+
         try{
-            Class cls = Class.forName(pkg + "." + clsName);
+            Class cls = Class.forName(pkgAndCls);
             Object obj = cls.newInstance();
             Method method; 
             if(args.length>0)
@@ -33,8 +35,8 @@ public class App extends App_Base {
             else
                 method = cls.getDeclaredMethod("main", String[].class);
         
-            obj = method.invoke(obj, args);
-            return obj;
+            Object result = method.invoke(obj, args);
+            return result;
         }catch(Exception e){
             e.printStackTrace();    
         }
