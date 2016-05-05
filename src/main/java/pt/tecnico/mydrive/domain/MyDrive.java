@@ -204,11 +204,11 @@ public class MyDrive extends MyDrive_Base {
             actual = actual.getDir(path[i]);
         }
 
-        if(actual.exists(path[i++])){
+        if(actual.exists(path[i])){
             return actual.getFileByName(path[i]);
         }
 
-        throw new FileDoesNotExistException(path[i]);
+        throw new FileDoesNotExistException(pathMixed);
     }
 
     public boolean hasUser(String name){

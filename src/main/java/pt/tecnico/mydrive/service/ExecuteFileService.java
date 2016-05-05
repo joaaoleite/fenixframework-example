@@ -28,9 +28,9 @@ public class ExecuteFileService extends MyDriveService{
         return res;
     }
 
-    protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, FileDoesNotExistException, InsufficientPermissionsException{
+    protected final void dispatch() throws NoAppforExtensionException,FileDoesNotHaveExtension, TokenDoesNotExistException, ExpiredTokenException, FileDoesNotExistException, InsufficientPermissionsException{
         
-        Login login = Login.getLoginByToken(token);
+        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
         File file = md.getFileByPath(path);
 
         if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(2) == 'x')
@@ -39,10 +39,16 @@ public class ExecuteFileService extends MyDriveService{
                 throw new InsufficientPermissionsException(file.getName());
             }
 
-        String extension = file.getName().split(".")[1];
+        String extension;
 
-        App app = getAppByExtension(extension);
-        this.res = app.execute(args);
+        try{
+            extension = file.getName().substring(file.getName().lastIndexOf(".")+1);
+        }catch(Exception e){
+            throw new FileDoesNotHaveExtension(file.getName());
+        }
+
+        App app = login.getUser().getAppByExtension(extension);
+        this.res = app.execute(args).toString();
     
     }
     

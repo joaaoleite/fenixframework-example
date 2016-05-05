@@ -18,7 +18,7 @@ public class App extends App_Base {
         init(parent, owner, name);
     }
     
-    protected Object execute(String[] input){
+    public Object execute(String[] input){
         String[] str = getContent().split(" ");
         String pkgAndCls = str[0].substring(0, str[0].lastIndexOf(".")-1);
         String mtd = str[0].substring(str[0].lastIndexOf(".")+1,str[0].length()-1);

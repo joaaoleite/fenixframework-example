@@ -47,7 +47,7 @@ public class ExecuteFileTest extends AbstractServiceTest{
     }
 
     @Test(expected = InsufficientPermissionsException.class)
-    public void FileDoesNotExist(){
+    public void tokenInsufficientPermissions(){
         final long token = login("halib", "uhtuhtuht");
         final String path = "/home/zetrigo/file.exe";
         String[] args = new String[2];
@@ -55,6 +55,18 @@ public class ExecuteFileTest extends AbstractServiceTest{
         args[1] = "b";
         ExecuteFileService service = new ExecuteFileService(token, path, args);
         service.execute();
+    }
+
+    @Test(expected = TokenDoesNotExistException.class)
+    public void tokenExpired(){
+        final long token = 1111111;
+        final String path = "/home/zetrigo/file.exe";
+        String[] args = new String[2];
+        args[0] = "a";
+        args[1] = "b";
+        ExecuteFileService service = new ExecuteFileService(token, path, args);
+        service.execute();
+
     }
 }
 
