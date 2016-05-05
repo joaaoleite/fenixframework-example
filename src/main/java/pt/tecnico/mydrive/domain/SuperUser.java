@@ -9,6 +9,14 @@ public class SuperUser extends SuperUser_Base {
         super();
         init(myDrive,"root", "SuperUser", "***","rwxdr-x-"); 
     }
+    @Override
+    public boolean checkPassword(String password){
+        if (password.equals("***") ){
+            return true;
+        }
+        return false;
+    
+    }
 
 
     @Override
@@ -20,4 +28,4 @@ public class SuperUser extends SuperUser_Base {
         return xmlmydrive;
     }
     
-}
+} 
