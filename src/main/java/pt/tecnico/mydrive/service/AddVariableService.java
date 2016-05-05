@@ -20,13 +20,19 @@ public class AddVariableService extends MyDriveService{
     private long token;
 
     public AddVariableService(long token, String name, String value){
-    	super();
+        super();
         this.token = token;
-    	this.name = name;
-    	this.value = value;
-
+    	  this.name = name;
+    	  this.value = value;
     }
     
+    public AddVariableService(long token){
+    	  super();
+        this.token = token;
+    	  this.name = null;
+        this.value = null;
+    }
+
     public final ArrayList<EnvDto> result(){
         return res;
     }
@@ -35,10 +41,11 @@ public class AddVariableService extends MyDriveService{
         
         Login login = MyDriveService.getMyDrive().getLoginByToken(token);
 
-        if(this.name==null || this.value==null || this.name.equals(""))
+        if((this.name==null && this.value!=null) || this.name.equals(""))
             throw new InvalidEnvValuesException();
         
-        login.setEnv(name,value);
+        if(this.name!=null)
+            login.setEnv(name,value);
 
         res = new ArrayList<EnvDto>();
         for(Env e : login.getEnvSet()){
