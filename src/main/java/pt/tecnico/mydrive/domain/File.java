@@ -90,7 +90,7 @@ public abstract class File extends File_Base{
         return false;
     }
 
-    protected abstract int getSize();
+    public abstract int getSize();
     
     public void xmlImport(Element element) throws DataConversionException {
         String name = element.getChildText("name");

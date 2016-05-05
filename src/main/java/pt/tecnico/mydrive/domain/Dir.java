@@ -59,29 +59,6 @@ public class Dir extends Dir_Base {
         throw new FileAlreadyExistsException(name);
     }
 
-    public String listDir(){
-        String output = "";
-        
-        ArrayList<String> str = new ArrayList<String>();
-
-        for(File file : getFileSet()){
-            str.add(file.getName());
-        }
-
-        Collections.sort(str);
-
-        for(String filename : str){
-            output += getFileByName(filename).print();   
-        }
-
-        output = getClass().getSimpleName()+" "+getMask()+" "+getSize()+" "+getOwner().getUsername()+" "+getId()+" "+getLastModification().toString()+" "+"."+"\n"
-        +getParent().getClass().getSimpleName()+" "+getParent().getMask()+" "+getParent().getSize()+" "+getParent().getOwner().getUsername()+" "+getParent().getId()+" "+getParent().getLastModification().toString()+" "+".."+"\n"
-        +output;
-
-        return output;
-        
-    }
-
     public App createApp(User owner, String name) throws FileAlreadyExistsException, PathTooLongException{
         if(exists(name) == false){
             if(getPath().length() + name.length() > 1023) throw new PathTooLongException(name);
@@ -141,7 +118,7 @@ public class Dir extends Dir_Base {
         super.remove();
     }
     @Override
-    protected int getSize(){
+    public int getSize(){
         return (2+ getFileSet().size());
     }
 

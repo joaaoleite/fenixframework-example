@@ -25,7 +25,7 @@ public class PlainFile extends PlainFile_Base {
     }
 
     @Override
-    protected int getSize(){
+    public int getSize(){
         return getContent().length();
     }
 
