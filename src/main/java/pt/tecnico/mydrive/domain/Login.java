@@ -11,7 +11,7 @@ public class Login extends Login_Base{
 
     static final Logger log = LogManager.getRootLogger();
 
-    private Login( String username) {
+    protected Login( String username) {
         super.setDate( System.currentTimeMillis());
         super.setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
@@ -30,57 +30,34 @@ public class Login extends Login_Base{
     @Override
     public void setUser(User u){}
 
-    
+    @Override
+    public Long getDate(){
+        if (getUser().equals("Guest")){
+            return System.currentTimeMillis();
+        }
+        return super.getDate();
+    }
+
     @Override
     public void setDate(Long date){}
 
 
-    public static Login signIn(String username, String password){
-          
-        MyDrive mydrive = MyDrive.getInstance();
-        User user = mydrive.getUserByUsername(username);          
-        if (user==null){
-            throw new LoginFailedException();
-        }
-      
-        if (password.compareTo(user.getPassword())!=0){
-            throw new LoginFailedException();
-        }
-        return new Login(username);
     
-        
-    }
-    private void refresh(){
+    protected void refresh(){
         super.setDate(System.currentTimeMillis());
     }
 
-    public static Login  getLoginByToken(long token) throws TokenDoesNotExistException, ExpiredTokenException{
-        MyDrive mydrive = MyDrive.getInstance();
-        Login login=  mydrive.getLoginByToken(token);
-        if (login==null){
-            log.warn("token does not exist");
-            throw new TokenDoesNotExistException(token);
-        }
-        long date = login.getDate();
-        long currentTime = System.currentTimeMillis();
-        if(currentTime<(date+(2*3600*1000))){
-            login.refresh();
-            return login;
-        }
-        log.warn("Expired Token");
-         
-        throw new ExpiredTokenException(date);
-    }
+    
 
     protected void verify(){
-        long date = super.getDate();
+        long date = getDate();
         long currentTime = System.currentTimeMillis();
         if(currentTime>=(date+(2*3600000))){
             remove();
         }
     }
 
-    private void remove(){
+    protected void remove(){
         setDate(null);
         setToken(null);
         setWorkingDir(null);

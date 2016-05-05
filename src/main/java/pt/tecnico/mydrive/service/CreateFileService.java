@@ -34,7 +34,7 @@ public class CreateFileService extends MyDriveService{
     
     protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, MyDriveException, InsufficientPermissionsException, FileAlreadyExistsException, FileIsADirException, LinkCantBeEmptyException{
         
-        Login login = Login.getLoginByToken(token);
+        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
 
         File newFile;

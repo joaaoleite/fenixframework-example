@@ -33,7 +33,7 @@ public class AddVariableService extends MyDriveService{
 
     protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, InvalidEnvValuesException {
         
-        Login login = Login.getLoginByToken(token);
+        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
 
         if(this.name==null || this.value==null || this.name.equals(""))
             throw new InvalidEnvValuesException();
