@@ -17,11 +17,6 @@ public class EnvironmentLinkTest extends AbstractServiceTest{
 
     protected void populate(){
         
-        MyDrive mydrive = MyDrive.getInstance();        
-        
-        mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
-        final long token = login("halib", "uhtuhtuht");
-        File file = mydrive.getRootDir().getDir("home").getDir("halib").createLink(mydrive.getUserByUsername("halib"), "TestLink", "/home/$USER").findFile(token);
 
     }
     
@@ -35,6 +30,11 @@ public class EnvironmentLinkTest extends AbstractServiceTest{
             }
         };
 
-        assertEquals("Wrong file", "halib", file.getName());
+        MyDrive mydrive = MyDrive.getInstance();        
+        
+        mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
+        final long token = login("halib", "uhtuhtuht");
+        File file = mydrive.getRootDir().getDir("home").getDir("halib").createLink(mydrive.getUserByUsername("halib"), "TestLink", "/home/$USER").findFile(token);
+         assertEquals("Wrong file", "halib", file.getName());
     }
 }
