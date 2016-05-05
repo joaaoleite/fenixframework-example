@@ -27,6 +27,7 @@ public class Login extends Login_Base{
     @Override
     public void setToken(Long t){}
 
+    
     @Override
     public void setUser(User u){}
 
