@@ -1,4 +1,4 @@
-package pt.tecnico.phonebook.service.dto;
+package pt.tecnico.mydrive.service.dto;
 
 import org.joda.time.DateTime;
 
@@ -15,7 +15,7 @@ public class FileDto implements Comparable<FileDto> {
     public FileDto (int id, String name, String type, String perm, int size, String ownerUsername, DateTime lastModification){
         this.id=id;
         this.name=name;
-        this.type=name;
+        this.type=type;
         this.perm=perm;
         this.size=size;
         this.ownerUsername=ownerUsername;
