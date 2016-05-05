@@ -41,6 +41,21 @@ public class User extends User_Base {
         setPassword(null);
         deleteDomainObject();
     }
+
+    public DefaultApp createDefaultApp(String extension, App app){
+
+        DefaultApp da = new DefaultApp(extension, app, this);
+        addDefaultApp(da);
+    }
+
+    public App getAppByExtension(String extension){
+        for(DefaultApp da : getDefaultAppSet()){
+            if(da.getExtension().equals(extension)){
+                return da.getApp();
+            }
+        }
+        return null;
+    }
  
     protected void init(MyDrive myDrive,String username, String name, String password,String umask) {
         setMydrive(myDrive);
@@ -52,18 +67,10 @@ public class User extends User_Base {
 
     @Override
     public void setPassword(String password){
-        if (!checkPassword(password)){
+        if (password.length() < 8 && !password.equals("***")){
             throw new InvalidPasswordException();
         }
         super.setPassword(password);
-    
-    } 
-    public boolean  checkPassword(String password){
-        if (password.length() < 8 ){
-            return false;
-        }
-        return true;
-    
     }
 
     public boolean checkUsername (String username) {

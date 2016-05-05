@@ -14,10 +14,10 @@ relation DomainRootHasMyDriveApplication {
 }
 
 class User{
-	String username;
-	String password;
-	String name;
-	String umask;
+    String username;
+    String password;
+    String name;
+    String umask;
 }
 
 class SuperUser extends User;
@@ -33,16 +33,20 @@ class Env{
     String value;
 }
 
+class DefaultApp{
+    String extension;
+}
+
 
 class File{
-	Integer id;
-	String name;
-	DateTime lastModification;
-	String mask;
+    Integer id;
+    String name;
+    DateTime lastModification;
+    String mask;
 }
 
 class PlainFile extends File{
-	String content;
+    String content;
 }
 
 class Dir extends File;
@@ -77,6 +81,24 @@ relation allFiles {
     }
     File playsRole file {
         multiplicity *;
+    }
+}
+
+relation UserExecutesFiles {
+    User playsRole user {
+        multiplicity 1;
+    }
+    DefaultApp playsRole defaultApp{
+        multiplicity *;
+    }
+}
+
+relation ExtensionHasApp {
+    App playsRole app {
+        multiplicity 1;
+    }
+    DefaultApp playsRole defaultApp{
+        multiplicity 1;
     }
 }
 
