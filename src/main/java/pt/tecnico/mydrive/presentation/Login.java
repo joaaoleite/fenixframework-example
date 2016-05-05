@@ -8,9 +8,9 @@ public class Login extends PbCommand {
 		if (args.length < 2)
 		    throw new RuntimeException("USAGE: "+name()+" <username> <password>");
 		else{
-		    LoginService service = new LoginService(username,password);
+		    LoginService service = new LoginService(args[0],args[1]);
 	        service.execute();
-	        shell.setToken(service.result());
+	        login(service.result());
 	 	}
     }
 }

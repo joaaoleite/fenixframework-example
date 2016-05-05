@@ -13,8 +13,8 @@ public class PbShell extends Shell {
     new ChangeDirectory(this);
     //new ListDirectory(this);
     //new Execute(this);
-    //new WriteFile(this);
-    //new Environment(this);
+    new WriteFile(this);
+    new Environment(this);
     //new Key(this);
   }
 }

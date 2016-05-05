@@ -35,9 +35,11 @@ public abstract class Command {
 
     abstract void execute(String[] args);
 
+    protected void login(long token){ shell.setToken(token); }
+
     protected long login(){
         if(shell.getToken()==null){
-            LoginService service = new LoginService(username,password);
+            LoginService service = new LoginService("guest","");
             service.execute();
             long token = service.result();
             shell.setToken(token);

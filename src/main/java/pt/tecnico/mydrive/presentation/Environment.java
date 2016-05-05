@@ -1,5 +1,9 @@
 package pt.tecnico.mydrive.presentation;
-import pt.tecnico.mydrive.service.WriteFileService;
+
+import pt.tecnico.mydrive.service.AddVariableService;
+import pt.tecnico.mydrive.service.dto.EnvDto;
+
+
 
 public class Environment extends PbCommand {
 
@@ -9,7 +13,7 @@ public class Environment extends PbCommand {
 		    throw new RuntimeException("USAGE: "+name()+" [<name> [<value>]]");
 		else{
 			long token = login();
-		    AddVariableService service = new AddVariableService(token, args[0], args[1])
+		    AddVariableService service = new AddVariableService(token, args[0], args[1]);
 		    service.execute();
 
 		    System.out.println("Environment variables:");
