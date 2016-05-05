@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import pt.tecnico.mydrive.service.dto.FileDto;
+import pt.tecnico.mydrive.domain.PlainFile;
 
 import pt.ist.fenixframework.Atomic;
 import pt.tecnico.mydrive.domain.*;
@@ -42,8 +43,12 @@ public class ListDirectoryService extends MyDriveService{
         
         res = new ArrayList<FileDto>();
         
-        for(File f : workingDir.getFileSet())
-            res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification()));
+        for(File f : workingDir.getFileSet()){
+            if(f.getClass().getSimpleName().equals("Dir"))
+                res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification()));
+            else
+                res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification(),((PlainFile)f).getContent()));
+        }
         
         res.add(new FileDto(workingDir.getId(),".",workingDir.getClass().getSimpleName(),workingDir.getMask(),workingDir.getSize(),workingDir.getOwner().getUsername(),workingDir.getLastModification()));
 

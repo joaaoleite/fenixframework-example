@@ -11,8 +11,12 @@ public class FileDto implements Comparable<FileDto> {
     private int size;
     private String ownerUsername;
     private DateTime lastModification;
+    private String content;
     
     public FileDto (int id, String name, String type, String perm, int size, String ownerUsername, DateTime lastModification){
+        this(id, name, type, perm, size, ownerUsername,lastModification, null);
+    }
+    public FileDto (int id, String name, String type, String perm, int size, String ownerUsername, DateTime lastModification,String content){
         this.id=id;
         this.name=name;
         this.type=type;
@@ -20,6 +24,7 @@ public class FileDto implements Comparable<FileDto> {
         this.size=size;
         this.ownerUsername=ownerUsername;
         this.lastModification=lastModification;
+        this.content=content;
     }
     public final int getId(){
         return this.id;
@@ -38,6 +43,12 @@ public class FileDto implements Comparable<FileDto> {
     } 
     public final String getOwner(){
         return this.ownerUsername;
+    }
+    public final DateTime getLastModification(){
+        return this.lastModification;
+    }
+    public final String getContent(){
+        return this.content;
     }
     @Override
     public int compareTo(FileDto other) {
