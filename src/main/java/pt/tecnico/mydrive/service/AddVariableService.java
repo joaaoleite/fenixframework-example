@@ -41,11 +41,14 @@ public class AddVariableService extends MyDriveService{
         
         Login login = MyDriveService.getMyDrive().getLoginByToken(token);
 
-        if((this.name==null && this.value!=null) || this.name.equals(""))
+        if(this.name==null && this.value!=null)
             throw new InvalidEnvValuesException();
-        
-        if(this.name!=null)
+ 
+        if(this.name!=null){
+            if(this.name.equals(""))
+                throw new InvalidEnvValuesException();
             login.setEnv(name,value);
+        }
 
         res = new ArrayList<EnvDto>();
         for(Env e : login.getEnvSet()){
