@@ -9,14 +9,15 @@ public class SuperUser extends SuperUser_Base {
         super();
         init(myDrive,"root", "SuperUser", "***","rwxdr-x-"); 
     }
-
     @Override
-    public void setPassword(String password){
-        if (!password.equals("***")){
-            throw new InvalidPasswordException();
+    public boolean checkPassword(String password){
+        if (password.equals("***") ){
+            return true;
         }
-        super.setPassword(password);
+        return false;
+    
     }
+
 
     @Override
     public void remove(){
@@ -27,4 +28,4 @@ public class SuperUser extends SuperUser_Base {
         return xmlmydrive;
     }
     
-}
+} 

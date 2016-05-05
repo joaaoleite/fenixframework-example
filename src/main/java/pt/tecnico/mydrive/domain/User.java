@@ -52,10 +52,18 @@ public class User extends User_Base {
 
     @Override
     public void setPassword(String password){
-        if (password.length() < 8 && !password.equals("***")){
+        if (!checkPassword(password)){
             throw new InvalidPasswordException();
         }
         super.setPassword(password);
+    
+    } 
+    public boolean  checkPassword(String password){
+        if (password.length() < 8 ){
+            return false;
+        }
+        return true;
+    
     }
 
     public boolean checkUsername (String username) {

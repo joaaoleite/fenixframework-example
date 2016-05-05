@@ -16,7 +16,7 @@ public class LoginService extends MyDriveService{
         pass=password;
     }
     public final void dispatch() throws  LoginFailedException{
-        Login login = Login.signIn(user,pass);
+        Login login = MyDriveService.getMyDrive().signIn(user,pass);
         token = login.getToken();
         login.init();
     }

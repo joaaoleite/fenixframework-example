@@ -28,7 +28,7 @@ public class ChangeDirectoryService extends MyDriveService{
 
     protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
         
-        Login login = Login.getLoginByToken(token);
+        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
 
         String[] parts = path.split("/");
         Dir actual;

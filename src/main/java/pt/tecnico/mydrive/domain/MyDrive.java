@@ -58,6 +58,27 @@ public class MyDrive extends MyDrive_Base {
 
     }
 
+    public Login signIn(String username, String password){
+          
+        
+        User user = getUserByUsername(username);          
+        if (user==null){
+            throw new LoginFailedException();
+        }
+      
+        if (password.compareTo(user.getPassword())!=0){
+            throw new LoginFailedException();
+        }
+        if(user.getUsername().equals("Guest")){
+            Login log=getLoginByUser("Guest");
+            if (log!=null){
+                log.remove(); 
+            }
+        }
+        return new Login(username);
+    
+        
+    }
     public void cleanup() {
         for(User u: getUserSet()){
             if(!u.getUsername().equals("root"))
@@ -141,15 +162,37 @@ public class MyDrive extends MyDrive_Base {
             u.verify();
         }
     }
-
-    protected Login getLoginByToken(long token){
+    
+    public Login getLoginByUser(String user){
         for(Login u: super.getLoginSet()){
-            if(u.getToken()==token){
+            if(u.getUser().equals(user)){
                 return u;
             }
         }
         return null;
     }
+    public Login getLoginByToken(long token){
+        for(Login login: super.getLoginSet()){
+            if(login.getToken()==token){
+                if (login.getUser().equals("Guest")){
+                    return login;
+                }
+                
+                long date = login.getDate();
+                long currentTime = System.currentTimeMillis();
+                if(currentTime<(date+(2*3600*1000))){
+                    login.refresh();
+                    return login;
+                }
+                log.warn("Expired Token");
+         
+                throw new ExpiredTokenException(date);
+           }
+        }
+        
+        log.warn("token does not exist");
+        throw new TokenDoesNotExistException(token);
+   }
 
     public pt.tecnico.mydrive.domain.File getFileByPath(String pathMixed) throws FileDoesNotExistException{
         String[] path = pathMixed.split("/");
