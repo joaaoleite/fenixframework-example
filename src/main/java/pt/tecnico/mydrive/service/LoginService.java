@@ -11,10 +11,17 @@ public class LoginService extends MyDriveService{
     private final String user;
     private final String pass;
     private long token;
+    
     public LoginService(String username, String password){
         user= username;
         pass=password;
     }
+
+    public LoginService(String username){
+        user = username;
+        pass = null;
+    }
+
     public final void dispatch() throws  LoginFailedException{
         Login login = MyDriveService.getMyDrive().signIn(user,pass);
         token = login.getToken();

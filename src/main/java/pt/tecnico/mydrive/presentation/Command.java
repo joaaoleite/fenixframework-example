@@ -35,16 +35,14 @@ public abstract class Command {
 
     abstract void execute(String[] args);
 
-    protected long login(String username, String password){
-        LoginService service = new LoginService(username,password);
-        service.execute();
-        long token = service.result();
-        shell.setToken(token);
-        return token;
-    }
     protected long login(){
-        if(shell.getToken()==null)
-            return login("guest","");
+        if(shell.getToken()==null){
+            LoginService service = new LoginService(username,password);
+            service.execute();
+            long token = service.result();
+            shell.setToken(token);
+            return token;
+        }        
         return shell.getToken();
     }
 
