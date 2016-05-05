@@ -51,9 +51,29 @@ public class AddVariableTest extends AbstractServiceTest{
     }
 
     @Test
+    public void sucessList(){
+        final long token = login("toni", "tonitoni");
+        final String name = "Arsenal";
+        final String value = "Jorge";
+        
+        AddVariableService service = new AddVariableService(token, name, value);
+        service.execute();
+
+        AddVariableService service1 = new AddVariableService(token);
+        service1.execute();
+
+        ArrayList<EnvDto> list = service1.result();
+
+        EnvDto env = list.get(0);
+        assertEquals("Correct length", 1, list.size());
+        assertEquals("Correct name", "Arsenal", env.getName());
+        assertEquals("Correct value", "Jorge", env.getValue());
+    }
+
+    @Test
     public void sucessAddMultipleVariables(){
         final long token = login("toni", "tonitoni");
-        final String name = "RV";
+        final String name = "AV";
         final String value = "Rui";
         final String name1 = "RVA";
         final String value1 = "Vitoria";
@@ -70,10 +90,20 @@ public class AddVariableTest extends AbstractServiceTest{
         EnvDto env1 = list.get(1);
 
         assertEquals("Correct length", 2, list.size());
-        assertEquals("Correct name", "RV", env1.getName());
-        assertEquals("Correct value", "Rui", env1.getValue());
-        assertEquals("Correct name", "RVA", env.getName());
-        assertEquals("Correct value", "Vitoria", env.getValue());
+        assertEquals("Correct name", "AV", env.getName());
+        assertEquals("Correct value", "Rui", env.getValue());
+        assertEquals("Correct name", "RVA", env1.getName());
+        assertEquals("Correct value", "Vitoria", env1.getValue());
+    }
+
+    @Test
+        public void AddVariableNullValue(){
+        final long token = login("toni", "tonitoni");
+        final String name = "Jamie";
+        final String value = null;
+        
+        AddVariableService service = new AddVariableService(token, name, value);
+        service.execute();
     }
 
     @Test(expected = InvalidEnvValuesException.class)
@@ -91,16 +121,6 @@ public class AddVariableTest extends AbstractServiceTest{
         final long token = login("toni", "tonitoni");
         final String name = null;
         final String value = "Vardy";
-        
-        AddVariableService service = new AddVariableService(token, name, value);
-        service.execute();
-    }
-
-    @Test(expected = InvalidEnvValuesException.class)
-    public void AddVariableNullValue(){
-        final long token = login("toni", "tonitoni");
-        final String name = "Jamie";
-        final String value = null;
         
         AddVariableService service = new AddVariableService(token, name, value);
         service.execute();
