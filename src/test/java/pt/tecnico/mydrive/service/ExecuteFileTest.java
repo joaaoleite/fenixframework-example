@@ -24,14 +24,14 @@ public class ExecuteFileTest extends AbstractServiceTest{
         final long token = login("zetrigo", "tetetiti");
         final String path = "/home/zetrigo/file.exe";
         String[] args = new String[2];
-        args[0] = "Manuel";
-        args[1] = "Joaquina";
+        args[0] = "tete";
+        args[1] = "titi";
         ExecuteFileService service = new ExecuteFileService(token, path, args);
         service.execute();
         String result = service.result(); 
         
         assertNotNull("No result from service", result);
-        assertEquals("Wrong result from service", "testCheck", result);
+        assertEquals("Wrong result from service", "Hello tete and titi.", result);
     }
 
 

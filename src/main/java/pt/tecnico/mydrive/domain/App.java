@@ -20,7 +20,7 @@ public class App extends App_Base {
     
     public Object execute(String[] input){
         String[] str = getContent().split(" ");
-        String pkgAndCls = str[0].substring(0, str[0].lastIndexOf(".")-1);
+        String pkgAndCls = str[0].substring(0, str[0].lastIndexOf("."));
         String mtd = str[0].substring(str[0].lastIndexOf(".")+1);
         String[] args;
 
@@ -31,12 +31,16 @@ public class App extends App_Base {
             Class cls = Class.forName(pkgAndCls);
             Object obj = cls.newInstance();
             Method method; 
+            
+            Class[] cArg = new Class[1];
+            cArg[0] = String[].class;
+            
             if(args.length>0)
-                method = cls.getDeclaredMethod(mtd, String[].class);
+                method = cls.getDeclaredMethod(mtd, cArg);
             else
-                method = cls.getDeclaredMethod("main", String[].class);
-        
-            Object result = method.invoke(obj, args);
+                method = cls.getDeclaredMethod("main", cArg);
+            
+            Object result = method.invoke(obj, new Object[] { args });
             return result;
         }catch(Exception e){
             e.printStackTrace();    
