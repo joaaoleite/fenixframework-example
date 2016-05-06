@@ -1,6 +1,7 @@
 package pt.tecnico.mydrive.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,5 +55,6 @@ public class AddVariableService extends MyDriveService{
         for(Env e : login.getEnvSet()){
             res.add(new EnvDto(e.getName(),e.getValue()));
         }
+        Collections.sort(res);
     }
 }
