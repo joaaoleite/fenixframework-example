@@ -77,7 +77,7 @@ public class ImportTest extends AbstractServiceTest {
         // check imported data
         MyDrive mydrive = MyDrive.getInstance();
         
-        assertEquals("created 2 Users", 3, mydrive.getUserSet().size());
+        assertEquals("created 2 Users", 4, mydrive.getUserSet().size());
         assertTrue("created jtb", mydrive.hasUser("jtb"));
 		assertTrue("created mja", mydrive.hasUser("mja"));
         assertEquals("Dir is empty", 0, mydrive.getRootDir().getDir("home").getDir("mja").getFileSet().size());

@@ -49,9 +49,14 @@ public class MyDrive extends MyDrive_Base {
         RootDir rootdir = new RootDir(this);
         rootdir.createDir(null,"home").setMask(rootdir.getMask());
         setRootDir(rootdir);
+
         SuperUser superuser = new SuperUser(this);
         superuser.setHomedir(getRootDir().getDir("home").createDir(superuser,"root"));
         setSuperUser(superuser);
+
+        GuestUser guestuser = new GuestUser(this);
+        setGuestUser(guestuser);
+
         rootdir.setOwner(superuser);
         rootdir.getDir("home").setOwner(superuser);
         rootdir.getDir("home").setMask(superuser.getUmask());
@@ -81,7 +86,7 @@ public class MyDrive extends MyDrive_Base {
     }
     public void cleanup() {
         for(User u: getUserSet()){
-            if(!u.getUsername().equals("root"))
+            if(!u.getUsername().equals("root") && !u.getUsername().equals("nobody"))
                 u.remove();
         }
         getRootDir().cleanup();

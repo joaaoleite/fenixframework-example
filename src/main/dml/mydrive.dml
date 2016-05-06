@@ -75,6 +75,15 @@ relation myDriveHasSuperUser {
     }
 } 
 
+relation myDriveHasGuestUser {
+    MyDrive playsRole app {
+        multiplicity 1;
+    }
+    GuestUser playsRole guestUser {
+        multiplicity 1;
+    }
+} 
+
 relation allFiles {
     MyDrive playsRole mydrive {
         multiplicity 1;

@@ -7,7 +7,7 @@ import pt.tecnico.mydrive.exception.*;
 public class GuestUser extends GuestUser_Base {
     public GuestUser(MyDrive myDrive) { 
         super();
-        init(myDrive,"Guest", "Guest", "","rwxdr-x-"); 
+        init(myDrive,"nobody", "Guest", "","rwxdr-x-"); 
 
     } 
     @Override
@@ -16,7 +16,16 @@ public class GuestUser extends GuestUser_Base {
     } 
     @Override
     public void setPassword(String password){
-        throw new GuestUserCannotSetPasswordException();
+        if(!password.equals(""))
+            throw new GuestUserCannotSetPasswordException();
+        super.setPassword(password);
+    }
+
+    @Override
+    public boolean checkPassword(String password){
+        if(password.equals(""))
+            return true;
+        return false;
     }
 
     
