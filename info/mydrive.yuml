@@ -1,0 +1,35 @@
+[MyDrive| Integer nfile;]
+[.pt.ist.fenixframework.DomainRoot]0..1 root - mydrive 0..1[MyDrive] // DomainRootHasMyDriveApplication
+[User| String username; String password; String name; String umask;]
+[User]^-[SuperUser]
+[SuperUser]
+[User]^-[GuestUser]
+[GuestUser]
+[Login| Long token; Long date;]
+[Env| String name; String value;]
+[DefaultApp| String extension;]
+[File| Integer id; String name; DateTime lastModification; String mask;]
+[File]^-[PlainFile]
+[PlainFile| String content;]
+[File]^-[Dir]
+[Dir]
+[Dir]^-[RootDir]
+[RootDir]
+[PlainFile]^-[Link]
+[Link]
+[PlainFile]^-[App]
+[App]
+[MyDrive]1 mydrive - user *[User] // registedUsers
+[MyDrive]1 app - superUser 1[SuperUser] // myDriveHasSuperUser
+[MyDrive]1 app - guestUser 1[GuestUser] // myDriveHasGuestUser
+[MyDrive]1 mydrive - file *[File] // allFiles
+[User]1 user - defaultApp *[DefaultApp] // UserExecutesFiles
+[App]1 app - defaultApp 1[DefaultApp] // ExtensionHasApp
+[Dir]1 homedir - user 1[User] // home
+[File]* file - parent 1[Dir] // parent
+[File]* file - owner 1[User] // owner
+[RootDir]1 rootDir - app 1[MyDrive] // myDriveHasRootDir
+[Login]* login - mydrive 1[MyDrive] // myDriveSessions
+[Login]* login - workingDir 1[Dir] // loginWorkingDir
+[Login]* login - user 1[User] // loginUser
+[Env]* env - login 1[Login] // LoginHasEnv
