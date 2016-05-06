@@ -36,20 +36,24 @@ public class ExecuteFileService extends MyDriveService{
         if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(2) == 'x')
             && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(6) == 'x')
             && !(login.getUser().getUsername().equals("root"))){
-                throw new InsufficientPermissionsException(file.getName());
-            }
-
-        String extension;
-
-        try{
-            extension = file.getName().substring(file.getName().lastIndexOf(".")+1);
-        }catch(Exception e){
-            throw new FileDoesNotHaveExtension(file.getName());
+            
+            throw new InsufficientPermissionsException(file.getName());
         }
 
-        App app = login.getUser().getAppByExtension(extension);
+        App app; 
+        String extension;
+        
+        try{
+            if(file instanceof App){
+                app = (App) file;
+            }else{
+                extension = file.getName().substring(file.getName().lastIndexOf(".")+1);
+                app = login.getUser().getAppByExtension(extension);
+            }
+        }catch(Exception e){
+            throw new FileDoesNotHaveExtension(file.getName());
+        } 
         this.res = app.execute(args).toString();
-    
     }
     
 }

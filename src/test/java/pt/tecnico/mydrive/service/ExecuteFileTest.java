@@ -20,7 +20,7 @@ public class ExecuteFileTest extends AbstractServiceTest{
    }
     
     @Test
-    public void success(){
+    public void successPlainFile(){
         final long token = login("zetrigo", "tetetiti");
         final String path = "/home/zetrigo/file.exe";
         String[] args = new String[2];
@@ -34,6 +34,22 @@ public class ExecuteFileTest extends AbstractServiceTest{
         assertEquals("Wrong result from service", "Hello tete and titi.", result);
     }
 
+    @Test
+    public void successApp(){
+        final long token = login("zetrigo", "tetetiti");
+        final String path = "/home/zetrigo/app";
+        
+        String[] args = new String[2];
+        args[0] = "tete";
+        args[1] = "titi";
+        
+        ExecuteFileService service = new ExecuteFileService(token, path, args);
+        service.execute();
+        String result = service.result(); 
+        
+        assertNotNull("No result from service", result);
+        assertEquals("Wrong result from service", "Hello tete and titi.", result);
+    }
 
     @Test(expected = FileDoesNotExistException.class)
     public void FileDoesNotExist(){
@@ -66,7 +82,6 @@ public class ExecuteFileTest extends AbstractServiceTest{
         args[1] = "b";
         ExecuteFileService service = new ExecuteFileService(token, path, args);
         service.execute();
-
     }
 }
 
