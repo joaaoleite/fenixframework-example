@@ -9,8 +9,8 @@ public abstract class Shell{
     private Map<String,Command> coms = new TreeMap<String,Command>();
     private PrintWriter out;
     private String name;
-    private Long token;
 
+    private Long token;
 
     public Shell(String n) { this(n, new PrintWriter(System.out, true), true); }
     public Shell(String n, Writer w) { this(n, w, true); }
@@ -58,9 +58,12 @@ public abstract class Shell{
         };
     }
 
-    public void setToken(Long token){this.token = token;}
-    public Long getToken(){return token;}
-    
+    public void setToken(Long token){
+        this.token = token;
+    }
+    public Long getToken(){
+        return token;
+    }
     
     public void print(String s) { out.print(s); }
     public void println(String s) { out.println(s); }
