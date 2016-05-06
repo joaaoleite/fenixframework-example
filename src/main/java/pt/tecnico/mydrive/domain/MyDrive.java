@@ -189,6 +189,16 @@ public class MyDrive extends MyDrive_Base {
                 
                 long date = login.getDate();
                 long currentTime = System.currentTimeMillis();
+                if (login.getUser().equals("root")){
+                    if(currentTime<(date+(10*60*1000))){
+                        login.refresh();
+                        return login;
+                    }
+                    log.warn("Expired Token");
+         
+                    throw new ExpiredTokenException(date);
+
+                }
                 if(currentTime<(date+(2*3600*1000))){
                     login.refresh();
                     return login;
