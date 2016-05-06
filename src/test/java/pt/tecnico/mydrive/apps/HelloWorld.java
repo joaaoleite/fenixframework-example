@@ -1,6 +1,8 @@
+package pt.tecnico.mydrive.apps;
+
 public class HelloWorld {
 	
-	public static String hello(String[] people){
-		return "Hello "+people[0]+" and "+people[1]+".";
+	public static String hello(String[] p){
+		return "Hello "+p[0]+" and "+p[1]+".";
 	}
 }
