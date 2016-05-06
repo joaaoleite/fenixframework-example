@@ -26,6 +26,7 @@ public class ImportMyDriveService extends MyDriveService {
         	getMyDrive().xmlImport(doc.getRootElement());	
         }
         catch(Exception e){
+            e.printStackTrace();
         	throw new ImportDocException();
         }
 		

@@ -96,7 +96,11 @@ public class MyDrive extends MyDrive_Base {
                 User user = getUserByUsername(username);
 
                 if(user==null){
-                    user = new User(this,username);
+                    if (e.getChildText("password")!=null && e.getChildText("password") != ""){
+                        user = new User(this,username,new String(e.getChildText("password")));
+                    }else{
+                        user = new User(this,username);
+                    }   
                 }
                 user.xmlImport(e);
                 addUser(user);

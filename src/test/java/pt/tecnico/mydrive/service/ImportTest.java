@@ -70,6 +70,7 @@ public class ImportTest extends AbstractServiceTest {
     public void success() throws Exception {
 		
         Document doc = new SAXBuilder().build(new StringReader(xml));
+
         ImportMyDriveService service = new ImportMyDriveService(doc);
         service.execute();
 

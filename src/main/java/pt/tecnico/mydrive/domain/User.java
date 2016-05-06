@@ -12,7 +12,7 @@ public class User extends User_Base {
 
     public User(){ super();}
 
-    public User(MyDrive myDrive ,String username ) {
+    public User(MyDrive myDrive, String username) {
         if (checkUsername(username)==false){
             throw new UserInvalidException(username);
         }
@@ -104,7 +104,6 @@ public class User extends User_Base {
         try {
             setUsername(new String(userElemet.getAttribute("username").getValue()));
             setName(new String(userElemet.getChildText("name")));
-
             if (userElemet.getChildText("password")!=null && userElemet.getChildText("password") != ""){
                 setPassword(new String(userElemet.getChildText("password")));
             }
