@@ -21,10 +21,11 @@ public class App extends App_Base {
     public Object execute(String[] input){
         String[] str = getContent().split(" ");
         String pkgAndCls = str[0].substring(0, str[0].lastIndexOf(".")-1);
-        String mtd = str[0].substring(str[0].lastIndexOf(".")+1,str[0].length()-1);
-        String[] args = Arrays.copyOfRange(str, 1, str.length - 1);
+        String mtd = str[0].substring(str[0].lastIndexOf(".")+1);
+        String[] args;
 
         if(input != null) args = input;
+        else args = Arrays.copyOfRange(str, 1, str.length - 1);
 
         try{
             Class cls = Class.forName(pkgAndCls);

@@ -14,7 +14,7 @@ public class ExecuteFileTest extends AbstractServiceTest{
         mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
         User zetrigo = mydrive.createUser("Jose Trigo", "zetrigo", "tetetiti", "rwxd----");
         mydrive.getRootDir().getDir("home").getDir("zetrigo").createPlainFile(mydrive.getUserByUsername("zetrigo"), "file.exe");
-        App app = mydrive.getRootDir().getDir("home").getDir("zetrigo").createApp(mydrive.getUserByUsername("zetrigo"), "app", "pt.tecnico.mydrive.domain.MyDrive.staticPrint");
+        App app = mydrive.getRootDir().getDir("home").getDir("zetrigo").createApp(mydrive.getUserByUsername("zetrigo"), "app", "pt.tecnico.mydrive.apps.HelloWorld.hello");
         zetrigo.createDefaultApp("exe", app);
         
    }
@@ -24,8 +24,8 @@ public class ExecuteFileTest extends AbstractServiceTest{
         final long token = login("zetrigo", "tetetiti");
         final String path = "/home/zetrigo/file.exe";
         String[] args = new String[2];
-        args[0] = "a";
-        args[1] = "b";
+        args[0] = "Manuel";
+        args[1] = "Joaquina";
         ExecuteFileService service = new ExecuteFileService(token, path, args);
         service.execute();
         String result = service.result(); 
