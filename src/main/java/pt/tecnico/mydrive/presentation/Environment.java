@@ -5,7 +5,7 @@ import pt.tecnico.mydrive.service.dto.EnvDto;
 
 
 
-public class Environment extends PbCommand {
+public class Environment extends MyDriveCommand {
 
     public Environment(Shell sh) { super(sh, "env", "list or set a environment var"); }
     public void execute(String[] args) {

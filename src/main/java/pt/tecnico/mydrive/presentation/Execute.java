@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.presentation;
 import pt.tecnico.mydrive.service.ExecuteFileService;
 
-public class Execute extends PbCommand {
+public class Execute extends MyDriveCommand {
 
     public Execute(Shell sh) { super(sh, "do", "executes the file in the path with the arguments"); }
     public void execute(String[] args) {

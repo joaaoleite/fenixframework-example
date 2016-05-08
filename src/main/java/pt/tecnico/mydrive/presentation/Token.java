@@ -2,9 +2,9 @@ package pt.tecnico.mydrive.presentation;
 
 import pt.tecnico.mydrive.service.LoginService;
 
-public class Token extends PbCommand {
+public class Token extends MyDriveCommand {
 
-    public Login(Shell sh) { super(sh, "token", "change logged user"); }
+    public Token(Shell sh) { super(sh, "token", "change logged user"); }
     public void execute(String[] args) {
 		
         if (args.length < 2)

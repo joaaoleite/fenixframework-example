@@ -2,7 +2,7 @@ package pt.tecnico.mydrive.presentation;
 
 import pt.tecnico.mydrive.service.LoginService;
 
-public class Login extends PbCommand {
+public class Login extends MyDriveCommand {
 
     public Login(Shell sh) { super(sh, "login", "login a user"); }
     public void execute(String[] args) {

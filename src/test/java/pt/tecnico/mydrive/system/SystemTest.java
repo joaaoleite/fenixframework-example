@@ -9,10 +9,10 @@ import pt.tecnico.mydrive.presentation.*;
 
 public class SystemTest extends AbstractServiceTest {
 
-    private PbShell sh;
+    private MyDriveShell sh;
 
     protected void populate() {
-        sh = new PbShell();
+        sh = new MyDriveShell();
     }
 
     @Test

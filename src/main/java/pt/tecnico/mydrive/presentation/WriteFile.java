@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.presentation;
 import pt.tecnico.mydrive.service.WriteFileService;
 
-public class WriteFile extends PbCommand {
+public class WriteFile extends MyDriveCommand {
 
     public WriteFile(Shell sh) { super(sh, "update", "changes content of the path file"); }
     public void execute(String[] args) {

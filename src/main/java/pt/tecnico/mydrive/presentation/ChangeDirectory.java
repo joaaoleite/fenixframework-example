@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.presentation;
 import pt.tecnico.mydrive.service.ChangeDirectoryService;
 
-public class ChangeDirectory extends PbCommand {
+public class ChangeDirectory extends MyDriveCommand {
 
     public ChangeDirectory(Shell sh) { super(sh, "cwd", "change working directory"); }
     public void execute(String[] args) {

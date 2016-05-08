@@ -4,7 +4,7 @@ import pt.tecnico.mydrive.service.ListDirectoryService;
 import pt.tecnico.mydrive.service.ChangeDirectoryService;
 import pt.tecnico.mydrive.service.dto.FileDto;
 
-public class ListDirectory extends PbCommand {
+public class ListDirectory extends MyDriveCommand {
 
     public ListDirectory(Shell sh) { super(sh, "ls", "list the path directory"); }
     public void execute(String[] args) {
