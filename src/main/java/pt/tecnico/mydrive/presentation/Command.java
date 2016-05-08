@@ -45,11 +45,11 @@ public abstract class Command {
 
     protected long login(){
         if(shell.getCurrentToken()==null){
-            LoginService service = new LoginService("guest","");
+            LoginService service = new LoginService("nobody","");
             service.execute();
 
             long token = service.result();
-            shell.setToken("guest",token);
+            shell.setToken("nobody",token);
 
             return token;
         }        
