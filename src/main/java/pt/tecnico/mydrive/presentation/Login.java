@@ -13,7 +13,7 @@ public class Login extends MyDriveCommand {
         else{
             LoginService service = new LoginService(args[0],args[1]);
 	          service.execute();
-	          login(service.result());
+	          login(args[0], service.result());
 	 	    }
     }
 }

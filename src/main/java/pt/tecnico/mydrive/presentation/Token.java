@@ -11,9 +11,13 @@ public class Token extends MyDriveCommand {
 		        throw new RuntimeException("USAGE: "+name()+" <username>");
 		
         else{
-            //LoginService service = new LoginService(args[0],args[1]);
-	          //service.execute();
-	          //login(service.result());
+            Long temp = getTokenByUsername(args[0]); 
+            if(temp != null){
+                login(args[0],temp);
+            }
+            else{
+                throw new RuntimeException("Please login first: "+args[0]);
+            }
 	 	    }
     }
 }

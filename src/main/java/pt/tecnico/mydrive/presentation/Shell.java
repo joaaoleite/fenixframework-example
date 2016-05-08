@@ -10,7 +10,8 @@ public abstract class Shell{
     private PrintWriter out;
     private String name;
 
-    private Long token;
+    private Long currentToken;
+    private Map<String,Long> tokens = new TreeMap<String,Long>();
 
     public Shell(String n) { this(n, new PrintWriter(System.out, true), true); }
     public Shell(String n, Writer w) { this(n, w, true); }
@@ -58,11 +59,15 @@ public abstract class Shell{
         };
     }
 
-    public void setToken(Long token){
-        this.token = token;
+    public void setToken(String username, Long token){
+        this.currentToken = token;
+        tokens.put(username,token);
     }
-    public Long getToken(){
-        return token;
+    public Long getTokenByUsername(String username){
+        return tokens.get(username);
+    }
+    public Long getCurrentToken(){
+        return currentToken;
     }
     
     public void print(String s) { out.print(s); }

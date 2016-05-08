@@ -162,7 +162,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>pt.tecnico.mydrive.Main</mainClass>
+                    <mainClass>pt.tecnico.mydrive.presentation.MyDriveShell</mainClass>
                     <killAfter>-1</killAfter>
                 </configuration>
             </plugin>

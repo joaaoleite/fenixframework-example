@@ -15,6 +15,6 @@ public class MyDriveShell extends Shell {
     new Execute(this);
     new WriteFile(this);
     new Environment(this);
-    //new Key(this);
+    new Token(this);
   }
 }

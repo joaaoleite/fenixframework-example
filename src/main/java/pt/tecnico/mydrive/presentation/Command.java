@@ -35,21 +35,25 @@ public abstract class Command {
 
     abstract void execute(String[] args);
 
-    protected void login(long token){
-        shell.setToken(token);
+    protected void login(String username, long token){
+        shell.setToken(username, token);
+    }
+
+    protected long getTokenByUsername(String username){
+        return shell.getTokenByUsername(username);
     }
 
     protected long login(){
-        if(shell.getToken()==null){
+        if(shell.getCurrentToken()==null){
             LoginService service = new LoginService("guest","");
             service.execute();
 
             long token = service.result();
-            shell.setToken(token);
+            shell.setToken("guest",token);
 
             return token;
         }        
-        return shell.getToken();
+        return shell.getCurrentToken();
     }
 
     public void print(String s) { shell.print(s); }
