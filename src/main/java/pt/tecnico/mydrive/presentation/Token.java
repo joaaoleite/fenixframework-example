@@ -7,7 +7,7 @@ public class Token extends MyDriveCommand {
     public Token(Shell sh) { super(sh, "token", "change logged user"); }
     public void execute(String[] args) {
 		
-        if (args.length < 2)
+        if (args.length < 1)
 		        throw new RuntimeException("USAGE: "+name()+" <username>");
 		
         else{
