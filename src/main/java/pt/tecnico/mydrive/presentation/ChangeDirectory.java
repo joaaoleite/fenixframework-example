@@ -12,7 +12,7 @@ public class ChangeDirectory extends MyDriveCommand {
 		    ChangeDirectoryService service = new ChangeDirectoryService(token, args[0]);
 			service.execute();
 			String actual = service.result();
-			System.out.println(service);
+			System.out.println(actual);
 	    }
 	}
 }

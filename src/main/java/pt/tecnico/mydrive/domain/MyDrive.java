@@ -28,7 +28,7 @@ public class MyDrive extends MyDrive_Base {
         if (mydrive != null)
 	          return mydrive;
 
-	      log.trace("new MyDrive");
+	   log.trace("new MyDrive");
         mydrive=new MyDrive();
         mydrive.init();
         return mydrive;
@@ -55,6 +55,7 @@ public class MyDrive extends MyDrive_Base {
         setSuperUser(superuser);
 
         GuestUser guestuser = new GuestUser(this);
+        guestuser.setHomedir(getRootDir().getDir("home").createDir(guestuser,"nobody"));
         setGuestUser(guestuser);
 
         rootdir.setOwner(superuser);
@@ -63,9 +64,7 @@ public class MyDrive extends MyDrive_Base {
 
     }
 
-    public Login signIn(String username, String password){
-          
-        
+    public Login signIn(String username, String password){        
         User user = getUserByUsername(username);          
         if (user==null){
             throw new LoginFailedException();
@@ -150,6 +149,13 @@ public class MyDrive extends MyDrive_Base {
     }
 
     public User getUserByUsername(String username){
+        
+        if(username.equals("nobody"))
+            return getGuestUser();
+        
+        if(username.equals("root"))
+            return getSuperUser();
+
         for(User u: getUserSet()){
             if(u.getUsername().equals(username)){
                 return u;

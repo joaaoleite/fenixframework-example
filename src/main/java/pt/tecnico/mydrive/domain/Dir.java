@@ -112,6 +112,11 @@ public class Dir extends Dir_Base {
 
     @Override
     public void remove(){
+        if(getName().equals("nobody") && getOwner().getUsername().equals("nobody"))
+            return;
+        if(getName().equals("root") && getOwner().getUsername().equals("root"))
+            return;
+
         for(File f: getFileSet()){
             f.remove();
         }

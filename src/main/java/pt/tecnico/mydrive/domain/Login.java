@@ -33,7 +33,7 @@ public class Login extends Login_Base{
 
     @Override
     public Long getDate(){
-        if (getUser().equals("Guest")){
+        if (getUser().getUsername().equals("nobody")){
             return System.currentTimeMillis();
         }
         return super.getDate();

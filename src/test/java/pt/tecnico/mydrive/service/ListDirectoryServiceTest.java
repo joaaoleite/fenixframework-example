@@ -40,12 +40,12 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         assertEquals("Wrong directory list 1", "rwxd----", list.get(0).getPerm());
         assertEquals("Wrong directory list 1", 5, list.get(0).getSize());
         assertEquals("Wrong directory list 1", "halib", list.get(0).getOwner());
-        assertEquals("Wrong directory list 1", 3, list.get(0).getId());
+        assertEquals("Wrong directory list 1", 4, list.get(0).getId());
         assertEquals("Wrong directory list 1", ".", list.get(0).getName());
 
         assertEquals("Wrong directory list 2", "Dir", list.get(1).getType());
         assertEquals("Wrong directory list 2", "rwxdr-x-", list.get(1).getPerm());
-        assertEquals("Wrong directory list 2", 5, list.get(1).getSize());
+        assertEquals("Wrong directory list 2", 6, list.get(1).getSize());
         assertEquals("Wrong directory list 2", "root", list.get(1).getOwner());
         assertEquals("Wrong directory list 2", 1, list.get(1).getId());
         assertEquals("Wrong directory list 2", "..", list.get(1).getName());
@@ -54,21 +54,21 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         assertEquals("Wrong directory list 3", "rwxd----", list.get(2).getPerm());
         assertEquals("Wrong directory list 3", 0, list.get(2).getSize());
         assertEquals("Wrong directory list 3", "halib", list.get(2).getOwner());
-        assertEquals("Wrong directory list 3", 6, list.get(2).getId());
+        assertEquals("Wrong directory list 3", 7, list.get(2).getId());
         assertEquals("Wrong directory list 3", "loans", list.get(2).getName());
 
         assertEquals("Wrong directory list 4", "Dir", list.get(3).getType());
         assertEquals("Wrong directory list 4", "rwxd----", list.get(3).getPerm());
         assertEquals("Wrong directory list 4", 2, list.get(3).getSize());
         assertEquals("Wrong directory list 4", "halib", list.get(3).getOwner());
-        assertEquals("Wrong directory list 4", 7, list.get(3).getId()); 
+        assertEquals("Wrong directory list 4", 8, list.get(3).getId()); 
         assertEquals("Wrong directory list 4", "photos", list.get(3).getName());
 
         assertEquals("Wrong directory list 5", "Dir", list.get(4).getType());
         assertEquals("Wrong directory list 5", "rwxd----", list.get(4).getPerm());
         assertEquals("Wrong directory list 5", 2, list.get(4).getSize());
         assertEquals("Wrong directory list 5", "halib", list.get(4).getOwner());
-        assertEquals("Wrong directory list 5", 5, list.get(4).getId());
+        assertEquals("Wrong directory list 5", 6, list.get(4).getId());
         assertEquals("Wrong directory list 5", "test", list.get(4).getName());
     }
     
@@ -93,7 +93,7 @@ public class ListDirectoryServiceTest extends AbstractServiceTest{
         
         assertEquals("Wrong directory list", "Dir", list.get(1).getType());
         assertEquals("Wrong directory list", "rwxdr-x-", list.get(1).getPerm());
-        assertEquals("Wrong directory list", 5, list.get(1).getSize());
+        assertEquals("Wrong directory list", 6, list.get(1).getSize());
         assertEquals("Wrong directory list", "root", list.get(1).getOwner());
         assertEquals("Wrong directory list", 1, list.get(1).getId());
         assertEquals("Wrong directory list", "..", list.get(1).getName());
