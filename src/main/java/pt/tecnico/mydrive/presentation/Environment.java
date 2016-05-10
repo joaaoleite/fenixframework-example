@@ -3,6 +3,9 @@ package pt.tecnico.mydrive.presentation;
 import pt.tecnico.mydrive.service.AddVariableService;
 import pt.tecnico.mydrive.service.dto.EnvDto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class Environment extends MyDriveCommand {
@@ -14,19 +17,29 @@ public class Environment extends MyDriveCommand {
 		else{
 			long token = login();
 			AddVariableService service;
+			List<EnvDto> list;
+			System.out.println("Environment variables:");
 
-			if (agrs.length == 0) {
+			if (args.length == 0) {
 			    service = new AddVariableService(token, null, null);
+			    service.execute();
+			    list = service.result();
 			} 
-			else if (agrs.length == 1) {
+			else if (args.length == 1) {
 			    service = new AddVariableService(token, args[0], null);
+			    service.execute();
+			    list = service.result();
+			    if(list.size()==0){
+			    	list = new ArrayList<EnvDto>();
+			    	list.add(new EnvDto(args[0],null));
+			    }
 			} else {
 			    service = new AddVariableService(token, args[0], args[1]);
-			}
-			service.execute();
-			
-		    System.out.println("Environment variables:");
-		    for(EnvDto env : service.result())
+			    service.execute();
+			    list = service.result();
+			}			
+		    
+		    for(EnvDto env : list)
 		    	System.out.println(env.getName()+" = "+env.getValue());
 		}
     }

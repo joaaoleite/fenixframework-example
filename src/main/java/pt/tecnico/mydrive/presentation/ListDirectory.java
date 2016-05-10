@@ -17,7 +17,10 @@ public class ListDirectory extends MyDriveCommand {
 		    		System.out.println(f.getName()+" -> "+f.getContent());
 		    	else
 		    		System.out.println(f.getType()+" "+f.getPerm()+" "+f.getSize()+" "+f.getOwner()+" "+f.getId()+" "+f.getLastModification().toString()+" "+f.getName());
-		}else{
+		}
+		else if (args.length > 1)
+		        throw new RuntimeException("USAGE: "+ name() +" <path>");
+		else{
 			long token = login();
 		    ChangeDirectoryService cd = new ChangeDirectoryService(token, ".");
 			cd.execute();
@@ -32,7 +35,7 @@ public class ListDirectory extends MyDriveCommand {
 		    	if (f.getClass().getSimpleName().equals("Link"))
 		    		System.out.println(f.getName()+" -> "+f.getContent());
 		    	else
-		    		System.out.println(f.getClass().getSimpleName()+" "+f.getPerm()+" "+f.getSize()+" "+f.getOwner()+" "+f.getId()+" "+f.getLastModification().toString()+" "+f.getName());
+		    		System.out.println(f.getType()+" "+f.getPerm()+" "+f.getSize()+" "+f.getOwner()+" "+f.getId()+" "+f.getLastModification().toString()+" "+f.getName());
 			
 			new ChangeDirectoryService(token, actual);
 	    }

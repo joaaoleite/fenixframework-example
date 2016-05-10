@@ -5,7 +5,7 @@ public class ChangeDirectory extends MyDriveCommand {
 
     public ChangeDirectory(Shell sh) { super(sh, "cwd", "change working directory"); }
     public void execute(String[] args) {
-		if (args.length < 1)
+		if (args.length != 1 )
 		    throw new RuntimeException("USAGE: "+name()+" <path>");
 		else{
 			long token = login();

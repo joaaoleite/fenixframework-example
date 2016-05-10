@@ -7,7 +7,7 @@ public class Login extends MyDriveCommand {
     public Login(Shell sh) { super(sh, "login", "login a user"); }
     public void execute(String[] args) {
 		
-        if (args.length < 2)
+        if (args.length != 2)
 		        throw new RuntimeException("USAGE: "+name()+" <username> <password>");
 		
         else{

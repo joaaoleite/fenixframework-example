@@ -18,6 +18,7 @@ public class AddVariableService extends MyDriveService{
     private String value;
     private ArrayList<EnvDto> res;
     private long token;
+    private boolean printOne = false;
 
     public AddVariableService(long token, String name, String value){
         super();
@@ -47,12 +48,15 @@ public class AddVariableService extends MyDriveService{
         if(this.name!=null){
             if(this.name.equals(""))
                 throw new InvalidEnvValuesException();
-            login.setEnv(name,value);
+            if(this.value!=null)
+                login.setEnv(name,value);
+            else this.printOne=true;
         }
 
         res = new ArrayList<EnvDto>();
         for(Env e : login.getEnvSet()){
-            res.add(new EnvDto(e.getName(),e.getValue()));
+            if(e.getName().equals(this.name)||!this.printOne)
+                res.add(new EnvDto(e.getName(),e.getValue()));
         }
         Collections.sort(res);
     }

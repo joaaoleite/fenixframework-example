@@ -45,13 +45,14 @@ public class ListDirectoryService extends MyDriveService{
         for(File f : workingDir.getFileSet()){
             if(f.getClass().getSimpleName().equals("Dir"))
                 res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification()));
+            else if(f.getClass().getSimpleName().equals("RootDir"))
+                res.add(new FileDto(f.getId(),f.getName(),"Dir",f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification()));
             else
                 res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification(),((PlainFile)f).getContent()));
         }
         
-        res.add(new FileDto(workingDir.getId(),".",workingDir.getClass().getSimpleName(),workingDir.getMask(),workingDir.getSize(),workingDir.getOwner().getUsername(),workingDir.getLastModification()));
-
-        res.add(new FileDto(workingDir.getParent().getId(),"..",workingDir.getParent().getClass().getSimpleName(),workingDir.getParent().getMask(),workingDir.getParent().getSize(),workingDir.getParent().getOwner().getUsername(),workingDir.getParent().getLastModification()));
+        res.add(new FileDto(workingDir.getId(),".","Dir",workingDir.getMask(),workingDir.getSize(),workingDir.getOwner().getUsername(),workingDir.getLastModification()));
+        res.add(new FileDto(workingDir.getParent().getId(),"..","Dir",workingDir.getParent().getMask(),workingDir.getParent().getSize(),workingDir.getParent().getOwner().getUsername(),workingDir.getParent().getLastModification()));
 
         Collections.sort(res);
     }

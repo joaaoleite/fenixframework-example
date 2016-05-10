@@ -5,7 +5,7 @@ public class Execute extends MyDriveCommand {
 
     public Execute(Shell sh) { super(sh, "do", "executes the file in the path with the arguments"); }
     public void execute(String[] args) {
-		if (args.length < 3)
+		if (args.length < 2)
 		    throw new RuntimeException("USAGE: "+name()+" <path> <args>");
 		else{
 			long token = login();
