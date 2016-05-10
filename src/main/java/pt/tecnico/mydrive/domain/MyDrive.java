@@ -24,11 +24,7 @@ public class MyDrive extends MyDrive_Base {
     
 
     public static MyDrive getInstance() {
-        System.out.println("\nMERDA getInstance()\n");
-        DomainRoot root = FenixFramework.getDomainRoot();
-        System.out.println("\nMERDA getDomainRoot()\n");
-        MyDrive mydrive = root.getMydrive();
-        System.out.println("\nMERDA getMyDrive()\n");
+        MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
 
         if (mydrive != null)
 	          return mydrive;

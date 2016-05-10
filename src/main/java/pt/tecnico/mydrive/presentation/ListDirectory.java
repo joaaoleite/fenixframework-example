@@ -8,9 +8,16 @@ public class ListDirectory extends MyDriveCommand {
 
     public ListDirectory(Shell sh) { super(sh, "ls", "list the path directory"); }
     public void execute(String[] args) {
-		if (args.length < 1)
-		    throw new RuntimeException("USAGE: "+name()+" <path>");
-		else{
+		if (args.length < 1){
+			long token = login();
+			ListDirectoryService list = new ListDirectoryService(token);
+		    list.execute();
+		    for(FileDto f : list.result())
+		    	if (f.getClass().getSimpleName().equals("Link"))
+		    		System.out.println(f.getName()+" -> "+f.getContent());
+		    	else
+		    		System.out.println(f.getType()+" "+f.getPerm()+" "+f.getSize()+" "+f.getOwner()+" "+f.getId()+" "+f.getLastModification().toString()+" "+f.getName());
+		}else{
 			long token = login();
 		    ChangeDirectoryService cd = new ChangeDirectoryService(token, ".");
 			cd.execute();
