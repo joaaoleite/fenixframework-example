@@ -39,7 +39,7 @@ public abstract class Command {
         shell.setToken(username, token);
     }
 
-    protected long getTokenByUsername(String username){
+    protected Long getTokenByUsername(String username){
         return shell.getTokenByUsername(username);
     }
 

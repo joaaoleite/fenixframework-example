@@ -18,11 +18,11 @@ public class Token extends MyDriveCommand {
             Long temp = getTokenByUsername(args[0]); 
             if(temp != null){
                 login(args[0],temp);
-            Long token = login();
-            System.out.println(token);
+                Long token = login();
+                System.out.println(token);
             }
             else{
-                throw new RuntimeException("Please login first: "+args[0]);
+                throw new RuntimeException("Please login first: " + args[0]);
             }
 	 	}
     }
