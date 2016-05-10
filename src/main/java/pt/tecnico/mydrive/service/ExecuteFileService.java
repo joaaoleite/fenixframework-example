@@ -8,7 +8,6 @@ import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
 public class ExecuteFileService extends MyDriveService{
-	MyDrive md = MyDrive.getInstance();
 
     private String[] args;
     private String path;
@@ -30,8 +29,8 @@ public class ExecuteFileService extends MyDriveService{
 
     protected final void dispatch() throws NoAppforExtensionException,FileDoesNotHaveExtension, TokenDoesNotExistException, ExpiredTokenException, FileDoesNotExistException, InsufficientPermissionsException{
         
-        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
-        File file = md.getFileByPath(path);
+        Login login = getMyDrive().getLoginByToken(token);
+        File file = getMyDrive().getFileByPath(path);
 
         if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(2) == 'x')
             && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(6) == 'x')

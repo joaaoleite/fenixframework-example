@@ -13,7 +13,6 @@ import pt.tecnico.mydrive.exception.*;
 import pt.tecnico.mydrive.service.dto.EnvDto;
 
 public class AddVariableService extends MyDriveService{
-	  MyDrive md = MyDrive.getInstance();
 
     private String name;
     private String value;
@@ -40,7 +39,7 @@ public class AddVariableService extends MyDriveService{
 
     protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, InvalidEnvValuesException {
         
-        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
+        Login login = getMyDrive().getLoginByToken(token);
 
         if(this.name==null && this.value!=null)
             throw new InvalidEnvValuesException();

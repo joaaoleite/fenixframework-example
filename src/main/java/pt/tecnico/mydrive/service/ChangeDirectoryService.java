@@ -8,7 +8,6 @@ import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
 public class ChangeDirectoryService extends MyDriveService{
-	MyDrive md = MyDrive.getInstance();
 
     private String res;
     private String path;
@@ -28,21 +27,21 @@ public class ChangeDirectoryService extends MyDriveService{
 
     protected final void dispatch() throws TokenDoesNotExistException, ExpiredTokenException, FileIsAPlainFileException, FileDoesNotExistException, InsufficientPermissionsException{
         
-        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
+        Login login = getMyDrive().getLoginByToken(token);
 
         String[] parts = path.split("/");
         Dir actual;
         int i;
 
         if(path.equals("/")){
-            login.setWorkingDir(md.getRootDir());
+            login.setWorkingDir(getMyDrive().getRootDir());
             res="/";
         }
         else{
 
             if(path.charAt(0) == '/'){
 
-                actual = md.getRootDir();
+                actual = getMyDrive().getRootDir();
                 i = 1;
             }
             else{

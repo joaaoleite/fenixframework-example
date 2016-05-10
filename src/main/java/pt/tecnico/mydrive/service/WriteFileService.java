@@ -20,7 +20,7 @@ public class WriteFileService extends MyDriveService{
     }
 
     protected final void dispatch() throws LoginFailedException, FileIsADirException{
-        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
+        Login login = getMyDrive().getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
         
         if(filename==null){

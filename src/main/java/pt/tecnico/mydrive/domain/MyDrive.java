@@ -13,9 +13,9 @@ import org.jdom2.DataConversionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.Set;
 
+import pt.ist.fenixframework.DomainRoot;
 import pt.ist.fenixframework.FenixFramework;
 
 public class MyDrive extends MyDrive_Base {
@@ -24,11 +24,16 @@ public class MyDrive extends MyDrive_Base {
     
 
     public static MyDrive getInstance() {
-        MyDrive mydrive = FenixFramework.getDomainRoot().getMydrive();
+        System.out.println("\nMERDA getInstance()\n");
+        DomainRoot root = FenixFramework.getDomainRoot();
+        System.out.println("\nMERDA getDomainRoot()\n");
+        MyDrive mydrive = root.getMydrive();
+        System.out.println("\nMERDA getMyDrive()\n");
+
         if (mydrive != null)
 	          return mydrive;
 
-	   log.trace("new MyDrive");
+	      log.trace("new MyDrive");
         mydrive=new MyDrive();
         mydrive.init();
         return mydrive;

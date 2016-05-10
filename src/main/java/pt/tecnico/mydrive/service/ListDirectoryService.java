@@ -15,7 +15,6 @@ import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
 public class ListDirectoryService extends MyDriveService{
-    MyDrive md = MyDrive.getInstance();
 
     private List<FileDto> res;
     private long token;
@@ -33,7 +32,7 @@ public class ListDirectoryService extends MyDriveService{
 
     protected final void  dispatch() throws InsufficientPermissionsException,TokenDoesNotExistException, ExpiredTokenException{
 
-        Login login = MyDriveService.getMyDrive().getLoginByToken(token);
+        Login login = getMyDrive().getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
 
         if(!(workingDir.getOwner().equals(login.getUser()) && workingDir.getMask().charAt(0) == 'r')
