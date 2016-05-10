@@ -43,6 +43,10 @@ public abstract class Command {
         return shell.getTokenByUsername(username);
     }
 
+    protected String getCurrentUsername(){
+        return shell.getCurrentUsername();
+    }
+
     protected long login(){
         if(shell.getCurrentToken()==null){
             LoginService service = new LoginService("nobody","");

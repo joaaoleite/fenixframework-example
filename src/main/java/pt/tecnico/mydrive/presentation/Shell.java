@@ -11,6 +11,7 @@ public abstract class Shell{
     private String name;
 
     private Long currentToken;
+    private String currentUsername;
     private Map<String,Long> tokens = new TreeMap<String,Long>();
 
     public Shell(String n) { this(n, new PrintWriter(System.out, true), true); }
@@ -47,20 +48,21 @@ public abstract class Shell{
     
         new Command(this, "help", "this command help") {
             void execute(String[] args) { 
-	              if (args.length == 0) {
-	                  for (String s: shell().list()) System.out.println(s);
-	                      System.out.println(name()+" name (for command details)");
-	              } else {
-	                  for (String s: args)
-	                      if (shell().get(s) != null)
-	                  System.out.println(shell().get(s).help()); 
-	              }
+                  if (args.length == 0) {
+                      for (String s: shell().list()) System.out.println(s);
+                          System.out.println(name()+" name (for command details)");
+                  } else {
+                      for (String s: args)
+                          if (shell().get(s) != null)
+                      System.out.println(shell().get(s).help()); 
+                  }
             }
         };
     }
 
     public void setToken(String username, Long token){
         this.currentToken = token;
+        this.currentUsername = username;
         tokens.put(username,token);
     }
     public Long getTokenByUsername(String username){
@@ -68,6 +70,9 @@ public abstract class Shell{
     }
     public Long getCurrentToken(){
         return currentToken;
+    }
+    public String getCurrentUsername(){
+        return currentUsername;
     }
     
     public void print(String s) { out.print(s); }

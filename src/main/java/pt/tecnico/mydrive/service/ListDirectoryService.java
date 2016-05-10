@@ -43,12 +43,14 @@ public class ListDirectoryService extends MyDriveService{
         res = new ArrayList<FileDto>();
         
         for(File f : workingDir.getFileSet()){
-            if(f.getClass().getSimpleName().equals("Dir"))
+            if(f.getClass().getSimpleName().equals("Dir")){                
                 res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification()));
+            }
             else if(f.getClass().getSimpleName().equals("RootDir"))
                 res.add(new FileDto(f.getId(),f.getName(),"Dir",f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification()));
-            else
+            else{
                 res.add(new FileDto(f.getId(),f.getName(),f.getClass().getSimpleName(),f.getMask(),f.getSize(),f.getOwner().getUsername(),f.getLastModification(),((PlainFile)f).getContent()));
+            }
         }
         
         res.add(new FileDto(workingDir.getId(),".","Dir",workingDir.getMask(),workingDir.getSize(),workingDir.getOwner().getUsername(),workingDir.getLastModification()));

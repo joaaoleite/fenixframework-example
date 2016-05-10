@@ -125,6 +125,7 @@ public abstract class File extends File_Base{
         actual.addFile(this);
         setOwner(owner);
         setId(id);
+        setLastModification(new DateTime());
     }
 
     public abstract Element xmlExport(Element xmlmydrive);
