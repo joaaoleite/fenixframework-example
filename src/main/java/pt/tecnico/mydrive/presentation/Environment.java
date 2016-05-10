@@ -13,12 +13,21 @@ public class Environment extends MyDriveCommand {
 		    throw new RuntimeException("USAGE: "+name()+" [<name> [<value>]]");
 		else{
 			long token = login();
-		    AddVariableService service = new AddVariableService(token, args[0], args[1]);
-		    service.execute();
+			AddVariableService service;
 
+			if (agrs.length == 0) {
+			    service = new AddVariableService(token, null, null);
+			} 
+			else if (agrs.length == 1) {
+			    service = new AddVariableService(token, args[0], null);
+			} else {
+			    service = new AddVariableService(token, args[0], args[1]);
+			}
+			service.execute();
+			
 		    System.out.println("Environment variables:");
 		    for(EnvDto env : service.result())
-		    	System.out.println(env.getName()+" -> "+env.getValue());
+		    	System.out.println(env.getName()+" = "+env.getValue());
 		}
     }
 }
