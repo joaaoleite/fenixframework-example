@@ -75,7 +75,8 @@ public class SystemTest extends AbstractServiceTest {
     @Test
     public void success() {
 
-   	 	new Login(sh).execute(new String[] { "mja", "Peyrelongue" });
+   	 	
+      new Login(sh).execute(new String[] { "mja", "Peyrelongue" });
    	 	new Login(sh).execute(new String[] { "jtb", "fernandes" });
    	 	
    	 	new ListDirectory(sh).execute(new String[] { });
