@@ -12,7 +12,6 @@ public class ExecuteFileService extends MyDriveService{
     private String[] args;
     private String path;
     private long token;
-    private String res;
 
 
     public ExecuteFileService(long token, String path, String[] args){
@@ -22,37 +21,42 @@ public class ExecuteFileService extends MyDriveService{
     	this.path = path;
         this.args = args;
     }
-    
-    public final String result(){
-        return res;
-    }
-
+    @Override
     protected final void dispatch() throws NoAppforExtensionException,FileDoesNotHaveExtension, TokenDoesNotExistException, ExpiredTokenException, FileDoesNotExistException, InsufficientPermissionsException{
         
         Login login = getMyDrive().getLoginByToken(token);
         File file = getMyDrive().getFileByPath(path);
-
+        
         if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(2) == 'x')
             && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(6) == 'x')
             && !(login.getUser().getUsername().equals("root"))){
             
             throw new InsufficientPermissionsException(file.getName());
         }
-
-        App app; 
-        String extension;
         
-        try{
-            if(file instanceof App){
-                app = (App) file;
-            }else{
-                extension = file.getName().substring(file.getName().lastIndexOf(".")+1);
-                app = login.getUser().getAppByExtension(extension);
-            }
-        }catch(Exception e){
-            throw new FileDoesNotHaveExtension(file.getName());
-        } 
-        this.res = app.execute(args).toString();
+        resolve(file);
+    }
+
+   private void resolve(File file){
+      try{ 
+        String[] content;
+        if(file instanceof App){
+            pt.tecnico.mydrive.presentation.Shell.run(((App)(file)).read(), this.args);
+        }else if(file instanceof Dir){
+            throw new FileIsADirException(file.getName());
+        }else if(file instanceof Link){
+            file = ((Link)(file)).findFile(this.token);
+            resolve(file);
+        }else if(file instanceof PlainFile){
+            content = ((PlainFile)(file)).read().split("\\r?\\n");
+            for(String line : content){
+                pt.tecnico.mydrive.presentation.Shell.run(line, this.args);
+            }       
+        }else{
+            throw new InvalidFileTypeException(file.getName());
+        }
+        }
+        catch(Exception e){}
     }
     
 }
