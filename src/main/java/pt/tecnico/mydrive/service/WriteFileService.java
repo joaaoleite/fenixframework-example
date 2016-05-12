@@ -37,6 +37,12 @@ public class WriteFileService extends MyDriveService{
         }
         PlainFile file = ((PlainFile) tmp);
 
+        if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(1) == 'w')
+            && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(5) == 'w')
+            && !(login.getUser().getUsername().equals("root"))){
+                throw new InsufficientPermissionsException(file.getName());
+            }
+
         
         if(text==null){
             file.write("");

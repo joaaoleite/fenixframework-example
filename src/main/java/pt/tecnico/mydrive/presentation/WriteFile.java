@@ -1,6 +1,7 @@
 package pt.tecnico.mydrive.presentation;
 
 import pt.tecnico.mydrive.service.WriteFileService;
+import pt.tecnico.mydrive.service.ChangeDirectoryService;
 
 import java.util.Arrays;
 
@@ -12,8 +13,21 @@ public class WriteFile extends MyDriveCommand {
 		    throw new RuntimeException("USAGE: "+name()+" <path> <text>");
 		else{
 			long token = login();
+
+			ChangeDirectoryService cd = new ChangeDirectoryService(token, ".");
+			cd.execute();
+			String actual = cd.result();
+
 			String content = String.join(" ",Arrays.asList(Arrays.copyOfRange(args, 1, args.length)));
-		    new WriteFileService(token, args[0], content).execute();
+		    
+		    String filename = args[0].split("/")[args[0].split("/").length-1];
+		    String path = args[0].substring(0,args[0].lastIndexOf("/"));
+
+		    new ChangeDirectoryService(token, path).execute();
+
+		    new WriteFileService(token, filename, content).execute();
+
+		    new ChangeDirectoryService(token, actual).execute();
 		}
     }
 }
