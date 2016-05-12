@@ -31,13 +31,13 @@ public class ListDirectory extends MyDriveCommand {
 
 		    ListDirectoryService list = new ListDirectoryService(token);
 		    list.execute();
-		    for(FileDto f : list.result())
+		    for(FileDto f : list.result()){
 		    	if (f.getClass().getSimpleName().equals("Link"))
 		    		System.out.println(f.getName()+" -> "+f.getContent());
 		    	else
 		    		System.out.println(f.getType()+" "+f.getPerm()+" "+f.getSize()+" "+f.getOwner()+" "+f.getId()+" "+f.getLastModification().toString()+" "+f.getName());
-			
-			new ChangeDirectoryService(token, actual);
+			}
+			new ChangeDirectoryService(token, actual).execute();
 	    }
 	}
 }

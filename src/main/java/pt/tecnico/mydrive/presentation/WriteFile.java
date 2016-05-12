@@ -1,5 +1,8 @@
 package pt.tecnico.mydrive.presentation;
+
 import pt.tecnico.mydrive.service.WriteFileService;
+
+import java.util.Arrays;
 
 public class WriteFile extends MyDriveCommand {
 
@@ -9,11 +12,8 @@ public class WriteFile extends MyDriveCommand {
 		    throw new RuntimeException("USAGE: "+name()+" <path> <text>");
 		else{
 			long token = login();
-			String str = "";
-			for(int i = 1; i < args.length; i++){
-				str = str + " " + args[i];
-			}
-		    new WriteFileService(token, args[0], str).execute();
+			String content = String.join(" ",Arrays.asList(Arrays.copyOfRange(args, 1, args.length)));
+		    new WriteFileService(token, args[0], content).execute();
 		}
     }
 }
