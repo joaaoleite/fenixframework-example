@@ -3,8 +3,6 @@ package pt.tecnico.mydrive.presentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import pt.tecnico.mydrive.service.LoginService;
-
 public abstract class Command {
 
     protected static final Logger log = LogManager.getRootLogger();
@@ -34,31 +32,6 @@ public abstract class Command {
     public Shell shell() { return shell; }
 
     abstract void execute(String[] args);
-
-    protected void login(String username, long token){
-        shell.setToken(username, token);
-    }
-
-    protected Long getTokenByUsername(String username){
-        return shell.getTokenByUsername(username);
-    }
-
-    protected String getCurrentUsername(){
-        return shell.getCurrentUsername();
-    }
-
-    protected long login(){
-        if(shell.getCurrentToken()==null){
-            LoginService service = new LoginService("nobody","");
-            service.execute();
-
-            long token = service.result();
-            shell.setToken("nobody",token);
-
-            return token;
-        }        
-        return shell.getCurrentToken();
-    }
 
     public void print(String s) { shell.print(s); }
     public void println(String s) { shell.println(s); }
