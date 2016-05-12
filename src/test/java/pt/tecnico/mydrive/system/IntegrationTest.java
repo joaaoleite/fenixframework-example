@@ -266,8 +266,6 @@ public class IntegrationTest extends AbstractServiceTest {
 
         assertEquals("XMLImport dir 3 invalid name","documents",dirs.get(2).getChildText("name"));
         assertEquals("XMLImport dir 4 invalid name","bin",dirs.get(3).getChildText("name"));
-        assertEquals("XMLImport dir 5 invalid name","nobody",dirs.get(4).getChildText("name"));
-        
 
         assertEquals("XMLImport plains 0 invalid name","profile",plains.get(0).getChildText("name"));
         assertEquals("XMLImport plains 0 invalid name","Primeiro chefe de Estado do regime republicano (acumulando com a chefia do governo), numa capacidade provisória até à eleição do primeiro presidente da República.",plains.get(0).getChildText("contents"));

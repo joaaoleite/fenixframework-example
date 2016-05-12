@@ -37,7 +37,7 @@ public class ListDirectory extends MyDriveCommand {
 		    	else
 		    		System.out.println(f.getType()+" "+f.getPerm()+" "+f.getSize()+" "+f.getOwner()+" "+f.getId()+" "+f.getLastModification().toString()+" "+f.getName());
 			}
-			new ChangeDirectoryService(token, actual).execute();
+			if(!actual.equals(args[0])) new ChangeDirectoryService(token, actual).execute();
 	    }
 	}
 }
