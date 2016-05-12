@@ -15,7 +15,10 @@ public class Login extends Login_Base{
         super.setDate( System.currentTimeMillis());
         super.setToken( new BigInteger(64,new Random()).longValue());
         MyDrive mydrive = MyDrive.getInstance();
-        setWorkingDir(mydrive.getRootDir().getDir("home").getDir(username));
+        if(username.equals("nobody"))
+            setWorkingDir(mydrive.getRootDir());
+        else
+            setWorkingDir(mydrive.getRootDir().getDir("home").getDir(username));
         super.setUser(mydrive.getUserByUsername(username));
    }
     public void init(){

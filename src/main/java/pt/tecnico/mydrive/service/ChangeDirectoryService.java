@@ -63,6 +63,7 @@ public class ChangeDirectoryService extends MyDriveService{
             
             login.setWorkingDir(workingDir);
             res = workingDir.getFullPath();
+            if(res.equals("//")) res="/";
         }
     }
 }

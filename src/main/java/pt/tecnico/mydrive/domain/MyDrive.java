@@ -56,7 +56,7 @@ public class MyDrive extends MyDrive_Base {
         setSuperUser(superuser);
 
         GuestUser guestuser = new GuestUser(this);
-        guestuser.setHomedir(getRootDir().getDir("home").createDir(guestuser,"nobody"));
+        guestuser.setHomedir(getRootDir());
         setGuestUser(guestuser);
 
         rootdir.setOwner(superuser);
