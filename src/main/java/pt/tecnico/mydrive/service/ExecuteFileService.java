@@ -21,10 +21,23 @@ public class ExecuteFileService extends MyDriveService{
     	this.path = path;
         this.args = args;
     }
+
+    private String extension(String exe){
+        return "";
+    }
+
     @Override
     protected final void dispatch() throws NoAppforExtensionException,FileDoesNotHaveExtension, TokenDoesNotExistException, ExpiredTokenException, FileDoesNotExistException, InsufficientPermissionsException{
         
         Login login = getMyDrive().getLoginByToken(token);
+        String[] parts = path.split("/");
+        String[] name;
+
+        if(parts[parts.length - 1].contains(".")){
+            name = parts[parts.length - 1].split(".");    
+            path = extension(name[1]);
+        }
+
         File file = getMyDrive().getFileByPath(path);
         
         if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(2) == 'x')
