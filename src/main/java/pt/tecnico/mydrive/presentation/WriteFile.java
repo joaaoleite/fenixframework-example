@@ -23,6 +23,7 @@ public class WriteFile extends MyDriveCommand {
 		    String filename = args[0].split("/")[args[0].split("/").length-1];
         int index = args[0].lastIndexOf("/");
         String path = ".";
+        
         if(index>0) path = args[0].substring(0,index);
 
 		    new ChangeDirectoryService(token, path).execute();
