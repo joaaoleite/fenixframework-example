@@ -23,32 +23,49 @@ public class WriteFileService extends MyDriveService{
         Login login = getMyDrive().getLoginByToken(token);
         Dir workingDir = login.getWorkingDir();
         
-        if(filename==null){
+        if(filename==null)
             throw new FilenameInvalidException("");
-        }
+        String content;
+        if(text==null) content="";
+        else content=text;
 
-        File tmp = workingDir.getFileByName(filename);
+        File file = workingDir.getFileByName(filename);
 
-        if (tmp==null)
+        if (file==null)
             throw new FileDoesNotExistException(filename);
 
-        if(tmp.isDir()){
-            throw new FileIsADirException(tmp.getName());
-        }
-        PlainFile file = ((PlainFile) tmp);
 
-        if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(1) == 'w')
+        if (file.isDir()) throw new FileIsADirException(filename);
+        else if(file.getClass().getSimpleName().equals("PlainFile") || file.getClass().getSimpleName().equals("App")){
+            System.out.println("\n\n\n"+file.getClass().getSimpleName()+"\n\n");
+
+            if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(1) == 'w')
             && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(5) == 'w')
             && !(login.getUser().getUsername().equals("root"))){
                 throw new InsufficientPermissionsException(file.getName());
             }
-
-        
-        if(text==null){
-            file.write("");
-        }else{
-            file.write(text);
+            ((PlainFile)(file)).write(content);
         }
+        else if(file instanceof Link){
+            
+            if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(0) == 'r')
+            && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(4) == 'r')
+            && !(login.getUser().getUsername().equals("root"))){
+                throw new InsufficientPermissionsException(file.getName());
+            }
+            File link = ((Link)(file)).findFile(login.getToken());
+
+            if(link.isDir()) throw new FileIsADirException(filename);
+
+            if(!(link.getOwner().equals(login.getUser()) && link.getMask().charAt(1) == 'w')
+                && !(!link.getOwner().equals(login.getUser()) && link.getMask().charAt(5) == 'w')
+                && !(login.getUser().getUsername().equals("root"))){
+                    throw new InsufficientPermissionsException(link.getName());
+                }
+
+            ((PlainFile)link).write(content);
+        }
+        else throw new FileDoesNotExistException(filename);
         
     }
 }
