@@ -17,24 +17,31 @@ public class EnvironmentLinkTest extends AbstractServiceTest{
 
     protected void populate(){
         
+        MyDrive mydrive = MyDrive.getInstance();        
+        
+        User halib = mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
+        mydrive.getRootDir().getDir("home").getDir("halib").createPlainFile(halib,"document","content");
+        mydrive.getRootDir().getDir("home").getDir("halib").createLink(halib, "TestLink", "/home/$USER/document");
 
     }
     
     @Test
-    public void successUserToHisDir(){
+    public void successUserToHisDir() throws LoginFailedException, FileDoesNotExistException, FileIsADirException{
         new MockUp<Link>(){
             @Mock
             String resolve(long token, String path){
-                assertEquals("resolve arg", path, "/home/$USER");
-                return "/home/halib";
+                assertEquals("resolve arg", path, "/home/$USER/document");
+                return "/home/halib/document";
             }
         };
 
-        MyDrive mydrive = MyDrive.getInstance();        
-        
-        mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
         final long token = login("halib", "uhtuhtuht");
-        File file = mydrive.getRootDir().getDir("home").getDir("halib").createLink(mydrive.getUserByUsername("halib"), "TestLink", "/home/$USER").findFile(token);
-         assertEquals("Wrong file", "halib", file.getName());
+
+        ReadFileService service = new ReadFileService(token,"TestLink");
+        service.execute();
+        String result = service.result();
+
+        assertEquals("Wrong file", "content", result);
+
     }
 }

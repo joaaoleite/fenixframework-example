@@ -41,8 +41,10 @@ public class ReadFileService extends MyDriveService{
             }
 
         if (file instanceof Dir) throw new FileIsADirException(filename);
-        else if(file instanceof PlainFile) res = ((PlainFile)(file)).read();
-        else if(file instanceof App) res = ((App)(file)).read();
+
+        else if(file.getClass().getSimpleName().equals("PlainFile") || file.getClass().getSimpleName().equals("App")){
+            res = ((PlainFile)(file)).read();
+        }
         else if(file instanceof Link){
             File link = ((Link)(file)).findFile(login.getToken());
 

@@ -37,7 +37,6 @@ public class WriteFileService extends MyDriveService{
 
         if (file.isDir()) throw new FileIsADirException(filename);
         else if(file.getClass().getSimpleName().equals("PlainFile") || file.getClass().getSimpleName().equals("App")){
-            System.out.println("\n\n\n"+file.getClass().getSimpleName()+"\n\n");
 
             if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(1) == 'w')
             && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(5) == 'w')
