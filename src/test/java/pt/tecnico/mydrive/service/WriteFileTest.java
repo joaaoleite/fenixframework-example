@@ -1,14 +1,21 @@
 package pt.tecnico.mydrive.service;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
+
+import mockit.Mock;
+import mockit.MockUp;
+import mockit.integration.junit4.JMockit;
 
 import pt.tecnico.mydrive.domain.*;
 import pt.tecnico.mydrive.exception.*;
 
+@RunWith(JMockit.class)
 public class WriteFileTest extends AbstractServiceTest {
     
     private MyDrive mydrive;
+    
     @Override
     protected void populate(){
         mydrive = MyDrive.getInstance();
@@ -20,7 +27,30 @@ public class WriteFileTest extends AbstractServiceTest {
         mydrive.getRootDir().getDir("home").getDir("marshall").getDir("test").createLink(mydrive.getUserByUsername("marshall"), "testlink","/home/marshall/testplain");    
         mydrive.getRootDir().getDir("home").getDir("marshall").createLink(marshall,"link","/home/marshall/testplain"); 
 
+        User halib = mydrive.createUser("Halibio", "halib", "uhtuhtuht", "rwxd----");
+        mydrive.getRootDir().getDir("home").getDir("halib").createPlainFile(halib,"document","content");
+        mydrive.getRootDir().getDir("home").getDir("halib").createLink(halib, "TestLink", "/home/$USER/document");
     } 
+
+    @Test
+    public void writeLinkEnv() throws LoginFailedException, FileDoesNotExistException, FileIsADirException{
+        new MockUp<Link>(){
+            @Mock
+            String resolve(long token, String path){
+                assertEquals("resolve arg", path, "/home/$USER/document");
+                return "/home/halib/document";
+            }
+        };
+
+        final long token = login("halib", "uhtuhtuht");
+
+        WriteFileService service = new WriteFileService(token,"TestLink","new content");
+        service.execute();
+        
+        String result = ((PlainFile)(mydrive.getRootDir().getDir("home").getDir("halib").getFileByName("document"))).read();
+
+        assertEquals("Wrong file", "new content", result);
+    }
 
     @Test
     public void successPlain() {

@@ -74,12 +74,7 @@ public class MyDrive extends MyDrive_Base {
         if (password.compareTo(user.getPassword())!=0){
             throw new LoginFailedException();
         }
-        if(user.getUsername().equals("Guest")){
-            Login log=getLoginByUser("Guest");
-            if (log!=null){
-                log.remove(); 
-            }
-        }
+
         return new Login(username);
     
         

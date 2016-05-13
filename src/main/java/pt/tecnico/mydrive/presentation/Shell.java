@@ -4,6 +4,8 @@ import java.io.*;
 import java.util.*;
 import java.lang.reflect.*;
 
+import pt.tecnico.mydrive.service.LogoutService;
+
 public abstract class Shell{
 
     private Map<String,Command> coms = new TreeMap<String,Command>();
@@ -22,7 +24,8 @@ public abstract class Shell{
 
         new Command(this, "quit", "Quit the command interpreter") {
             void execute(String[] args) {
-	              System.out.println(name+" quit");
+                System.out.println(name+" quit");
+                new LogoutService(tokens.get("nobody"));
                 System.exit(0);
             }
         };
@@ -64,6 +67,8 @@ public abstract class Shell{
         this.currentToken = token;
         this.currentUsername = username;
         tokens.put(username,token);
+        if(!username.equals("nobody"))
+            new LogoutService(tokens.get("nobody"));
     }
     public Long getTokenByUsername(String username){
         return tokens.get(username);

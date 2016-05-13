@@ -1,7 +1,7 @@
 package pt.tecnico.mydrive.system;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +21,12 @@ import org.jdom2.output.XMLOutputter;
 import org.jdom2.output.Format;
 
 import pt.tecnico.mydrive.domain.MyDrive; // Mockup
+import pt.tecnico.mydrive.domain.Link; 
 import pt.tecnico.mydrive.service.*;
 import pt.tecnico.mydrive.service.dto.*;
 import pt.tecnico.mydrive.exception.*;
+
+
 
 @RunWith(JMockit.class)
 public class IntegrationTest extends AbstractServiceTest {
@@ -167,10 +170,6 @@ public class IntegrationTest extends AbstractServiceTest {
         assertEquals("Wrong match", "O Tiago fez este teste", content);
 
 
-
-        //MOCK
-        //ExecuteFileService exec = new ExecuteFileService();
-
         DeleteFileService del = new DeleteFileService(token,"Atalho");
         del.execute();
         
@@ -276,6 +275,36 @@ public class IntegrationTest extends AbstractServiceTest {
         assertEquals("XMLImport apps 0 invalid name","hello",apps.get(0).getChildText("name"));
         assertEquals("XMLImport apps 0 invalid name","pt.tecnico.myDrive.app.Hello",apps.get(0).getChildText("method"));
         
+
+
+        new CreateFileService(token,"TestLink","Link","/home/jtb/document").execute();
+        new CreateFileService(token,"document","Plain","old content").execute();
+        new MockUp<Link>(){
+            @Mock
+            String resolve(long token, String path){
+                assertEquals("resolve arg", path, "/home/$USER/document");
+                return "/home/halib/document";
+            }
+        };
+        new WriteFileService(token,"TestLink","new content").execute();
+        ReadFileService service = new ReadFileService(token,"TestLink");
+        service.execute();
+        assertEquals("EnvLink failed","new content",service.result());
+
+
+
+        new CreateFileService(token,"app","App","pt.tecnico.mydrive.apps.HelloWorld").execute();
+        new CreateFileService(token,"program.exe","Plain","/home/jtb/app Halib Jose").execute();
+        new MockUp<ExecuteFileService>(){
+            @Mock
+            String extension(String exe){
+                assertEquals("resolve arg", exe, "exe");
+                return "/home/jtb/app";
+            }
+        };
+        final String pathExe = "/home/jtb/program.exe";
+        new ExecuteFileService(token, pathExe, new String[]{"Halib","Jose"}).execute();
+
 
 
         

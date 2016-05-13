@@ -17,11 +17,9 @@ public class LogoutService extends MyDriveService{
 
 
 
-    public final void dispatch() throws  LogoutFailedException{
+    public final void dispatch() throws  TokenDoesNotExistException{
         
         Login login = MyDriveService.getMyDrive().getLoginByToken(token);
-        if (login==null)
-            throw new  LogoutFailedException();
         login.remove();
     }
 
