@@ -29,10 +29,34 @@ public class ReadFileService extends MyDriveService{
         Dir workingDir = login.getWorkingDir();
 
         File file = workingDir.getFileByName(filename);
+        if(filename==null)
+            throw new FilenameInvalidException("");
+        if (file==null)
+            throw new FileDoesNotExistException(filename);
 
-        if (file==null) throw new FileDoesNotExistException(filename);
-        if (file.isDir()) throw new FileIsADirException(filename);
+        if(!(file.getOwner().equals(login.getUser()) && file.getMask().charAt(0) == 'r')
+            && !(!file.getOwner().equals(login.getUser()) && file.getMask().charAt(4) == 'r')
+            && !(login.getUser().getUsername().equals("root"))){
+                throw new InsufficientPermissionsException(file.getName());
+            }
 
-        res = ((PlainFile)(file)).read();
+        if (file instanceof Dir) throw new FileIsADirException(filename);
+
+        else if(file.getClass().getSimpleName().equals("PlainFile") || file.getClass().getSimpleName().equals("App")){
+            res = ((PlainFile)(file)).read();
+        }
+        else if(file instanceof Link){
+            File link = ((Link)(file)).findFile(login.getToken());
+
+            if(!(link.getOwner().equals(login.getUser()) && link.getMask().charAt(0) == 'r')
+                && !(!link.getOwner().equals(login.getUser()) && link.getMask().charAt(4) == 'r')
+                && !(login.getUser().getUsername().equals("root"))){
+                    throw new InsufficientPermissionsException(link.getName());
+                }
+            res = ((PlainFile)link).read();
+        }
+        else throw new FileDoesNotExistException(filename);
+
+
     }
 }

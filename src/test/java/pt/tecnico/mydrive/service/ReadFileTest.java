@@ -42,7 +42,7 @@ public class ReadFileTest extends AbstractServiceTest{
         service.execute();
         String content = service.result();
         assertNotNull("File doesn't exist", content);
-        assertEquals("Wrong match", "/home/toni/text.txt", content);
+        assertEquals("Wrong match", "texto de teste", content);
     }
 
     @Test

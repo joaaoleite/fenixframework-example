@@ -92,12 +92,12 @@ public class ExecuteFileTest extends AbstractServiceTest{
                 return "/home/zetrigo/app";
             }
         };
-
     
+        MyDrive mydrive = MyDrive.getInstance();
+
         final long token = login("zetrigo", "tetetiti");
         final String path = "/home/zetrigo/program.exe";
 
-        MyDrive mydrive = MyDrive.getInstance();
         String[] content = ((PlainFile)(mydrive.getFileByPath(path))).read().split(" ");
         String[] args = Arrays.copyOfRange(content, 1, content.length - 1);
         

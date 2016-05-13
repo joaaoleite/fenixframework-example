@@ -46,7 +46,7 @@ public class WriteFileTest extends AbstractServiceTest {
         WriteFileService service = new WriteFileService(token, namefile, content);
         service.execute();
 
-        String result = ((PlainFile)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("link"))).read();
+        String result = ((PlainFile)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testplain"))).read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "teste123",result);
@@ -75,7 +75,7 @@ public class WriteFileTest extends AbstractServiceTest {
         WriteFileService service = new WriteFileService(token, namefile, content);
         service.execute();
 
-        String result = ((Link)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("link"))).read();
+        String result = ((PlainFile)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testplain"))).read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "teste123",result);
@@ -89,7 +89,7 @@ public class WriteFileTest extends AbstractServiceTest {
         WriteFileService service = new WriteFileService(token, namefile, null);
         service.execute();
 
-        String result = ((Link)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("link"))).read();
+        String result = ((PlainFile)(mydrive.getRootDir().getDir("home").getDir("marshall").getFileByName("testplain"))).read();
 
         assertNotNull("Content is null", result);
         assertEquals("Write not successfull", "",result);
