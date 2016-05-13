@@ -61,7 +61,7 @@ public class Login extends Login_Base{
         }
     }
 
-    protected void remove(){
+    public void remove(){
         setDate(null);
         setToken(null);
         setWorkingDir(null);
