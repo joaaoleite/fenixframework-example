@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.presentation;
 
+import pt.tecnico.mydrive.service.LoginService;
+
 public class MyDriveShell extends Shell {
 
   public static void main(String[] args) throws Exception {
@@ -13,6 +15,13 @@ public class MyDriveShell extends Shell {
 
   public MyDriveShell() { 
     super("MyDrive");
+
+    LoginService service = new LoginService("nobody","");
+    service.execute();
+
+    long token = service.result();
+    setToken("nobody",token);
+    
     new Login(this);
     new ChangeDirectory(this);
     new ListDirectory(this);
