@@ -17,11 +17,6 @@ public class LoginService extends MyDriveService{
         pass=password;
     }
 
-    public LoginService(String username){
-        user = username;
-        pass = null;
-    }
-
     public final void dispatch() throws  LoginFailedException{
         if(user == null)
             throw new  LoginFailedException();

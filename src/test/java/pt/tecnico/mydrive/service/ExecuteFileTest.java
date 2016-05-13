@@ -104,6 +104,5 @@ public class ExecuteFileTest extends AbstractServiceTest{
         ExecuteFileService service = new ExecuteFileService(token, path, args);
         service.execute();
 
-
 }
 }
