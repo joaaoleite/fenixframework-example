@@ -1,5 +1,7 @@
 package pt.tecnico.mydrive.presentation;
+
 import pt.tecnico.mydrive.service.ExecuteFileService;
+import java.util.Arrays;
 
 public class Execute extends MyDriveCommand {
 
@@ -12,11 +14,8 @@ public class Execute extends MyDriveCommand {
             throw new RuntimeException("USAGE: "+name()+" <path> <args>");
         else{
           long token = login();
-          String[] str = new String[args.length-1];
-          for(int i = 1; i < args.length; i++){
-            str[i] =  args[i];
-          }
-            new ExecuteFileService(token, args[0], str).execute();
+          
+          new ExecuteFileService(token, args[0], Arrays.copyOfRange(args, 1, args.length)).execute();
         }
     }
 }
